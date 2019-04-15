@@ -1,0 +1,20 @@
+<mat-accordion multi="true" *ngIf="users.length>0">
+  <mat-expansion-panel *ngFor="let user of users">
+    <mat-expansion-panel-header>
+      {{user.NAME}}
+    </mat-expansion-panel-header>
+    <p>Email: {{user.EMAIL}}</p>
+    <p>Egyenleg: {{user.BALANCE}}</p>
+    <p>Telefonszám: {{user.PHONENUMBER}}</p>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Lakhely
+      </mat-expansion-panel-header>
+      <p>Város: {{user.CITY}}</p>
+      <p>Utca: {{user.STREET}}</p>
+      <p>Házszám: {{user.STREETNUMBER}}</p>
+    </mat-expansion-panel>
+
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="info-text mat-body-1" *ngIf="users.length <= 0">No posts added yet</p>
