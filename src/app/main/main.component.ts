@@ -11,14 +11,17 @@ import { ProductService } from './product.service';
 export class MainComponent implements OnInit, OnDestroy {
 
   products: Product[];
+  isLoading = false;
   private productsSub: Subscription;
 
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.productService.getProducts();
     this.productsSub = this.productService.getProductUpdateListener()
     .subscribe((products: Product[]) => {
+      this.isLoading = false;
       this.products = products;
     });
   }
