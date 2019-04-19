@@ -24,7 +24,8 @@ export class ProductService {
             releaseDate: new Date(product.RELEASEDATE),
             manufacturer: product.MANUFACTURER,
             price: product.PRICE,
-            quantity: product.QUANTITY
+            quantity: product.QUANTITY,
+            productType: product.PRODUCTTYPE
           };
         });
       })
