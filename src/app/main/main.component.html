@@ -17,7 +17,8 @@
     </mat-card-content>
     <mat-card-actions>
       <p>Ár: {{product.price}} Ft</p>
-      <a mat-raised-button>Tovább az adatlapra</a>
+      {{product.id}}
+      <a mat-raised-button [routerLink]="['/products', product.id]">Tovább az adatlapra</a>
       <button mat-raised-button disabled>Kosárba</button>
     </mat-card-actions>
   </mat-card>
