@@ -19,4 +19,36 @@ router.get("", async (req, res, next) => {
   });
 });
 
+router.get('/:type/:id', async (req, res, next) => {
+  type = null;
+  id = req.params.id;
+  if(req.params.type === 'tv') {
+    type = 'TV'
+  }
+  if(req.params.type === 'notebook') {
+    type = 'Notebook'
+  }
+  if(req.params.type === 'phone') {
+    type = 'Smartphone'
+  }
+  if(type){
+    const result = await database.simpleExecute(' SELECT * FROM ' + type + ' WHERE id = ' + id);
+    product = result.rows[0];
+    if(product){
+      res.status(200).json({
+        product: product
+      });
+    } else {
+      res.status(404).json({
+        message: 'Product with this type and id not found!'
+      });
+    }
+
+  } else {
+    res.status(404).json({
+      message: 'Product with this type not found!'
+    });
+  }
+})
+
 module.exports = router;

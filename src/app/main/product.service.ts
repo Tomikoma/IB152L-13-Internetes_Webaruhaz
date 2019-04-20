@@ -9,6 +9,7 @@ export class ProductService {
 
   private products: Product[];
   private productsUpdated = new Subject<{products: Product[], count: number}>();
+  private productUpdated = new Subject<any>();
 
   constructor(private http: HttpClient) {}
 
@@ -38,8 +39,18 @@ export class ProductService {
       });
   }
 
+  getProduct(type: string, id: number) {
+    this.http.get<{product: any}>('http://localhost:3000/api/products/' + type + '/' + id )
+      .subscribe(productData => {
+        this.productUpdated.next(productData.product);
+      });
+  }
+
   getProductUpdateListener(){
     return this.productsUpdated.asObservable();
+  }
+  getOneProductUpdateListener(){
+    return this.productUpdated.asObservable();
   }
 
 }
