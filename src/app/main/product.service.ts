@@ -8,14 +8,15 @@ import { map } from 'rxjs/operators';
 export class ProductService {
 
   private products: Product[];
-  private productsUpdated = new Subject<Product[]>();
+  private productsUpdated = new Subject<{products: Product[], count: number}>();
 
   constructor(private http: HttpClient) {}
 
-  getProducts() {
-    this.http.get<{message: string, products: any}>('http://localhost:3000/api/products')
+  getProducts(productsPerPage: number, currentPage: number) {
+    const queryParams = `?pagesize=${productsPerPage}&page=${currentPage}`;
+    this.http.get<{message: string, products: any, count: number}>('http://localhost:3000/api/products' + queryParams)
       .pipe(map(productData => {
-        return productData.products.map( product => {
+        return { transformedProducts: productData.products.map( product => {
           return {
             id: product.ID,
             productName: product.PRODUCTNAME,
@@ -27,15 +28,15 @@ export class ProductService {
             quantity: product.QUANTITY,
             productType: product.PRODUCTTYPE
           };
-        });
+        }),
+         count: productData.count[0].COUNT};
       })
       )
-      .subscribe((transformedProducts) => {
-        this.products = transformedProducts;
-        this.productsUpdated.next([...this.products]);
+      .subscribe((productData) => {
+        this.products = productData.transformedProducts;
+        this.productsUpdated.next({products:[...this.products], count: productData.count});
       });
   }
-
 
   getProductUpdateListener(){
     return this.productsUpdated.asObservable();
