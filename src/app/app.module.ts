@@ -20,6 +20,7 @@ import { HeaderComponent } from './header/header.component';
 import { ListUsersComponent } from './list-users/list-users.component';
 import { MainComponent } from './main/main.component';
 import { ProductComponent } from './main/product/product.component';
+import { CompareComponent } from './main/product/compare/compare.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ProductComponent } from './main/product/product.component';
     HeaderComponent,
     ListUsersComponent,
     MainComponent,
-    ProductComponent
+    ProductComponent,
+    CompareComponent
   ],
   imports: [
     BrowserModule,
