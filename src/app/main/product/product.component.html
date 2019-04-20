@@ -1,3 +1,123 @@
-<p>
-  product works!
-</p>
+<div *ngIf="productType === 'tv' ">
+  <mat-card >
+    <mat-card-header>
+      <mat-card-title>
+        {{tv?.PRODUCTNAME}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        Termékszám: {{tv?.PRODUCTNUMBER}}
+      </mat-card-subtitle>
+    </mat-card-header>
+      <div class="product-image">
+        <img mat-card-image src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png">
+      </div>
+    <mat-card-content>
+      <p>Gyártó: {{tv?.MANUFACTURER}}</p>
+      <p>Megjelenés: {{tv?.RELEASEDATE.toLocaleDateString()}}</p>
+      <p>Ár: {{tv?.PRICE}} Ft</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button disabled>Kosárba</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Specifikáció
+      </mat-panel-title>
+      <mat-panel-description>
+        Kattintson a részletekért!
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+    <p>Felbontás: {{tv?.RESOLUTION}}</p>
+    <p>Képátló: {{tv?.SCREENSIZE}}</p>
+    <p>Panel típusa: {{tv?.PANELTYPE}}</p>
+    <p>Képfrissítés: {{tv?.REFRESHRATE}}</p>
+    <p>Portok: {{tv?.PORTTYPE}}</p>
+  </mat-expansion-panel>
+</div>
+
+<div *ngIf="productType === 'phone' ">
+  <mat-card >
+    <mat-card-header>
+      <mat-card-title>
+        {{smartphone?.PRODUCTNAME}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        Termékszám: {{smartphone?.PRODUCTNUMBER}}
+      </mat-card-subtitle>
+    </mat-card-header>
+      <div class="product-image">
+        <img mat-card-image src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png">
+      </div>
+    <mat-card-content>
+      <p>Gyártó: {{smartphone?.MANUFACTURER}}</p>
+      <p>Megjelenés: {{smartphone?.RELEASEDATE.toLocaleDateString()}}</p>
+      <p>Ár: {{smartphone?.PRICE}} Ft</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button disabled>Kosárba</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Specifikáció
+      </mat-panel-title>
+      <mat-panel-description>
+        Kattintson a részletekért!
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+    <p>Felbontás: {{smartphone?.RESOLUTION}}</p>
+    <p>Képátló: {{smartphone?.SCREENSIZE}}</p>
+    <p>Panel típusa: {{smartphone?.PANELTYPE}}</p>
+    <p>Operációs rendszer: {{smartphone?.OS}}</p>
+    <p>Memória (RAM): {{smartphone?.RAM}}</p>
+    <p>Belső Tárhely (ROM): {{smartphone?.ROM}}</p>
+  </mat-expansion-panel>
+</div>
+
+<div *ngIf="productType === 'notebook' ">
+  <mat-card >
+    <mat-card-header>
+      <mat-card-title>
+        {{notebook?.PRODUCTNAME}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        Termékszám: {{notebook?.PRODUCTNUMBER}}
+      </mat-card-subtitle>
+    </mat-card-header>
+      <div class="product-image">
+        <img mat-card-image src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png">
+      </div>
+    <mat-card-content>
+      <p>Gyártó: {{notebook?.MANUFACTURER}}</p>
+      <p>Megjelenés: {{notebook?.RELEASEDATE.toLocaleDateString()}}</p>
+      <p>Ár: {{notebook?.PRICE}} Ft</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button disabled>Kosárba</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Specifikáció
+      </mat-panel-title>
+      <mat-panel-description>
+        Kattintson a részletekért!
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+    <p>Felbontás: {{notebook?.RESOLUTION}}</p>
+    <p>Képátló: {{notebook?.SCREENSIZE}}</p>
+    <p>Panel típusa: {{notebook?.PANELTYPE}}</p>
+    <p>Operációs rendszer: {{notebook?.OS}}</p>
+    <p>Memória (RAM): {{notebook?.RAM}}</p>
+    <p>Processzor: {{notebook?.CPU}}</p>
+    <p>Háttértár típusa: {{notebook?.STORAGETYPE}}</p>
+    <p>Háttértár kapacitása: {{notebook?.STORAGECAPACITY}}</p>
+  </mat-expansion-panel>
+</div>
