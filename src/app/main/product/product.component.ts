@@ -21,6 +21,8 @@ export class ProductComponent implements OnInit, OnDestroy {
   tv: TV;
   smartphone: Smartphone;
   notebook: Notebook;
+  products: any[];
+  selectedId: number;
 
   constructor(private route: ActivatedRoute, private productService: ProductService) {
     this.routeSub = this.route.params.subscribe( params => {
@@ -32,19 +34,25 @@ export class ProductComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.productService.getProduct(this.productType, this.productId);
     this.productSub = this.productService.getOneProductUpdateListener()
-      .subscribe(product => {
-        product.RELEASEDATE = new Date(product.RELEASEDATE);
+      .subscribe(productData => {
+        productData.product.RELEASEDATE = new Date(productData.product.RELEASEDATE);
         if (this.productType === 'tv') {
-          this.tv = product as any as TV;
+          this.tv = productData.product as TV;
         }
-        if(this.productType === 'phone') {
-          this.smartphone = product as any as Smartphone;
+        if (this.productType === 'phone') {
+          this.smartphone = productData.product as Smartphone;
         }
-        if( this.productType === 'notebook') {
-          this.notebook = product as any as Notebook;
+        if ( this.productType === 'notebook') {
+          this.notebook = productData.product as Notebook;
         }
+        this.products = productData.products;
 
       });
+  }
+
+  compare(selectedId: number) {
+    console.log(selectedId);
+    //window.open('http://localhost:4200/products/tv/1', '_blank', 'width=700, height=700');
   }
 
   ngOnDestroy() {

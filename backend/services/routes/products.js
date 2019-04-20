@@ -33,10 +33,13 @@ router.get('/:type/:id', async (req, res, next) => {
   }
   if(type){
     const result = await database.simpleExecute(' SELECT * FROM ' + type + ' WHERE id = ' + id);
+    const result2 = await database.simpleExecute(' SELECT id, productName FROM ' + type);
     product = result.rows[0];
+    products = result2.rows;
     if(product){
       res.status(200).json({
-        product: product
+        product: product,
+        products: products
       });
     } else {
       res.status(404).json({

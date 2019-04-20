@@ -35,6 +35,17 @@
     <p>Panel típusa: {{tv?.PANELTYPE}}</p>
     <p>Képfrissítés: {{tv?.REFRESHRATE}}</p>
     <p>Portok: {{tv?.PORTTYPE}}</p>
+    <mat-action-row>
+      <mat-form-field>
+        <mat-label>Összehasonlítás</mat-label>
+        <mat-select [(value)]=selectedId>
+          <mat-option *ngFor="let product of products" [value]="product?.ID">
+            {{product?.PRODUCTNAME}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-button color="warn" (click)="compare(selectedId)">compareButton</button>
+    </mat-action-row>
   </mat-expansion-panel>
 </div>
 
@@ -76,6 +87,17 @@
     <p>Operációs rendszer: {{smartphone?.OS}}</p>
     <p>Memória (RAM): {{smartphone?.RAM}}</p>
     <p>Belső Tárhely (ROM): {{smartphone?.ROM}}</p>
+    <mat-action-row>
+        <mat-form-field>
+            <mat-label>Összehasonlítás</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let product of products" [value]="product?.ID">
+                {{product?.PRODUCTNAME}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      <a mat-button color="warn" (click)="compare()">compareButton</a>
+    </mat-action-row>
   </mat-expansion-panel>
 </div>
 
@@ -119,5 +141,16 @@
     <p>Processzor: {{notebook?.CPU}}</p>
     <p>Háttértár típusa: {{notebook?.STORAGETYPE}}</p>
     <p>Háttértár kapacitása: {{notebook?.STORAGECAPACITY}}</p>
+    <mat-action-row>
+        <mat-form-field>
+            <mat-label>Összehasonlítás</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let product of products" [value]="product?.ID">
+                {{product?.PRODUCTNAME}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      <button mat-button color="warn" (click)="compare()">compareButton</button>
+    </mat-action-row>
   </mat-expansion-panel>
 </div>
