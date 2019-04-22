@@ -10,6 +10,7 @@ export class ProductService {
   private products: Product[];
   private productsUpdated = new Subject<{products: Product[], count: number}>();
   private productUpdated = new Subject<{product: any, products: any[]}>();
+  private twoProductsUpdated = new Subject<{firstProduct: any, secondProduct: any}>();
 
   constructor(private http: HttpClient) {}
 
@@ -35,7 +36,7 @@ export class ProductService {
       )
       .subscribe((productData) => {
         this.products = productData.transformedProducts;
-        this.productsUpdated.next({products:[...this.products], count: productData.count});
+        this.productsUpdated.next({products: [...this.products], count: productData.count});
       });
   }
 
@@ -46,11 +47,23 @@ export class ProductService {
       });
   }
 
+  getProductsToCompare(type: string, id1: number, id2: number) {
+    this.http.get<{firstProduct: any, secondProduct: any}>('http://localhost:3000/api/products/' + type + '/' + id1 + '/compare/' + id2)
+      .subscribe(products => {
+        this.twoProductsUpdated.next({firstProduct: products.firstProduct, secondProduct: products.secondProduct});
+      });
+  }
+
+
   getProductUpdateListener() {
     return this.productsUpdated.asObservable();
   }
-  getOneProductUpdateListener(){
+  getOneProductUpdateListener() {
     return this.productUpdated.asObservable();
+  }
+
+  getTwoProductUpdateListener() {
+    return this.twoProductsUpdated.asObservable();
   }
 
 }

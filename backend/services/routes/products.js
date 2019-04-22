@@ -52,6 +52,42 @@ router.get('/:type/:id', async (req, res, next) => {
       message: 'Product with this type not found!'
     });
   }
-})
+});
+
+router.get("/:type/:id1/compare/:id2", async (req, res, next) => {
+  type = null;
+  id1 = req.params.id1;
+  id2 = req.params.id2;
+  if(req.params.type === 'tv') {
+    type = 'TV'
+  }
+  if(req.params.type === 'notebook') {
+    type = 'Notebook'
+  }
+  if(req.params.type === 'phone') {
+    type = 'Smartphone'
+  }
+  if(type){
+    const result = await database.simpleExecute(' SELECT * FROM ' + type + ' WHERE id = ' + id1);
+    const result2 = await database.simpleExecute(' SELECT * FROM ' + type + ' WHERE id = ' + id2)
+    product1 = result.rows[0];
+    product2 = result2.rows[0];
+    if(product1 && product2){
+      res.status(200).json({
+        firstProduct: product1,
+        secondProduct: product2
+      });
+    } else {
+      res.status(404).json({
+        message: 'Product with this type and id not found!'
+      });
+    }
+
+  } else {
+    res.status(404).json({
+      message: 'Product with this type not found!'
+    });
+  }
+});
 
 module.exports = router;
