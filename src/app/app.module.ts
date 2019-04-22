@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {HttpClientModule} from '@angular/common/http';
+import {FlexLayoutModule} from '@angular/flex-layout';
 import {
   MatInputModule,
   MatCardModule,
@@ -11,7 +12,9 @@ import {
   MatExpansionModule,
   MatProgressSpinnerModule,
   MatPaginatorModule,
-  MatSelectModule
+  MatSelectModule,
+  MatListModule,
+  MatDividerModule
   } from '@angular/material/';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -44,7 +47,10 @@ import { CompareComponent } from './main/product/compare/compare.component';
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatSelectModule,
-    HttpClientModule
+    MatListModule,
+    MatDividerModule,
+    HttpClientModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
