@@ -90,13 +90,13 @@
     <mat-action-row>
         <mat-form-field>
             <mat-label>Összehasonlítás</mat-label>
-            <mat-select>
+            <mat-select [(value)]="selectedId">
               <mat-option *ngFor="let product of products" [value]="product?.ID">
                 {{product?.PRODUCTNAME}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-      <a mat-button color="warn" (click)="compare()">compareButton</a>
+      <a mat-button color="warn" (click)="compare(selectedId)">compareButton</a>
     </mat-action-row>
   </mat-expansion-panel>
 </div>
@@ -144,13 +144,13 @@
     <mat-action-row>
         <mat-form-field>
             <mat-label>Összehasonlítás</mat-label>
-            <mat-select>
+            <mat-select [(value)]="selectedId">
               <mat-option *ngFor="let product of products" [value]="product?.ID">
                 {{product?.PRODUCTNAME}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-      <button mat-button color="warn" (click)="compare()">compareButton</button>
+      <button mat-button color="warn" (click)="compare(selectedId)">compareButton</button>
     </mat-action-row>
   </mat-expansion-panel>
 </div>

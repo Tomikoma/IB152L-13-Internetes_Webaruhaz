@@ -14,7 +14,6 @@ import { Notebook } from './notebook.model';
 })
 export class ProductComponent implements OnInit, OnDestroy {
 
-  private routeSub: Subscription;
   private productSub: Subscription;
   productType: string;
   productId: number;
@@ -25,7 +24,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   selectedId: number;
 
   constructor(private route: ActivatedRoute, private productService: ProductService) {
-    this.routeSub = this.route.params.subscribe( params => {
+    this.route.params.subscribe( params => {
       this.productId = params.id;
       this.productType = params.type;
     });
@@ -51,8 +50,9 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   compare(selectedId: number) {
-    console.log(selectedId);
-    //window.open('http://localhost:4200/products/tv/1', '_blank', 'width=700, height=700');
+    window
+// tslint:disable-next-line: max-line-length
+      .open('http://localhost:4200/products/' + this.productType + '/' + this.productId + '/compare/' + selectedId, '_blank', 'width=700, height=700');
   }
 
   ngOnDestroy() {
