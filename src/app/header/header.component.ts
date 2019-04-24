@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   constructor(public userService: UserService) { }
 
   ngOnInit() {
-    //this.userService.getUsers();
+    // this.userService.getUsers();
   }
 
 }

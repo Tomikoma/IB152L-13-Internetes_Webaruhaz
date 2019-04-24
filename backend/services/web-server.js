@@ -26,9 +26,14 @@ function initialize() {
    'OPTIONS'
    );
   next();
-})
+  })
 
     httpServer = http.createServer(app);
+
+    const productsRoutes = require('./routes/products');
+
+    app.use("/api/products",productsRoutes);
+
 
     app.get('/api/users', async (req, res, next) => {
       const result = await database.simpleExecute('SELECT * FROM Users');

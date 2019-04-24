@@ -1,0 +1,26 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="products?.length > 0 && !isLoading">
+  <mat-card *ngFor="let product of products">
+    <mat-card-header>
+      <mat-card-title>
+        {{product.productName}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        Termékszám: {{product.productNumber}}
+      </mat-card-subtitle>
+    </mat-card-header>
+      <div class="product-image">
+        <img mat-card-image src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png">
+      </div>
+    <mat-card-content>
+      <p>Gyártó: {{product.manufacturer}}</p>
+      <p>Megjelenés: {{product.releaseDate.toLocaleDateString()}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <p>Ár: {{product.price}} Ft</p>
+      <a mat-raised-button [routerLink]="['/products',product.productType, product.id]">Tovább az adatlapra</a>
+      <button mat-raised-button disabled>Kosárba</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<mat-paginator [length]="totalProducts" [pageSize]="productsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="products?.length > 0"></mat-paginator>
