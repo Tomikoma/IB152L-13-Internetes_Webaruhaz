@@ -28,7 +28,8 @@ export class ProductService {
             manufacturer: product.MANUFACTURER,
             price: product.PRICE,
             quantity: product.QUANTITY,
-            productType: product.PRODUCTTYPE
+            productType: product.PRODUCTTYPE,
+            imgUrl: product.IMGURL
           };
         }),
          count: productData.count[0].COUNT};
