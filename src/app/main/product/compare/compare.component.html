@@ -1,0 +1,179 @@
+<mat-list>
+  <div fxLayout="row">
+    <mat-list-item>Név</mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{firstTv?.PRODUCTNAME}}
+      {{firstSmartphone?.PRODUCTNAME}}
+      {{firstNotebook?.PRODUCTNAME}}
+    </mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{secondTv?.PRODUCTNAME}}
+      {{secondSmartphone?.PRODUCTNAME}}
+      {{secondNotebook?.PRODUCTNAME}}
+    </mat-list-item>
+  </div>
+  <div fxLayout="row">
+    <mat-list-item>Szín</mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{firstTv?.PRODUCTCOLOR}}
+      {{firstSmartphone?.PRODUCTCOLOR}}
+      {{firstNotebook?.PRODUCTCOLOR}}
+    </mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{secondTv?.PRODUCTCOLOR}}
+      {{secondSmartphone?.PRODUCTCOLOR}}
+      {{secondNotebook?.PRODUCTCOLOR}}
+    </mat-list-item>
+  </div>
+  <div fxLayout="row">
+    <mat-list-item>Megjelenés dátuma</mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{firstTv?.RELEASEDATE.toLocaleDateString()}}
+      {{firstSmartphone?.RELEASEDATE.toLocaleDateString()}}
+      {{firstNotebook?.RELEASEDATE.toLocaleDateString()}}
+    </mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{secondTv?.RELEASEDATE.toLocaleDateString()}}
+      {{secondSmartphone?.RELEASEDATE.toLocaleDateString()}}
+      {{secondNotebook?.RELEASEDATE.toLocaleDateString()}}
+    </mat-list-item>
+  </div>
+  <div fxLayout="row">
+    <mat-list-item>Gyártó</mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{firstTv?.MANUFACTURER}}
+      {{firstSmartphone?.MANUFACTURER}}
+      {{firstNotebook?.MANUFACTURER}}
+    </mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{secondTv?.MANUFACTURER}}
+      {{secondSmartphone?.MANUFACTURER}}
+      {{secondNotebook?.MANUFACTURER}}
+    </mat-list-item>
+  </div>
+  <div fxLayout="row">
+    <mat-list-item>Ár</mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{firstTv?.PRICE}}
+      {{firstSmartphone?.PRICE}}
+      {{firstNotebook?.PRICE}} Ft
+    </mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{secondTv?.PRICE}}
+      {{secondSmartphone?.PRICE}}
+      {{secondNotebook?.PRICE}} Ft
+    </mat-list-item>
+  </div>
+  <div fxLayout="row">
+    <mat-list-item>Felbontás</mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{firstTv?.RESOLUTION}}
+      {{firstSmartphone?.RESOLUTION}}
+      {{firstNotebook?.RESOLUTION}}
+    </mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{secondTv?.RESOLUTION}}
+      {{secondSmartphone?.RESOLUTION}}
+      {{secondNotebook?.RESOLUTION}}
+    </mat-list-item>
+  </div>
+  <div fxLayout="row">
+    <mat-list-item>Képátló mérete</mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{firstTv?.SCREENSIZE}}
+      {{firstSmartphone?.SCREENSIZE}}
+      {{firstNotebook?.SCREENSIZE}}
+    </mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{secondTv?.SCREENSIZE}}
+      {{secondSmartphone?.SCREENSIZE}}
+      {{secondNotebook?.SCREENSIZE}}
+    </mat-list-item>
+  </div>
+  <div fxLayout="row">
+    <mat-list-item>Panel típusa</mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{firstTv?.PANELTYPE}}
+      {{firstSmartphone?.PANELTYPE}}
+      {{firstNotebook?.PANELTYPE}}
+    </mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{secondTv?.PANELTYPE}}
+      {{secondSmartphone?.PANELTYPE}}
+      {{secondNotebook?.PANELTYPE}}
+    </mat-list-item>
+  </div>
+  <div fxLayout="row">
+    <mat-list-item *ngIf="(firstTv && secondTv)">Képfrissítés (Hz)</mat-list-item>
+    <mat-list-item *ngIf="(firstSmartphone && secondSmartphone) || (firstNotebook && secondNotebook)">Operációs Rendszer</mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{firstTv?.REFRESHRATE}}
+      {{firstSmartphone?.OS}}
+      {{firstNotebook?.OS}}
+    </mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{secondTv?.REFRESHRATE}}
+      {{secondSmartphone?.OS}}
+      {{secondNotebook?.OS}}
+    </mat-list-item>
+  </div>
+  <div class="row" fxLayout="row">
+    <mat-list-item *ngIf="(firstTv && secondTv)">Portok</mat-list-item>
+    <mat-list-item *ngIf="(firstSmartphone && secondSmartphone) || (firstNotebook && secondNotebook)">Memória/RAM (GB)</mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{firstTv?.PORTTYPE}}
+      {{firstSmartphone?.RAM}}
+      {{firstNotebook?.RAM}}
+    </mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{secondTv?.PORTTYPE}}
+      {{secondSmartphone?.RAM}}
+      {{secondNotebook?.RAM}}
+    </mat-list-item>
+  </div>
+  <div class="row" fxLayout="row" *ngIf="(firstSmartphone || firstNotebook)">
+    <mat-list-item *ngIf="(firstSmartphone && secondSmartphone)">Belső Tárhely/ROM (GB)</mat-list-item>
+    <mat-list-item *ngIf="(firstNotebook && secondNotebook)">Processzor (CPU)</mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{firstSmartphone?.ROM}}
+      {{firstNotebook?.CPU}}
+    </mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{secondSmartphone?.ROM}}
+      {{secondNotebook?.CPU}}
+    </mat-list-item>
+  </div>
+  <div class="row" fxLayout="row" *ngIf="(firstNotebook)">
+    <mat-list-item> Tárhely mérete és típusa</mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{firstNotebook?.STORAGECAPACITY}} GB {{firstNotebook.STORAGETYPE}}
+    </mat-list-item>
+    <mat-divider [vertical]=true></mat-divider>
+    <mat-list-item>
+      {{secondNotebook?.STORAGECAPACITY}} GB {{secondNotebook.STORAGETYPE}}
+    </mat-list-item>
+  </div>
+</mat-list>
