@@ -16,7 +16,7 @@ import {
   MatListModule,
   MatDividerModule,
   MatMenuModule,
-  MatIconModule
+  MatIconModule, MatTabsModule
 } from '@angular/material/';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -54,7 +54,8 @@ import { CompareComponent } from './main/product/compare/compare.component';
     HttpClientModule,
     FlexLayoutModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

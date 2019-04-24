@@ -3,6 +3,7 @@ import { Product } from './product.model';
 import { Subscription } from 'rxjs';
 import { ProductService } from './product.service';
 import { PageEvent } from '@angular/material';
+import {Advert} from './product/advert.model';
 
 @Component({
   selector: 'app-main',
@@ -17,8 +18,15 @@ export class MainComponent implements OnInit, OnDestroy {
   productsPerPage = 5;
   currentPage = 1;
   pageSizeOptions = [5, 10, 15];
-
+  advertsList = Advert[10] = [
+    new Advert('Kedvezmény Mánia', '../../assets/img/advert1.bmp'),
+    new Advert('#színezd ki', '../../assets/img/advert2.bmp'),
+    new Advert('Beépítettük a kedvezményeket', '../../assets/img/advert3.bmp'),
+    new Advert('Megérkezett a Huawei P30 Lite', '../../assets/img/advert4.bmp'),
+    new Advert('4 héten át tartó sima bőr', '../../assets/img/advert5.bmp')
+  ];
   private productsSub: Subscription;
+  imgWidth = 100;
 
   constructor(private productService: ProductService) {
 
