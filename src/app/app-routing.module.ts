@@ -3,11 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main/main.component';
 import { ProductComponent } from './main/product/product.component';
 import { CompareComponent } from './main/product/compare/compare.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
   {path: '', component: MainComponent},
   {path: 'products/:type/:id', component: ProductComponent},
-  {path: 'products/:type/:id1/compare/:id2', component: CompareComponent}
+  {path: 'products/:type/:id1/compare/:id2', component: CompareComponent},
+  {path: 'signup', component: SignupComponent},
+  {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({
