@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {
@@ -14,8 +14,10 @@ import {
   MatPaginatorModule,
   MatSelectModule,
   MatListModule,
-  MatDividerModule
-  } from '@angular/material/';
+  MatDividerModule,
+  MatMenuModule,
+  MatIconModule
+} from '@angular/material/';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,7 +52,9 @@ import { CompareComponent } from './main/product/compare/compare.component';
     MatListModule,
     MatDividerModule,
     HttpClientModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatMenuModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
