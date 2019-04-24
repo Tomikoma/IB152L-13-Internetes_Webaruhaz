@@ -26,6 +26,8 @@ import { ListUsersComponent } from './list-users/list-users.component';
 import { MainComponent } from './main/main.component';
 import { ProductComponent } from './main/product/product.component';
 import { CompareComponent } from './main/product/compare/compare.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { CompareComponent } from './main/product/compare/compare.component';
     ListUsersComponent,
     MainComponent,
     ProductComponent,
-    CompareComponent
+    CompareComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
