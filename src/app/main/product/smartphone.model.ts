@@ -8,6 +8,7 @@ export interface Smartphone {
   PRICE: number;
   QUANTITY: number;
   PRODUCTTYPE: string;
+  IMGURL: string;
   RESOLUTION: string;
   SCREENSIZE: number;
   PANELTYPE: string;

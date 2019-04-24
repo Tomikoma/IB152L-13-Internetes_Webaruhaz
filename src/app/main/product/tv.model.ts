@@ -8,9 +8,11 @@ export interface TV {
   PRICE: number;
   QUANTITY: number;
   PRODUCTTYPE: string;
+  IMGURL: string;
   RESOLUTION: string;
   SCREENSIZE: number;
   PANELTYPE: string;
   REFRESHRATE: number;
   PORTTYPE: string;
+
 }
