@@ -63,7 +63,7 @@ CREATE TABLE  Products(
 	Price int,
 	Quantity int DEFAULT 10,
   	ProductType varchar(20),
-	imgURL varchar(100)
+	imgURL varchar(200)
 );
 
 
@@ -78,7 +78,7 @@ CREATE TABLE  TV(
 	Price int,
 	Quantity int DEFAULT 10,
 	ProductType varchar(20),
-	imgURL varchar(100),
+	imgURL varchar(200),
 	Resolution varchar(32),
 	Screensize int,
 	Paneltype varchar(40),
@@ -98,7 +98,7 @@ CREATE TABLE  Smartphone(
 	Price int,
 	Quantity int DEFAULT 10,
   	ProductType varchar(20),
-	imgURL varchar(100),
+	imgURL varchar(200),
 	Resolution varchar(32),
 	Screensize int,
 	Paneltype varchar(10),
@@ -119,7 +119,7 @@ CREATE TABLE  Notebook(
 	Price int,
 	Quantity int DEFAULT 10,
   	ProductType varchar(20),
-	imgURL varchar(100),
+	imgURL varchar(200),
 	Resolution varchar(32),
 	Screensize int,
 	Paneltype varchar(10),
