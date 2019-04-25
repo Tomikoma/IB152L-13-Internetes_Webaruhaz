@@ -45,7 +45,7 @@ export class ProductComponent implements OnInit, OnDestroy {
           this.notebook = productData.product as Notebook;
         }
         this.products = productData.products;
-
+        this.selectedId = this.products[0].ID;
       });
   }
 
