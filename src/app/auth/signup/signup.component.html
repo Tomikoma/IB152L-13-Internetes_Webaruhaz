@@ -1,3 +1,48 @@
-<p>
-  signup works!
-</p>
+<mat-card class="my-card">
+  <mat-card-content>
+    <form class="my-form">
+      <mat-form-field class="full-width">
+        <mat-label>Teljes név</mat-label>
+        <input  matInput  placeholder="Kerekes László"  name="name"  required>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Telefon szám</mat-label>
+        <input  matInput  placeholder="+36201234567"  name="phonenumber"  required>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Email cím</mat-label>
+        <input  matInput  placeholder="zumba@high.life" name="email">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Jelszó</mat-label>
+        <input  matInput  placeholder="[0-9][a-z]"  name="password">
+      </mat-form-field>
+      <hr>
+      <mat-form-field class="full-width">
+        <mat-label>Irányítószám</mat-label>
+        <input  matInput  placeholder="1143" name="postalcode"  required>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Város</mat-label>
+        <input  matInput  placeholder="Budapest" name="city"  required>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Utca</mat-label>
+        <input  matInput  placeholder="Ilka utca" name="street"  required>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Házszám</mat-label>
+        <input  matInput  placeholder="6" name="streetnumber"  required>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+      <button mat-raised-button (click)="register()" color="warn">Regisztráció</button>
+  </mat-card-actions>
+</mat-card>
+
+
+
+
+
+

@@ -5,13 +5,16 @@ mat-card {
 }
 
 .product-image {
-  width: 50%;
+  padding-top: 5%;
+  width: 80%;
   margin: auto;
+  border-radius: 2%;
 }
 
 .product-image img {
   width: 100%;
-  box-shadow: 1px 1px 5px rgba(0,0,0,0.5)
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+  border-radius: 2%;
 }
 
 mat-expansion-panel {
@@ -19,3 +22,13 @@ mat-expansion-panel {
   margin-left: 5%;
   margin-right: 5%;
 }
+
+.productCard  {
+  float: left;
+  width: 50%;
+}
+.productSpecification {
+  float: right;
+  width: 50%;
+}
+

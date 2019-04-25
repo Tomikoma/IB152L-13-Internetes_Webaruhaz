@@ -1,18 +1,17 @@
-<div *ngIf="productType === 'tv' ">
+<div *ngIf="productType === 'tv' " class="productCard">
   <mat-card >
     <mat-card-header>
       <mat-card-title>
-        {{tv?.PRODUCTNAME}}
+        Megnevezés: {{tv?.MANUFACTURER}} {{tv?.PRODUCTNAME}}
       </mat-card-title>
       <mat-card-subtitle>
-        Termékszám: {{tv?.PRODUCTNUMBER}}
+        Cikkszám: {{tv?.PRODUCTNUMBER}}
       </mat-card-subtitle>
     </mat-card-header>
       <div class="product-image">
         <img mat-card-image src="{{tv?.IMGURL}}">
       </div>
     <mat-card-content>
-      <p>Gyártó: {{tv?.MANUFACTURER}}</p>
       <p>Megjelenés: {{tv?.RELEASEDATE.toLocaleDateString()}}</p>
       <p>Ár: {{tv?.PRICE}} Ft</p>
     </mat-card-content>
@@ -20,6 +19,8 @@
       <button mat-raised-button disabled>Kosárba</button>
     </mat-card-actions>
   </mat-card>
+</div>
+<div *ngIf="productType === 'tv' " class="productSpecification">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -44,26 +45,25 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button mat-button color="warn" (click)="compare(selectedId)">compareButton</button>
+      <button mat-button color="warn" (click)="compare(selectedId)">Hasonlít</button>
     </mat-action-row>
   </mat-expansion-panel>
 </div>
 
-<div *ngIf="productType === 'phone' ">
+<div *ngIf="productType === 'phone' " class="productCard">
   <mat-card >
     <mat-card-header>
       <mat-card-title>
-        {{smartphone?.PRODUCTNAME}}
+        Megnevezés: {{smartphone?.MANUFACTURER}} {{smartphone?.PRODUCTNAME}}
       </mat-card-title>
       <mat-card-subtitle>
-        Termékszám: {{smartphone?.PRODUCTNUMBER}}
+        Cikkszám: {{smartphone?.PRODUCTNUMBER}}
       </mat-card-subtitle>
     </mat-card-header>
       <div class="product-image">
         <img mat-card-image src="{{smartphone?.IMGURL}}">
       </div>
     <mat-card-content>
-      <p>Gyártó: {{smartphone?.MANUFACTURER}}</p>
       <p>Megjelenés: {{smartphone?.RELEASEDATE.toLocaleDateString()}}</p>
       <p>Ár: {{smartphone?.PRICE}} Ft</p>
     </mat-card-content>
@@ -71,6 +71,8 @@
       <button mat-raised-button disabled>Kosárba</button>
     </mat-card-actions>
   </mat-card>
+</div>
+<div *ngIf="productType === 'phone' " class="productSpecification">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -79,7 +81,6 @@
       <mat-panel-description>
         Kattintson a részletekért!
       </mat-panel-description>
-
     </mat-expansion-panel-header>
     <p>Felbontás: {{smartphone?.RESOLUTION}}</p>
     <p>Képátló: {{smartphone?.SCREENSIZE}}</p>
@@ -88,34 +89,33 @@
     <p>Memória (RAM): {{smartphone?.RAM}}</p>
     <p>Belső Tárhely (ROM): {{smartphone?.ROM}}</p>
     <mat-action-row>
-        <mat-form-field>
-            <mat-label>Összehasonlítás</mat-label>
-            <mat-select [(value)]="selectedId">
-              <mat-option *ngFor="let product of products" [value]="product?.ID">
-                {{product?.PRODUCTNAME}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-      <a mat-button color="warn" (click)="compare(selectedId)">compareButton</a>
+      <mat-form-field>
+        <mat-label>Összehasonlítás</mat-label>
+        <mat-select [(value)]="selectedId">
+          <mat-option *ngFor="let product of products" [value]="product?.ID">
+            {{product?.PRODUCTNAME}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <a mat-button color="warn" (click)="compare(selectedId)">Hasonlít</a>
     </mat-action-row>
   </mat-expansion-panel>
 </div>
 
-<div *ngIf="productType === 'notebook' ">
+<div *ngIf="productType === 'notebook' " class="productCard">
   <mat-card >
     <mat-card-header>
       <mat-card-title>
-        {{notebook?.PRODUCTNAME}}
+        Megnevezés: {{notebook?.MANUFACTURER}} {{notebook?.PRODUCTNAME}}
       </mat-card-title>
       <mat-card-subtitle>
-        Termékszám: {{notebook?.PRODUCTNUMBER}}
+        Cikkszám: {{notebook?.PRODUCTNUMBER}}
       </mat-card-subtitle>
     </mat-card-header>
       <div class="product-image">
         <img mat-card-image src="{{notebook?.IMGURL}}">
       </div>
     <mat-card-content>
-      <p>Gyártó: {{notebook?.MANUFACTURER}}</p>
       <p>Megjelenés: {{notebook?.RELEASEDATE.toLocaleDateString()}}</p>
       <p>Ár: {{notebook?.PRICE}} Ft</p>
     </mat-card-content>
@@ -123,6 +123,8 @@
       <button mat-raised-button disabled>Kosárba</button>
     </mat-card-actions>
   </mat-card>
+</div>
+<div *ngIf="productType === 'notebook' " class="productSpecification">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -150,7 +152,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-      <button mat-button color="warn" (click)="compare(selectedId)">compareButton</button>
+      <button mat-button color="warn" (click)="compare(selectedId)">Hasonlít</button>
     </mat-action-row>
   </mat-expansion-panel>
 </div>

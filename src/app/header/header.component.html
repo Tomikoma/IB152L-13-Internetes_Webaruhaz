@@ -1,39 +1,38 @@
 <mat-toolbar color="warn">
-  <span><a routerLink=""><img src="../../assets/img/site_logo.png" alt="Ha$kellh0FF MARKT" height="250vh" width="250vw"></a></span>
+  <mat-toolbar-row>
+    <span><a routerLink=""><img src="../../assets/img/site_logo.png" alt="Ha$kellh0FF MARKT" height="250vh" width="250vw"></a></span>
 
+    <span class="example-fill-remaining-space"></span>
 
-  <!-- This fills the remaining space of the current row -->
-  <span class="example-fill-remaining-space"></span>
+    <button mat-button routerLink="signup" routerLinkActive="mat-accent">Regisztráció</button>
+    <button mat-button routerLink="login" routerLinkActive="mat-accent">Bejelentkezés</button>
+    <button mat-button >Kijelentkezés</button>
+    <button mat-button >Kosár</button>
+  </mat-toolbar-row>
 
-  <button mat-button routerLink="signup" routerLinkActive="mat-accent">Regisztráció</button>
-  <button mat-button routerLink="login" routerLinkActive="mat-accent">Bejelentkezés</button>
-  <button mat-button >Kijelentkezés</button>
-  <button mat-button >Kosár</button>
+  <mat-toolbar-row>
+    <button mat-button [matMenuTriggerFor]="mobilMenu">Mobiltelefon</button>
+    <mat-menu #mobilMenu="matMenu">
+      <button mat-menu-item>Okostelefonok</button>
+      <button mat-menu-item>Hagyományos készülékek</button>
+    </mat-menu>
 
+    <button mat-button [matMenuTriggerFor]="tvMenu">Televízió</button>
+    <mat-menu #tvMenu="matMenu">
+      <button mat-menu-item>OLED TV</button>
+      <button mat-menu-item>4K UHD Tv</button>
+      <button mat-menu-item>Smart TV</button>
+      <button mat-menu-item>Led TV</button>
+      <button mat-menu-item>QLED 8K/4K TV</button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="pcMenu">Számítástechnika</button>
+    <mat-menu #pcMenu="matMenu">
+      <button mat-menu-item>Laptop, Notebook</button>
+      <button mat-menu-item>Gamer Laptop</button>
+      <button mat-menu-item>Apple MacBook</button>
+    </mat-menu>
+
+    <button mat-button>Akciók</button>
+  </mat-toolbar-row>
 </mat-toolbar>
-
-<button mat-button [matMenuTriggerFor]="mobilMenu">Mobiltelefon</button>
-<mat-menu #mobilMenu="matMenu">
-  <button mat-menu-item>Okostelefonok</button>
-  <button mat-menu-item>Hagyományos készülékek</button>
-</mat-menu>
-
-
-<button mat-button [matMenuTriggerFor]="tvMenu">Televízió</button>
-<mat-menu #tvMenu="matMenu">
-  <button mat-menu-item>OLED TV</button>
-  <button mat-menu-item>4K UHD Tv</button>
-  <button mat-menu-item>Smart TV</button>
-  <button mat-menu-item>Led TV</button>
-  <button mat-menu-item>QLED 8K/4K TV</button>
-</mat-menu>
-
-<button mat-button [matMenuTriggerFor]="pcMenu">Számítástechnika</button>
-<mat-menu #pcMenu="matMenu">
-  <button mat-menu-item>Laptop, Notebook</button>
-  <button mat-menu-item>Gamer Laptop</button>
-  <button mat-menu-item>Apple MacBook</button>
-</mat-menu>
-
-<button mat-button>Akciók</button>
-

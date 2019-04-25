@@ -16,7 +16,7 @@ import {
   MatListModule,
   MatDividerModule,
   MatMenuModule,
-  MatIconModule, MatTabsModule, MatGridListModule
+  MatIconModule, MatTabsModule, MatGridListModule, MatRadioModule, MatDatepickerModule
 } from '@angular/material/';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -60,7 +60,9 @@ import { SignupComponent } from './auth/signup/signup.component';
     MatMenuModule,
     MatIconModule,
     MatTabsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatRadioModule,
+    MatDatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
