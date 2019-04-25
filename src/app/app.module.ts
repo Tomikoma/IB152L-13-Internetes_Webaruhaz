@@ -16,7 +16,7 @@ import {
   MatListModule,
   MatDividerModule,
   MatMenuModule,
-  MatIconModule, MatTabsModule
+  MatIconModule, MatTabsModule, MatGridListModule
 } from '@angular/material/';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -59,7 +59,8 @@ import { SignupComponent } from './auth/signup/signup.component';
     FlexLayoutModule,
     MatMenuModule,
     MatIconModule,
-    MatTabsModule
+    MatTabsModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

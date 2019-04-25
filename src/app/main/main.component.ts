@@ -15,9 +15,9 @@ export class MainComponent implements OnInit, OnDestroy {
   products: Product[];
   isLoading = false;
   totalProducts = 0;
-  productsPerPage = 5;
+  productsPerPage = 8;
   currentPage = 1;
-  pageSizeOptions = [5, 10, 15];
+  pageSizeOptions = [8, 16, 32];
   advertsList = Advert[10] = [
     new Advert('Kedvezmény Mánia', '../../assets/img/advert1.bmp'),
     new Advert('#színezd ki', '../../assets/img/advert2.bmp'),
@@ -27,6 +27,7 @@ export class MainComponent implements OnInit, OnDestroy {
   ];
   private productsSub: Subscription;
   imgWidth = 100;
+  breakpoint = 2;
 
   constructor(private productService: ProductService) {
 
@@ -41,6 +42,7 @@ export class MainComponent implements OnInit, OnDestroy {
       this.products = productsData.products;
       this.totalProducts = productsData.count;
     });
+    this.onResizeColumns(event);
   }
 
   onChangedPage(pageData: PageEvent) {
@@ -50,8 +52,18 @@ export class MainComponent implements OnInit, OnDestroy {
     this.productService.getProducts(this.productsPerPage, this.currentPage);
   }
 
+  onResizeColumns(event) {
+    this.breakpoint = 4;
+    if (event.target.innerWidth < 650) {
+      this.breakpoint = 1;
+    } else if (event.target.innerWidth < 1000)  {
+      this.breakpoint = 2;
+    } else if (event.target.innerWidth < 1700) {
+      this.breakpoint = 3;
+    }
+  }
+
   ngOnDestroy() {
     this.productsSub.unsubscribe();
   }
-
 }

@@ -3,28 +3,57 @@
 </mat-tab-group>
 
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<div *ngIf="products?.length > 0 && !isLoading">
-  <mat-card *ngFor="let product of products">
-    <mat-card-header>
-      <mat-card-title>
-        {{product.productName}}
-      </mat-card-title>
-      <mat-card-subtitle>
-        Termékszám: {{product.productNumber}}
-      </mat-card-subtitle>
-    </mat-card-header>
+
+<mat-paginator [length]="totalProducts" [pageSize]="productsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="products?.length > 0"></mat-paginator>
+
+<mat-grid-list [cols]="breakpoint" rowHeight="1:1" (window:resize)="onResizeColumns($event)">
+  <mat-grid-tile *ngFor="let product of products">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          {{product.productName}}
+        </mat-card-title>
+        <mat-card-subtitle>
+          Termékszám: {{product.productNumber}}
+        </mat-card-subtitle>
+      </mat-card-header>
       <div class="product-image">
         <img mat-card-image src="{{product.imgUrl}}">
       </div>
-    <mat-card-content>
-      <p>Gyártó: {{product.manufacturer}}</p>
-      <p>Megjelenés: {{product.releaseDate.toLocaleDateString()}}</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <p>Ár: {{product.price}} Ft</p>
-      <a mat-raised-button [routerLink]="['/products',product.productType, product.id]">Tovább az adatlapra</a>
-      <button mat-raised-button disabled>Kosárba</button>
-    </mat-card-actions>
-  </mat-card>
-</div>
-<mat-paginator [length]="totalProducts" [pageSize]="productsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="products?.length > 0"></mat-paginator>
+      <mat-card-content>
+        <p>Gyártó: {{product.manufacturer}}</p>
+        <p>Megjelenés: {{product.releaseDate.toLocaleDateString()}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <p>Ár: {{product.price}} Ft</p>
+        <a mat-raised-button [routerLink]="['/products',product.productType, product.id]">Tovább az adatlapra</a>
+        <button mat-raised-button disabled>Kosárba</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<!--<div *ngIf="products?.length > 0 && !isLoading">-->
+  <!--<mat-card *ngFor="let product of products">-->
+    <!--<mat-card-header>-->
+      <!--<mat-card-title>-->
+        <!--{{product.productName}}-->
+      <!--</mat-card-title>-->
+      <!--<mat-card-subtitle>-->
+        <!--Termékszám: {{product.productNumber}}-->
+      <!--</mat-card-subtitle>-->
+    <!--</mat-card-header>-->
+      <!--<div class="product-image">-->
+        <!--<img mat-card-image src="{{product.imgUrl}}">-->
+      <!--</div>-->
+    <!--<mat-card-content>-->
+      <!--<p>Gyártó: {{product.manufacturer}}</p>-->
+      <!--<p>Megjelenés: {{product.releaseDate.toLocaleDateString()}}</p>-->
+    <!--</mat-card-content>-->
+    <!--<mat-card-actions>-->
+      <!--<p>Ár: {{product.price}} Ft</p>-->
+      <!--<a mat-raised-button [routerLink]="['/products',product.productType, product.id]">Tovább az adatlapra</a>-->
+      <!--<button mat-raised-button disabled>Kosárba</button>-->
+    <!--</mat-card-actions>-->
+  <!--</mat-card>-->
+<!--</div>-->
