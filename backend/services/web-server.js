@@ -31,19 +31,9 @@ function initialize() {
     httpServer = http.createServer(app);
 
     const productsRoutes = require('./routes/products');
-
+    const userRoutes = require('./routes/user');
     app.use("/api/products",productsRoutes);
-
-
-    app.get('/api/users', async (req, res, next) => {
-      const result = await database.simpleExecute('SELECT * FROM Users');
-      users=result.rows;
-      res.status(200).json({
-        message: 'Posts fetched succesfully!',
-        users: users
-      });
-    });
-
+    app.use('/api/user', userRoutes);
 
 
     httpServer.listen(webServerConfig.port)
