@@ -1,4 +1,4 @@
-﻿DROP TABLE TV;
+DROP TABLE TV;
 DROP TABLE Notebook;
 DROP TABLE Smartphone;
 DROP TABLE Rates;
@@ -25,7 +25,7 @@ CREATE TABLE Users (
 	balance int DEFAULT 0 ,
 	AuthorizationLevel int DEFAULT 0,
 	Email varchar(32) ,
-	Password varchar(32),
+	Password varchar(200),
 	Name varchar (32),
 	PhoneNumber int,
 	PostalCode int,
