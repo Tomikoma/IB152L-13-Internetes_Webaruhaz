@@ -24,7 +24,7 @@ CREATE TABLE Users (
 	id int UNIQUE NOT NULL,
 	balance int DEFAULT 0 ,
 	AuthorizationLevel int DEFAULT 0,
-	Email varchar(32) ,
+	Email varchar(32) UNIQUE,
 	Password varchar(200),
 	Name varchar (32),
 	PhoneNumber int,
