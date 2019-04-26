@@ -1,43 +1,52 @@
 <mat-card class="my-card">
   <mat-card-content>
-    <form class="my-form">
+    <form class="my-form" (submit)="onSignup(signupForm)" #signupForm="ngForm">
       <mat-form-field class="full-width">
         <mat-label>Teljes név</mat-label>
-        <input  matInput  placeholder="Kerekes László"  name="name"  required>
+        <input  matInput  placeholder="Kerekes László" type="text" ngModel  name="name" #nameInput="ngModel" required>
+        <mat-error *ngIf="nameInput.invalid">Töltse ki a mezőt megfelelően</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label>Telefon szám</mat-label>
-        <input  matInput  placeholder="+36201234567"  name="phonenumber"  required>
+        <input  matInput  placeholder="201234567" ngModel type="tel" name="phonenumber" pattern="[0-9]{2}[0-9]{3}[0-9]{2}[0-9]{2}" #phoneNumberInput="ngModel"  required>
+        <mat-error *ngIf="phoneNumberInput.invalid">Töltse ki a mezőt megfelelően</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label>Email cím</mat-label>
-        <input  matInput  placeholder="zumba@high.life" name="email">
+        <input  matInput  placeholder="zumba@high.life" ngModel type="email" name="email" #emailInput="ngModel" required email>
+        <mat-error *ngIf="emailInput.invalid">Töltse ki a mezőt megfelelően</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label>Jelszó</mat-label>
-        <input  matInput  placeholder="[0-9][a-z]"  name="password">
+        <input  matInput  placeholder="[0-9][a-z]" ngModel type="password" name="password" #passwordInput minlength="5" required>
+        <mat-error>A jelszó legalább 5 karakter hosszú legyen</mat-error>
       </mat-form-field>
       <hr>
       <mat-form-field class="full-width">
         <mat-label>Irányítószám</mat-label>
-        <input  matInput  placeholder="1143" name="postalcode"  required>
+        <input  matInput  placeholder="1143" ngModel type="text" name="postalcode" #postalCodeInput pattern="[0-9]{4}" required>
+        <mat-error>Töltse ki a mezőt megfelelően</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label>Város</mat-label>
-        <input  matInput  placeholder="Budapest" name="city"  required>
+        <input  matInput  placeholder="Budapest" ngModel type="text" name="city"  #cityInput required>
+        <mat-error>Töltse ki a mezőt megfelelően</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label>Utca</mat-label>
-        <input  matInput  placeholder="Ilka utca" name="street"  required>
+        <input  matInput  placeholder="Ilka utca" ngModel type="text" name="street" #streetInput required>
+        <mat-error>Töltse ki a mezőt megfelelően</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label>Házszám</mat-label>
-        <input  matInput  placeholder="6" name="streetnumber"  required>
+        <input  matInput  placeholder="6" ngModel type="number" name="streetnumber" #streetNumberInput required>
+        <mat-error>Töltse ki a mezőt megfelelően</mat-error>
       </mat-form-field>
+      <button mat-raised-button type="submit" color="warn">Regisztráció</button>
     </form>
   </mat-card-content>
   <mat-card-actions>
-      <button mat-raised-button (click)="register()" color="warn">Regisztráció</button>
+
   </mat-card-actions>
 </mat-card>
 
