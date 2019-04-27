@@ -28,7 +28,14 @@ export class AuthService {
 
 
   login(email: string, password: string) {
-
+    const authData = {email, password};
+    this.http.post<{token: string}>('http://localhost:3000/api/user/login', authData)
+      .subscribe(response => {
+        const token = response.token;
+        this.token = token;
+        console.log(response);
+        this.authStatusListener.next(true);
+      });
   }
 }
 
