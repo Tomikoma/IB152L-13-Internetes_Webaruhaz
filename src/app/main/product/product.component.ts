@@ -24,7 +24,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   products: any[];
   selectedId: number;
   isUserAuthenticated = false;
-  private authStatusSubs: Subscription;
+  private authStatusSub: Subscription;
 
   constructor(private route: ActivatedRoute, private productService: ProductService, private authService: AuthService) {
     this.route.params.subscribe( params => {
@@ -51,10 +51,9 @@ export class ProductComponent implements OnInit, OnDestroy {
         this.selectedId = this.products[0].ID;
       });
     this.isUserAuthenticated = this.authService.getIsAuth();
-    this.authStatusSubs = this.authService.getAuthStatusListener()
+    this.authStatusSub = this.authService.getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.isUserAuthenticated = isAuthenticated;
-        console.log(this.isUserAuthenticated);
       });
   }
 
@@ -66,7 +65,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.productSub.unsubscribe();
-    this.authStatusSubs.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 
 }
