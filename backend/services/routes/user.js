@@ -28,4 +28,31 @@ router.post("/signup",async (req,res,next) => {
 
 });
 
+router.post("/login", async (req,res,next) => {
+  const result = await database.simpleExecute("SELECT email,password,id FROM Users WHERE email= '" + req.body.email + "'");
+  if(!result.rows[0]) {
+    return res.status(401).json({
+      message: "Auth failed"
+    });
+  }
+  bcrypt.compare(req.body.password,result.rows[0].PASSWORD)
+    .then(hash => {
+      if (!hash) {
+        return res.status(401).json({
+          message: "Auth failed"
+        });
+      }
+      const token = jwt.sign({email: result.rows[0].EMAIL, userId: result.rows[0].ID  }, "secret_this_should_be_longer",
+        { expiresIn: '1h'});
+      res.status(200).json({
+        token:token
+      });
+    })
+    .catch(err => {
+      return res.status(401).json({
+        message: "Auth failed"
+      });
+    });
+});
+
 module.exports = router;
