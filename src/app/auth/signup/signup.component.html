@@ -1,6 +1,7 @@
 <mat-card class="my-card">
   <mat-card-content>
-    <form class="my-form" (submit)="onSignup(signupForm)" #signupForm="ngForm">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form class="my-form" (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
       <mat-form-field class="full-width">
         <mat-label>Teljes név</mat-label>
         <input  matInput  placeholder="Kerekes László" type="text" ngModel  name="name" #nameInput="ngModel" required>
