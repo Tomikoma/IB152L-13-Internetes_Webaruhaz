@@ -37,6 +37,14 @@ function initialize() {
     app.use('/api/user', userRoutes);
     app.use('/api/comments',commentsRoutes);
 
+    app.get('/api/users', async (req, res, next) => {
+      const result = await database.simpleExecute('SELECT * FROM Users');
+      users=result.rows;
+      res.status(200).json({
+        message: 'Posts fetched succesfully!',
+        users: users
+      });
+    });
 
     httpServer.listen(webServerConfig.port)
       .on('listening', () => {
