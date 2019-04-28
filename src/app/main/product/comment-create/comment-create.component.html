@@ -1,3 +1,9 @@
-<p>
-  comment-create works!
-</p>
+<form class="example-form">
+
+  <mat-form-field class="example-full-width">
+    <input matInput #message maxlength="256" placeholder="Vélemény">
+    <mat-hint align="start"><strong>Ne adjon ki személyes adatokat!</strong> </mat-hint>
+    <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+  </mat-form-field>
+
+</form>
