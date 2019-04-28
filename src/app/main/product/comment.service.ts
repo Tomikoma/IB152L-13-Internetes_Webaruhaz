@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { MyComment } from './mycomment.model';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({providedIn: 'root'})
 export class CommentService {
@@ -10,7 +11,7 @@ export class CommentService {
   comments: MyComment[];
   private commentsUpdated = new Subject<{comments: MyComment[]}>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getComments(id: number) {
     this.http.get<{comments: any[]}>('http://localhost:3000/api/comments/' + id)
@@ -28,6 +29,12 @@ export class CommentService {
         this.comments = commentData.transformedComments;
         this.commentsUpdated.next({comments: this.comments});
       });
+  }
+
+  addComment(productId: number, content: string) {
+    this.http.post('http://localhost:3000/api/comments/' + productId, {content}).subscribe(response => {
+      console.log(response);
+    });
   }
 
   getCommentsUpdateListener() {
