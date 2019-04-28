@@ -3,6 +3,7 @@ import { CommentService } from '../comment.service';
 import { MyComment } from '../mycomment.model';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-comment',
@@ -13,9 +14,11 @@ export class CommentComponent implements OnInit, OnDestroy {
 
   comments: MyComment[];
   productId: number;
+  isUserAuthenticated = false;
   private commentSub: Subscription;
+  private authStatusSub: Subscription;
 
-  constructor(private commentService: CommentService, private route: ActivatedRoute) {
+  constructor(private commentService: CommentService, private route: ActivatedRoute, private authService: AuthService) {
     this.route.params.subscribe( params => {
       this.productId = params.id;
     });
@@ -28,11 +31,10 @@ export class CommentComponent implements OnInit, OnDestroy {
         this.comments = commentData.comments;
         console.log(this.comments);
       });
-  }
-
-
-  addComment() {
-    return 0;
+    this.isUserAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.isUserAuthenticated = isAuthenticated;
+    })
   }
 
   ngOnDestroy() {
