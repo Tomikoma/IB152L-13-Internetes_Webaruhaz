@@ -16,7 +16,8 @@
       <p>Ár: {{tv?.PRICE}} Ft</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button disabled>Kosárba</button>
+      <button mat-raised-button *ngIf="isUserAuthenticated">Kosárba</button>
+      <button mat-raised-button *ngIf="!isUserAuthenticated" disabled>Kosárba</button>
     </mat-card-actions>
   </mat-card>
 </div>

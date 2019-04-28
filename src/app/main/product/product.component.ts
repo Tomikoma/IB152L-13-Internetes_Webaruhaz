@@ -6,6 +6,7 @@ import { ProductService } from '../product.service';
 import { TV } from './tv.model';
 import { Smartphone } from './smartphone.model';
 import { Notebook } from './notebook.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-product',
@@ -22,8 +23,10 @@ export class ProductComponent implements OnInit, OnDestroy {
   notebook: Notebook;
   products: any[];
   selectedId: number;
+  isUserAuthenticated = false;
+  private authStatusSub: Subscription;
 
-  constructor(private route: ActivatedRoute, private productService: ProductService) {
+  constructor(private route: ActivatedRoute, private productService: ProductService, private authService: AuthService) {
     this.route.params.subscribe( params => {
       this.productId = params.id;
       this.productType = params.type;
@@ -47,6 +50,11 @@ export class ProductComponent implements OnInit, OnDestroy {
         this.products = productData.products;
         this.selectedId = this.products[0].ID;
       });
+    this.isUserAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.isUserAuthenticated = isAuthenticated;
+      });
   }
 
   compare(selectedId: number) {
@@ -57,6 +65,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.productSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 
 }

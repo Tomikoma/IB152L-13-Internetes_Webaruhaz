@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ProductService } from './product.service';
 import { PageEvent } from '@angular/material';
 import {Advert} from './product/advert.model';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -28,8 +29,10 @@ export class MainComponent implements OnInit, OnDestroy {
   private productsSub: Subscription;
   imgWidth = 100;
   breakpoint = 2;
+  isUserAuthenticated = false;
+  private authStatusSub: Subscription;
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private authService: AuthService) {
 
   }
 
@@ -42,6 +45,11 @@ export class MainComponent implements OnInit, OnDestroy {
       this.products = productsData.products;
       this.totalProducts = productsData.count;
     });
+    this.isUserAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.isUserAuthenticated = isAuthenticated;
+      });
     this.onResizeColumns(event);
   }
 
