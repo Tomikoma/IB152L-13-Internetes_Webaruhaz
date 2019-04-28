@@ -5,6 +5,7 @@ import { ProductComponent } from './main/product/product.component';
 import { CompareComponent } from './main/product/compare/compare.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {path: '', component: MainComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }
