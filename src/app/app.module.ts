@@ -29,8 +29,9 @@ import { CompareComponent } from './main/product/compare/compare.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
-import { CommentCreateComponent } from './main/product/comment-create/comment-create.component';
 import { CartComponent } from './cart/cart.component';
+import { CommentComponent } from './main/product/comment/comment.component';
+import { CommentCreateComponent } from './main/product/comment-create/comment-create.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { CartComponent } from './cart/cart.component';
     LoginComponent,
     SignupComponent,
     CartComponent,
-    CommentCreateComponent
+    CommentCreateComponent,
+    CommentComponent
 ],
   imports: [
     BrowserModule,

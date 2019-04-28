@@ -32,8 +32,10 @@ function initialize() {
 
     const productsRoutes = require('./routes/products');
     const userRoutes = require('./routes/user');
+    const commentsRoutes = require('./routes/comments');
     app.use("/api/products",productsRoutes);
     app.use('/api/user', userRoutes);
+    app.use('/api/comments',commentsRoutes);
 
 
     httpServer.listen(webServerConfig.port)
