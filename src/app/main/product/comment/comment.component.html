@@ -8,7 +8,14 @@
     </mat-panel-description>
   </mat-expansion-panel-header>
 
-  //TODO: Hozzászólások itt lesznek listázva
+  
+  <mat-list>
+    <mat-list-item *ngFor="let comment of comments" >
+      {{comment.COMMENTDATE}},
+      <br>{{comment.CONTENT}}</mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+
   <app-comment-create></app-comment-create>
 
   <mat-action-row>
