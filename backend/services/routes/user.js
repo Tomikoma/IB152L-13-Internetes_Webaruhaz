@@ -42,7 +42,9 @@ router.post("/login", async (req,res,next) => {
           message: "Auth failed"
         });
       }
-      const token = jwt.sign({email: result.rows[0].EMAIL, userId: result.rows[0].ID  }, "secret_this_should_be_longer",
+      const token = jwt.sign(
+        {email: result.rows[0].EMAIL, userId: result.rows[0].ID  },
+        "secret_this_should_be_longer",
         { expiresIn: '1h'});
       res.status(200).json({
         token:token
