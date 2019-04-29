@@ -1,3 +1,10 @@
-<p>
-  comment-create works!
-</p>
+<form class="example-form" (submit)="addComment(commentForm)" #commentForm="ngForm">
+
+  <mat-form-field class="example-full-width">
+    <input matInput ngModel name="comment" #messageInput="ngModel" maxlength="256"  placeholder="Vélemény" required>
+    <mat-hint align="start"><strong>Ne adjon ki személyes adatokat!</strong> </mat-hint>
+    <mat-hint align="end">{{messageInput?.value?.length}} / 256</mat-hint>
+
+  </mat-form-field>
+  <button mat-button type="submit" color="warn">Hozzászólok</button>
+</form>

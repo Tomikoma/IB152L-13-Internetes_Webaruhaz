@@ -13,6 +13,7 @@
       </div>
     <mat-card-content>
       <p>Megjelenés: {{tv?.RELEASEDATE.toLocaleDateString()}}</p>
+      <app-rate></app-rate>
       <p>Ár: {{tv?.PRICE}} Ft</p>
     </mat-card-content>
     <mat-card-actions>
@@ -66,6 +67,7 @@
       </div>
     <mat-card-content>
       <p>Megjelenés: {{smartphone?.RELEASEDATE.toLocaleDateString()}}</p>
+      <app-rate></app-rate>
       <p>Ár: {{smartphone?.PRICE}} Ft</p>
     </mat-card-content>
     <mat-card-actions>
@@ -118,10 +120,12 @@
       </div>
     <mat-card-content>
       <p>Megjelenés: {{notebook?.RELEASEDATE.toLocaleDateString()}}</p>
+      <app-rate></app-rate>
       <p>Ár: {{notebook?.PRICE}} Ft</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button disabled>Kosárba</button>
+      <button mat-raised-button *ngIf="isUserAuthenticated">Kosárba</button>
+      <button mat-raised-button *ngIf="!isUserAuthenticated" disabled>Kosárba</button>
     </mat-card-actions>
   </mat-card>
 </div>
@@ -156,4 +160,7 @@
       <button mat-button color="warn" (click)="compare(selectedId)">Hasonlít</button>
     </mat-action-row>
   </mat-expansion-panel>
+</div>
+<div class="commentCard">
+<app-comment></app-comment>
 </div>

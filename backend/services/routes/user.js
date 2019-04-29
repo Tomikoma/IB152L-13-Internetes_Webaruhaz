@@ -2,6 +2,7 @@ const express = require("express");
 const database = require('../database');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const checkAuth = require("../../middleware/check-auth");
 
 const router = express.Router();
 
@@ -42,10 +43,13 @@ router.post("/login", async (req,res,next) => {
           message: "Auth failed"
         });
       }
-      const token = jwt.sign({email: result.rows[0].EMAIL, userId: result.rows[0].ID  }, "secret_this_should_be_longer",
+      const token = jwt.sign(
+        {email: result.rows[0].EMAIL, userId: result.rows[0].ID  },
+        "secret_this_should_be_longer",
         { expiresIn: '1h'});
       res.status(200).json({
-        token:token
+        token:token,
+        expiresIn: 3600
       });
     })
     .catch(err => {
@@ -54,5 +58,19 @@ router.post("/login", async (req,res,next) => {
       });
     });
 });
+
+  router.get("/info", checkAuth, async (req,res, next) => {
+    userId = req.userData.userId;
+    try{
+      result = await database.simpleExecute("SELECT * FROM Users WHERE ID = " + userId);
+      res.status(200).json({
+        user: result.rows[0]
+      })
+    } catch (error) {
+      res.status(500).json({
+        message: "Something went wrong!"
+      })
+    }
+  })
 
 module.exports = router;
