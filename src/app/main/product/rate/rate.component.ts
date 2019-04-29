@@ -10,10 +10,12 @@ import { Subscription } from 'rxjs';
 })
 export class RateComponent implements OnInit, OnDestroy {
 
-  productId:number;
+  productId: number;
   private commentSub: Subscription;
   rating: number;
   count: number;
+  value = 5;
+  ratingOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   constructor(private route: ActivatedRoute, private commentService: CommentService) {
     this.route.params
@@ -29,6 +31,10 @@ export class RateComponent implements OnInit, OnDestroy {
         this.rating = ratingData.rating;
         this.count = ratingData.count;
       });
+  }
+
+  rate(selectedRating: number){
+    this.commentService.rateProduct(this.productId, selectedRating);
   }
 
   ngOnDestroy() {
