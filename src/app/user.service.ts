@@ -6,8 +6,10 @@ import {User} from './list-users/user.model';
 @Injectable({providedIn: 'root'})
 export class UserService {
 
+  user: User;
   private users: User[] = [];
   private usersUpdated = new Subject<User[]>();
+  private userUpdated = new Subject<User>();
 
   constructor(private http: HttpClient) {}
 
@@ -20,7 +22,19 @@ export class UserService {
       });
   }
 
-  getUsersUpdateListener(){
+  getUser() {
+    this.http.get<{user: any}>('http://localhost:3000/api/user/info')
+      .subscribe(userData => {
+        this.user = userData.user;
+        this.userUpdated.next({...this.user});
+      });
+  }
+
+  getUsersUpdateListener() {
     return this.usersUpdated.asObservable();
+  }
+
+  getUserUpdateListener() {
+    return this.userUpdated.asObservable();
   }
 }
