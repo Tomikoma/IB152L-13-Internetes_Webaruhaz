@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommentService } from '../comment.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-rate',
@@ -11,13 +12,15 @@ import { Subscription } from 'rxjs';
 export class RateComponent implements OnInit, OnDestroy {
 
   productId: number;
+  isUserAuthenticated = false;
   private commentSub: Subscription;
+  private authStatusSub: Subscription;
   rating: number;
   count: number;
   value = 5;
   ratingOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  constructor(private route: ActivatedRoute, private commentService: CommentService) {
+  constructor(private route: ActivatedRoute, private commentService: CommentService, private authService:AuthService) {
     this.route.params
       .subscribe(params => {
         this.productId = params.id;
@@ -31,6 +34,11 @@ export class RateComponent implements OnInit, OnDestroy {
         this.rating = ratingData.rating;
         this.count = ratingData.count;
       });
+    this.isUserAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.isUserAuthenticated = isAuthenticated;
+      });
   }
 
   rate(selectedRating: number){
@@ -39,6 +47,7 @@ export class RateComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.commentSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 
 }
