@@ -54,5 +54,44 @@ router.get('/rating/:id', async (req, res, next) => {
   }
 });
 
+router.post ('/rating/:id', checkAuth, async (req, res, next) => {
+  productId = req.params.id;
+  userId = req.userData.userId;
+  rating = req.body.rating;
+  try{
+    const result = await database.simpleExecute("SELECT * FROM Rates WHERE PRODUCT_ID =" + productId + " AND USER_ID =" + userId );
+    if (!result.rows[0]) {
+      try {
+        const result2 = await database.simpleExecute("INSERT INTO Rates VALUES(" + productId + ", " + userId +", "+ rating + ")");
+        res.status(200).json({
+          message:"ok"
+        });
+      } catch (error) {
+        res.status(500).json({
+          message: 'Something went wrong!'
+        });
+      }
+    } else {
+      try {
+        const result2 = await database
+          .simpleExecute("UPDATE Rates SET RATEVALUE = " + rating + " WHERE PRODUCT_ID = " + productId + " AND USER_ID = " + userId );
+        res.status(200).json({
+          message:"ok"
+        });
+      } catch (error) {
+        res.status(500).json({
+          message: 'Something went wrong!'
+        });
+      }
+    }
+
+  } catch (error) {
+    res.status(500).json({
+      message: 'Something went wrong!'
+    });
+  }
+
+})
+
 
 module.exports = router;
