@@ -16,6 +16,7 @@ import {
   MatListModule,
   MatDividerModule,
   MatMenuModule,
+  MatSliderModule,
   MatIconModule, MatTabsModule, MatGridListModule, MatRadioModule, MatDatepickerModule
 } from '@angular/material/';
 
@@ -73,7 +74,8 @@ import { RateComponent } from './main/product/rate/rate.component';
     MatTabsModule,
     MatGridListModule,
     MatRadioModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatSliderModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
