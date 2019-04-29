@@ -32,6 +32,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { CartComponent } from './cart/cart.component';
 import { CommentComponent } from './main/product/comment/comment.component';
 import { CommentCreateComponent } from './main/product/comment-create/comment-create.component';
+import { UserpageComponent } from './userpage/userpage.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { CommentCreateComponent } from './main/product/comment-create/comment-cr
     SignupComponent,
     CartComponent,
     CommentCreateComponent,
-    CommentComponent
+    CommentComponent,
+    UserpageComponent
 ],
   imports: [
     BrowserModule,
