@@ -1,1 +1,20 @@
-<h1>{{user?.NAME}}</h1>
+<mat-card class="userpage-card">
+  <mat-card-header>
+    <div mat-card-avatar class="userpage-header-image"></div>
+    <mat-card-title>{{user?.NAME}}</mat-card-title>
+    <mat-card-subtitle *ngIf="user?.AUTHORIZATIONLEVEL == 0">Felhasználó</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="user?.AUTHORIZATIONLEVEL != 0">Admin</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://cdn.iconscout.com/icon/free/png-256/avatar-375-456327.png" alt="Hiányzó Kép URL">
+  <mat-card-content>
+    <mat-list role="list">
+      <h2>Felhasználói adatok</h2>
+      <mat-list-item role="listitem">Felhasználható egyenleg: {{user?.BALANCE}}Ft.</mat-list-item>
+      <h2>Személyes adatok</h2>
+      <mat-list-item role="listitem">Email cím: {{user?.EMAIL}}</mat-list-item>
+      <mat-list-item role="listitem">Telefon szám: {{user?.PHONENUMBER}}</mat-list-item>
+      <mat-list-item role="listitem"><h4>Szállítási cím:</h4></mat-list-item>
+      <mat-list-item role="listitem">{{user?.POSTALCODE}} {{user?.CITY}}, {{user?.STREET}} {{user?.STREETNUMBER}}</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
