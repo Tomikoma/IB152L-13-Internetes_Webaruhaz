@@ -5,6 +5,7 @@ import { ProductService } from './product.service';
 import { PageEvent } from '@angular/material';
 import {Advert} from './product/advert.model';
 import { AuthService } from '../auth/auth.service';
+import { CartService } from './cart.service';
 
 @Component({
   selector: 'app-main',
@@ -32,7 +33,7 @@ export class MainComponent implements OnInit, OnDestroy {
   isUserAuthenticated = false;
   private authStatusSub: Subscription;
 
-  constructor(private productService: ProductService, private authService: AuthService) {
+  constructor(private productService: ProductService, private authService: AuthService, private cartService: CartService) {
 
   }
 
@@ -51,6 +52,10 @@ export class MainComponent implements OnInit, OnDestroy {
         this.isUserAuthenticated = isAuthenticated;
       });
     this.onResizeColumns(event);
+  }
+
+  addToCart(productId: number) {
+    this.cartService.addToCart(productId);
   }
 
   onChangedPage(pageData: PageEvent) {
