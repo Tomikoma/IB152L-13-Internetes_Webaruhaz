@@ -10,8 +10,9 @@ export class CommentService {
 
   comments: MyComment[];
   rating: number;
+  count: number;
   private commentsUpdated = new Subject<{comments: MyComment[]}>();
-  private ratingUpdated = new Subject<number>();
+  private ratingUpdated = new Subject<{rating: number, count: number}>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -34,10 +35,11 @@ export class CommentService {
   }
 
   getRating(id: number) {
-    this.http.get<{rating:number}>('http://localhost:3000/api/opinion/rating/' + id)
+    this.http.get<{rating:number,count: number}>('http://localhost:3000/api/opinion/rating/' + id)
       .subscribe(ratingData => {
         this.rating = ratingData.rating;
-        this.ratingUpdated.next(this.rating);
+        this.count = ratingData.count;
+        this.ratingUpdated.next({rating: this.rating, count: this.count});
       });
   }
 
