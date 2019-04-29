@@ -38,5 +38,21 @@ router.post('/comments/:id', checkAuth, async (req, res, next) => {
   }
 });
 
+router.get('/rating/:id', async (req, res, next) => {
+  productId = req.params.id;
+  try {
+    const result = await database.simpleExecute("SELECT AVG(RATEVALUE)  as rating, COUNT(RATEVALUE) as rateCount FROM Rates WHERE PRODUCT_ID = " + productId);
+    res.status(200).json({
+      rating: result.rows[0].RATING,
+      count: result.rows[0].RATECOUNT
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: 'Something went wrong!'
+    })
+  }
+});
+
 
 module.exports = router;
