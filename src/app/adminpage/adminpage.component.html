@@ -1,24 +1,38 @@
-<div class="mat-accordion">
-<mat-accordion multi="true" *ngIf="users.length>0">
-  <mat-expansion-panel *ngFor="let user of users" class="panelRow">
-    <mat-expansion-panel-header>
-      {{user.NAME}}
-    </mat-expansion-panel-header>
-    <p>{{user.EMAIL}}</p>
-    <p>{{user.PHONENUMBER}}</p>
-    <p>{{user.BALANCE}}ft</p>
-    <mat-slider min="0" max="100000" value="{{user?.BALANCE}}" thumbLabel tickInterval="1"></mat-slider>
-    <mat-card-actions align="end">
-      <button color="accent" mat-raised-button (click)="0">Egyenleg módosítás</button>
-    </mat-card-actions>
-    <mat-expansion-panel class="panelRowAdressExpansion">
-      <mat-expansion-panel-header>
-        Cím
-      </mat-expansion-panel-header>
-      <p>{{user.CITY}} {{user.STREET}} {{user.STREETNUMBER}}</p>
-      </mat-expansion-panel>
-
-  </mat-expansion-panel>
-</mat-accordion>
 <p class="info-text mat-body-1" *ngIf="users.length <= 0">Nincs regisztrált felhasználó</p>
+<div class='some-page-wrapper'>
+  <div class='row'>
+    <div class='column'>
+      <div class='blue-column'>
+        <div class="mat-accordion">
+          <mat-accordion multi="true" *ngIf="users.length>0">
+            <mat-expansion-panel *ngFor="let user of users" class="panelRow">
+              <mat-expansion-panel-header>
+                {{user.NAME}}
+              </mat-expansion-panel-header>
+              <p>{{user.EMAIL}}</p>
+              <p>{{user.PHONENUMBER}}</p>
+              <p>{{user.BALANCE}}ft</p>
+              <mat-slider min="0" max="100000" value="{{user?.BALANCE}}" thumbLabel tickInterval="1"></mat-slider>
+              <mat-card-actions align="end">
+                <button color="accent" mat-raised-button (click)="0">Egyenleg módosítás</button>
+              </mat-card-actions>
+              <mat-expansion-panel class="panelRowAdressExpansion">
+                <mat-expansion-panel-header>
+                  Cím
+                </mat-expansion-panel-header>
+                <p>{{user.CITY}} {{user.STREET}} {{user.STREETNUMBER}}</p>
+              </mat-expansion-panel>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+
+        </div>
+      </div>
+    </div>
+    <div class='column'>
+      <div class='green-column'>
+        TODO: Rendelések ide !
+      </div>
+    </div>
+  </div>
 </div>
