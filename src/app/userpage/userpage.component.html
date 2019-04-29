@@ -8,6 +8,9 @@
   <img mat-card-image src="https://cdn.iconscout.com/icon/free/png-256/avatar-375-456327.png" alt="Hiányzó Kép URL">
   <mat-card-content>
     <mat-list role="list">
+      <mat-card-actions align="end">
+        <button mat-raised-button color="warn" routerLink="adminpage">GODMODE</button>
+      </mat-card-actions>
       <h2>Felhasználói adatok</h2>
       <mat-list-item role="listitem">Felhasználható egyenleg: {{user?.BALANCE}}Ft.</mat-list-item>
       <h2>Személyes adatok</h2>
