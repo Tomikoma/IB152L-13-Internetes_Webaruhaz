@@ -1,3 +1,20 @@
-<p>
-  comment works!
-</p>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Hozzászólások
+    </mat-panel-title>
+    <mat-panel-description>
+      Mutasd!
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+
+  <mat-list>
+    <mat-list-item *ngFor="let comment of comments" >
+      {{comment.COMMENTDATE.toLocaleDateString()}},
+      <br>{{comment.CONTENT}}</mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+
+  <app-comment-create *ngIf="isUserAuthenticated"></app-comment-create>
+</mat-expansion-panel>
