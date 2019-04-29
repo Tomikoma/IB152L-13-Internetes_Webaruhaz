@@ -29,7 +29,6 @@ export class CommentComponent implements OnInit, OnDestroy {
     this.commentSub = this.commentService.getCommentsUpdateListener()
       .subscribe(commentData => {
         this.comments = commentData.comments;
-        console.log(this.comments);
       });
     this.isUserAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {

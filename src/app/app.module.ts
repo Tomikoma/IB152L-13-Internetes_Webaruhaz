@@ -16,6 +16,7 @@ import {
   MatListModule,
   MatDividerModule,
   MatMenuModule,
+  MatSliderModule,
   MatIconModule, MatTabsModule, MatGridListModule, MatRadioModule, MatDatepickerModule
 } from '@angular/material/';
 
@@ -33,6 +34,7 @@ import { CartComponent } from './cart/cart.component';
 import { CommentComponent } from './main/product/comment/comment.component';
 import { CommentCreateComponent } from './main/product/comment-create/comment-create.component';
 import { UserpageComponent } from './userpage/userpage.component';
+import { RateComponent } from './main/product/rate/rate.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { UserpageComponent } from './userpage/userpage.component';
     CartComponent,
     CommentCreateComponent,
     CommentComponent,
-    UserpageComponent
+    UserpageComponent,
+    RateComponent
 ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { UserpageComponent } from './userpage/userpage.component';
     MatTabsModule,
     MatGridListModule,
     MatRadioModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatSliderModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
