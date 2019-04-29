@@ -91,4 +91,45 @@ router.get("/:type/:id1/compare/:id2", async (req, res, next) => {
   }
 });
 
+router.post('/cart/:id', checkAuth, async (req, res, next) => {
+  userId=req.userData.userId;
+  productId = +req.params.id;
+  count = req.body.count;
+  //console.log(userId,productId,count);
+  try {
+    const result = await database.simpleExecute("SELECT * FROM Cart WHERE PRODUCT_ID =" + productId + " AND USER_ID =" + userId);
+    if (!result.rows[0]) {
+      try {
+        const result2 = await database.simpleExecute("INSERT INTO Cart VALUES(" + productId + ", " + userId +", "+ count + ")");
+        res.status(200).json({
+          message:"ok"
+        });
+      } catch (error) {
+        res.status(500).json({
+          message: 'Something went wrong!'
+        });
+      }
+    } else {
+      try {
+        count = result.rows[0].QUANTITY + count;
+        const result2 = await database
+          .simpleExecute("UPDATE Cart SET QUANTITY = " + count + " WHERE PRODUCT_ID = " + productId + " AND USER_ID = " + userId );
+        res.status(200).json({
+          message:"ok"
+        });
+      } catch (error) {
+        res.status(500).json({
+          message: 'Something went wrong!'
+        });
+      }
+    }
+
+  } catch(error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Something went wrong!"
+    })
+  }
+});
+
 module.exports = router;
