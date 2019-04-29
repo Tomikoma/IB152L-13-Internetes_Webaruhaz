@@ -7,6 +7,7 @@ DROP TABLE Bills;
 DROP TABLE Orders;
 DROP TABLE Users;
 DROP TABLE Products;
+DROP TABLE Cart;
 
 DROP SEQUENCE seq_users;
 DROP SEQUENCE seq_products;
@@ -342,5 +343,14 @@ INSERT INTO Bills VALUES (seq_bills.nextval,7,27);
 INSERT INTO Bills VALUES (seq_bills.nextval,8,27);
 INSERT INTO Bills VALUES (seq_bills.nextval,9,27);
 INSERT INTO Bills VALUES (seq_bills.nextval,10,27);
+
+CREATE TABLE Cart(
+  Product_Id int,
+  User_Id int,
+  quantity int,
+  FOREIGN KEY (Product_Id) REFERENCES Products(Id),
+	FOREIGN KEY (User_Id) REFERENCES Users(Id),
+	PRIMARY KEY (Product_Id, User_Id)
+);
 
 
