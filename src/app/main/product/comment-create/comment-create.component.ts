@@ -14,7 +14,6 @@ export class CommentCreateComponent implements OnInit {
   constructor(private route: ActivatedRoute, private commentService: CommentService, private router: Router) {
     this.route.params.subscribe( params => {
       this.productId = params.id;
-      console.log(params);
     });
   }
 
