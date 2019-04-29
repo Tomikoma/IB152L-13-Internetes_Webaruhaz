@@ -12,7 +12,9 @@
         <input type="password" name="password" ngModel matInput placeholder="Jelszó" #passwordInput="ngModel">
       <mat-error *ngIf="passwordInput.invalid">Megfelelően töltse ki a mezőt.</mat-error>
       </mat-form-field>
-      <button mat-raised-button type="submit" color="warn">Bejelentkezés</button>
+      <mat-card-actions align="end">
+        <button mat-raised-button type="submit" color="warn">Bejelentkezés</button>
+      </mat-card-actions>
     </form>
 
   </mat-card-content>
