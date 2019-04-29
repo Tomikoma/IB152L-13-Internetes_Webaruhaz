@@ -132,4 +132,21 @@ router.post('/cart/:id', checkAuth, async (req, res, next) => {
   }
 });
 
+router.get('/cart',checkAuth, async (req, res, next) =>{
+  userId=req.userData.userId;
+  try {
+    result = await database.simpleExecute("SELECT * FROM Cart WHERE USER_ID = " + userId);
+    result2 = await database.simpleExecute("SELECT * FROM Products WHERE ID IN (SELECT PRODUCT_ID FROM Cart WHERE USER_ID = " + userId + " )");
+    res.status(200).json({
+      products: result2.rows,
+      cartItems: result.rows
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Nem sikerült lekérdezni a kosarad tartalmát"
+    })
+  }
+});
+
 module.exports = router;
