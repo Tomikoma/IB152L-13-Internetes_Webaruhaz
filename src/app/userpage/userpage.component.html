@@ -1,8 +1,9 @@
 <mat-card class="userpage-card">
   <mat-card-header>
     <div mat-card-avatar class="userpage-header-image"></div>
-    <mat-card-title>Kosár</mat-card-title>
-    <mat-card-subtitle *ngIf="">Üres</mat-card-subtitle>
+    <mat-card-title>{{user?.NAME}}</mat-card-title>
+    <mat-card-subtitle *ngIf="user?.AUTHORIZATIONLEVEL == 1">Admin</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="user?.AUTHORIZATIONLEVEL != 1">Felhasználó</mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image src="https://cdn.iconscout.com/icon/free/png-256/avatar-375-456327.png" alt="Hiányzó Kép URL">
   <mat-card-content>
