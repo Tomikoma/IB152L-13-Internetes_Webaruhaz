@@ -1,5 +1,5 @@
 .mat-accordion  {
-  width: max-content;
+  width: min-content;
   margin: auto;
   display: flex;
   align-items: center;
