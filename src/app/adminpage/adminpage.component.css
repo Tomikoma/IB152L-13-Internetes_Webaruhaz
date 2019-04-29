@@ -1,5 +1,5 @@
 .mat-accordion  {
-  width: min-content;
+  width: max-content;
   margin: auto;
   display: flex;
   align-items: center;
@@ -57,7 +57,7 @@
 /*}*/
 
 .green-column {
-  background-color: green;
+  /*background-color: green;*/
   height: 100px;
   color: white;
 }
