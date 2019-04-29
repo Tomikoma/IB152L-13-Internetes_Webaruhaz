@@ -34,7 +34,7 @@ export class CommentComponent implements OnInit, OnDestroy {
     this.isUserAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.isUserAuthenticated = isAuthenticated;
-    })
+    });
   }
 
   ngOnDestroy() {
