@@ -5,7 +5,7 @@ const checkAuth = require('../../middleware/check-auth');
 const router = express.Router();
 
 
-router.get('/:id', async (req, res, next) => {
+router.get('/comments/:id', async (req, res, next) => {
 
   const result = await database.simpleExecute(" SELECT * FROM Comments WHERE PRODUCT_ID = " + req.params.id);
   if (result.rows) {
@@ -20,7 +20,7 @@ router.get('/:id', async (req, res, next) => {
 
 });
 
-router.post('/:id', checkAuth, async (req, res, next) => {
+router.post('/comments/:id', checkAuth, async (req, res, next) => {
   productId = req.params.id;
   userId = req.userData.userId;
   content = req.body.content;
