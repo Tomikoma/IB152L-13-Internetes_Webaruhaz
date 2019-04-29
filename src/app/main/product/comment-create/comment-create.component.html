@@ -1,9 +1,10 @@
-<form class="example-form">
+<form class="example-form" (submit)="addComment(commentForm)" #commentForm="ngForm">
 
   <mat-form-field class="example-full-width">
-    <input matInput #message maxlength="256" placeholder="Vélemény">
+    <input matInput ngModel name="comment" #messageInput="ngModel" maxlength="256"  placeholder="Vélemény" required>
     <mat-hint align="start"><strong>Ne adjon ki személyes adatokat!</strong> </mat-hint>
-    <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-  </mat-form-field>
+    <mat-hint align="end">{{messageInput?.value?.length}} / 256</mat-hint>
 
+  </mat-form-field>
+  <button mat-button type="submit" color="warn">Hozzászólok</button>
 </form>

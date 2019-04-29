@@ -8,17 +8,13 @@
     </mat-panel-description>
   </mat-expansion-panel-header>
 
-  
+
   <mat-list>
     <mat-list-item *ngFor="let comment of comments" >
-      {{comment.COMMENTDATE}},
+      {{comment.COMMENTDATE.toLocaleDateString()}},
       <br>{{comment.CONTENT}}</mat-list-item>
     <mat-divider></mat-divider>
   </mat-list>
 
-  <app-comment-create></app-comment-create>
-
-  <mat-action-row>
-    <button mat-button color="warn" (click)="addComment()">Hozzászól</button>
-  </mat-action-row>
+  <app-comment-create *ngIf="isUserAuthenticated"></app-comment-create>
 </mat-expansion-panel>

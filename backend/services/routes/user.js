@@ -2,6 +2,7 @@ const express = require("express");
 const database = require('../database');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const checkAuth = require("../../middleware/check-auth");
 
 const router = express.Router();
 
@@ -57,5 +58,19 @@ router.post("/login", async (req,res,next) => {
       });
     });
 });
+
+  router.get("/info", checkAuth, async (req,res, next) => {
+    userId = req.userData.userId;
+    try{
+      result = await database.simpleExecute("SELECT * FROM Users WHERE ID = " + userId);
+      res.status(200).json({
+        user: result.rows[0]
+      })
+    } catch (error) {
+      res.status(500).json({
+        message: "Something went wrong!"
+      })
+    }
+  })
 
 module.exports = router;
