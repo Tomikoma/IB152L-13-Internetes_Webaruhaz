@@ -6,6 +6,16 @@
   margin-bottom: 1%;
 }
 
+.cart-img {
+  max-width: 50px ;
+  max-height: 100px ;
+}
+
+.cart-link-button {
+  padding : 0px 0px 0px 0px ;
+  margin : 0px ;
+}
+
 .cart-header-image {
   background-image: url('https://cdn4.iconfinder.com/data/icons/shopping-21/64/shopping-06-512.png');
   background-size: cover;

@@ -7,11 +7,11 @@
   <mat-card-content>
     <mat-list role="list">
       <h2>Kosár tartalma:</h2>
-      <mat-list-item role="listitem">Item 1</mat-list-item>
-      <mat-list-item role="listitem">Item 1</mat-list-item>
-      <mat-list-item role="listitem">Item 1</mat-list-item>
-      <mat-list-item role="listitem">Item 1</mat-list-item>
-      <mat-list-item role="listitem">Item 1</mat-list-item>
+      <mat-list-item role="listitem" *ngFor = "let item of products">
+         <a class = "cart-link-button" [routerLink]="['/products',item.productType, item.id]"><img class = "cart-img" src="{{item.imgUrl}}" > </a> 
+        {{item.manufacturer}}    {{item.productName}} <br>
+        <b>{{item.price}} Ft</b>
+      </mat-list-item>
     </mat-list>
   </mat-card-content>
   <mat-card-actions align="end">
