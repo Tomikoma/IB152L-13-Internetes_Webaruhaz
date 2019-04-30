@@ -43,8 +43,9 @@ export class CartService {
     });
   }
 
-  removeFromCart() {
-
+  removeFromCart(productId: number) {
+    // itt kell a törlést megvalósitani
+    console.log(productId) ;
   }
 
   getCartUpdateListener() {
