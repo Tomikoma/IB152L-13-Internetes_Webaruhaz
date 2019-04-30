@@ -16,7 +16,7 @@ export class CartComponent implements OnInit, OnDestroy {
   products: Product[];
 
   constructor(private cartService: CartService) {
- 
+
    }
 
   ngOnInit() {
@@ -26,11 +26,10 @@ export class CartComponent implements OnInit, OnDestroy {
       this.products = cartData.products;
       console.log(this.products, this.cartItems);
     });
-   
+
   }
 
   removeFromCart(productId: number) {
-
     this.cartService.removeFromCart(productId);
   }
 
