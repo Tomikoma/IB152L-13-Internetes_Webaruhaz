@@ -17,7 +17,12 @@ import {
   MatDividerModule,
   MatMenuModule,
   MatSliderModule,
-  MatIconModule, MatTabsModule, MatGridListModule, MatRadioModule, MatDatepickerModule, MatTooltipModule
+  MatIconModule,
+  MatTabsModule,
+  MatGridListModule,
+  MatRadioModule,
+  MatDatepickerModule,
+  MatTooltipModule
 } from '@angular/material/';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -35,6 +40,7 @@ import { CommentComponent } from './main/product/comment/comment.component';
 import { CommentCreateComponent } from './main/product/comment-create/comment-create.component';
 import { UserpageComponent } from './userpage/userpage.component';
 import { RateComponent } from './main/product/rate/rate.component';
+import { AdminpageComponent } from './adminpage/adminpage.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +56,8 @@ import { RateComponent } from './main/product/rate/rate.component';
     CommentCreateComponent,
     CommentComponent,
     UserpageComponent,
-    RateComponent
+    RateComponent,
+    AdminpageComponent
 ],
   imports: [
     BrowserModule,
