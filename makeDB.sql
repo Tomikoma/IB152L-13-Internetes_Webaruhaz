@@ -379,13 +379,13 @@ BEGIN
     :NEW.id := seq_users.nextval;
 END;
 /
-create or replace TRIGGER orderid_auto_increment
-BEFORE INSERT ON Orders
-FOR EACH ROW
-BEGIN
-    :NEW.id := seq_orders.nextval;
-END;
-/
+--create or replace TRIGGER orderid_auto_increment
+--BEFORE INSERT ON Orders
+--FOR EACH ROW
+--BEGIN
+--    :NEW.id := seq_orders.nextval;
+--END;
+--/
 create or replace TRIGGER billid_auto_increment
 BEFORE INSERT ON Bills
 FOR EACH ROW
