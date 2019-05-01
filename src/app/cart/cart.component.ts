@@ -3,6 +3,7 @@ import { CartService } from '../main/cart.service';
 import { Subscription } from 'rxjs';
 import { CartItem } from './cartitem.model';
 import { Product } from '../main/product.model';
+import { OrderService } from '../order.service';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +16,7 @@ export class CartComponent implements OnInit, OnDestroy {
   cartItems: CartItem[];
   products: Product[];
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, private orderService: OrderService) {
 
    }
 
@@ -30,6 +31,10 @@ export class CartComponent implements OnInit, OnDestroy {
 
   removeFromCart(productId: number) {
     this.cartService.removeFromCart(productId);
+  }
+
+  order(){
+    this.orderService.order(this.cartItems);
   }
 
   ngOnDestroy() {
