@@ -302,6 +302,7 @@ CREATE TABLE Orders(
 	User_Id int,
 	BuyingDate Date,
 	Status varchar(35),
+    totalprice int,
 	FOREIGN KEY (User_Id) REFERENCES Users(Id)
 );
 
@@ -315,16 +316,16 @@ CREATE TABLE OrderedProducts(
 );
 
 
-INSERT INTO Orders VALUES (seq_orders.nextval,6,TO_DATE('2019-04-13', 'YYYY-MM-DD'),'Fizetve');
-INSERT INTO Orders VALUES (seq_orders.nextval,7,TO_DATE('2019-04-20', 'YYYY-MM-DD'),'Szallitas alatt');
-INSERT INTO Orders VALUES (seq_orders.nextval,8,TO_DATE('2019-04-19', 'YYYY-MM-DD'),'Fizetesre var');
-INSERT INTO Orders VALUES (seq_orders.nextval,9,TO_DATE('2019-04-18', 'YYYY-MM-DD'),'Fizetesre var');
-INSERT INTO Orders VALUES (seq_orders.nextval,4,TO_DATE('2019-04-15', 'YYYY-MM-DD'),'Fizetve');
-INSERT INTO Orders VALUES (seq_orders.nextval,5,TO_DATE('2019-04-15', 'YYYY-MM-DD'),'Szallitasra alatt');
-INSERT INTO Orders VALUES (seq_orders.nextval,6,TO_DATE('2019-04-17', 'YYYY-MM-DD'),'Szallitas alatt');
-INSERT INTO Orders VALUES (seq_orders.nextval,7,TO_DATE('2019-04-11', 'YYYY-MM-DD'),'Fizetesre var');
-INSERT INTO Orders VALUES (seq_orders.nextval,8,TO_DATE('2019-04-13', 'YYYY-MM-DD'),'Fizetve');
-INSERT INTO Orders VALUES (seq_orders.nextval,2,TO_DATE('2019-04-14', 'YYYY-MM-DD'),'Fizetve');
+INSERT INTO Orders VALUES (seq_orders.nextval,6,TO_DATE('2019-04-13', 'YYYY-MM-DD'),'Fizetve',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,7,TO_DATE('2019-04-20', 'YYYY-MM-DD'),'Szallitas alatt',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,8,TO_DATE('2019-04-19', 'YYYY-MM-DD'),'Fizetesre var',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,9,TO_DATE('2019-04-18', 'YYYY-MM-DD'),'Fizetesre var',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,4,TO_DATE('2019-04-15', 'YYYY-MM-DD'),'Fizetve',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,5,TO_DATE('2019-04-15', 'YYYY-MM-DD'),'Szallitasra alatt',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,6,TO_DATE('2019-04-17', 'YYYY-MM-DD'),'Szallitas alatt',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,7,TO_DATE('2019-04-11', 'YYYY-MM-DD'),'Fizetesre var',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,8,TO_DATE('2019-04-13', 'YYYY-MM-DD'),'Fizetve',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,2,TO_DATE('2019-04-14', 'YYYY-MM-DD'),'Fizetve',500000);
 
 
 INSERT INTO OrderedProducts VALUES(1,1,1);
@@ -368,7 +369,7 @@ CREATE TABLE Cart(
   User_Id int,
   quantity int,
   FOREIGN KEY (Product_Id) REFERENCES Products(Id),
-	FOREIGN KEY (User_Id) REFERENCES Users(Id),
+    FOREIGN KEY (User_Id) REFERENCES Users(Id),
 	PRIMARY KEY (Product_Id, User_Id)
 );
 /
