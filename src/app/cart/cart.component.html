@@ -44,6 +44,6 @@
     </mat-list>
   </mat-card-content>
   <mat-card-actions align="end">
-    <button mat-raised-button color="warn" (click)="order()" *ngIf="cartItems.length> 0">Megrendelés véglegesítése</button>
+    <button mat-raised-button color="warn" (click)="order()" *ngIf="cartItems?.length> 0">Megrendelés véglegesítése</button>
   </mat-card-actions>
 </mat-card>

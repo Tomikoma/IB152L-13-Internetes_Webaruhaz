@@ -34,7 +34,15 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   order(){
-    this.orderService.order(this.cartItems);
+    let totalprice = 0;
+    this.products.forEach(product => {
+      this.cartItems.forEach(cartItem => {
+        if (product.id === cartItem.PRODUCT_ID) {
+          totalprice += product.price * cartItem.QUANTITY;
+        }
+      });
+    });
+    this.orderService.order(this.cartItems, totalprice);
   }
 
   ngOnDestroy() {
