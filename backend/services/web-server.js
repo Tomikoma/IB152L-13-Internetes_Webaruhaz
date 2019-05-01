@@ -28,9 +28,11 @@ function initialize() {
     const productsRoutes = require('./routes/products');
     const userRoutes = require('./routes/user');
     const opinionRoutes = require('./routes/opinion');
+    const orderRoutes = require('./routes/order');
     app.use("/api/products",productsRoutes);
     app.use('/api/user', userRoutes);
     app.use('/api/opinion',opinionRoutes);
+    app.use('/api/orders',orderRoutes);
 
     app.get('/api/users', async (req, res, next) => {
       const result = await database.simpleExecute('SELECT * FROM Users');
