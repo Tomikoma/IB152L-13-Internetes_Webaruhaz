@@ -7,6 +7,7 @@ const router = express.Router();
 router.post("", checkAuth, async (req,res,next) => {
   userId = req.userData.userId;
   cartItems = req.body.cartItems;
+  totalprice = req.body.totalprice;
   result = await database.simpleExecute("SELECT seq_orders.nextval FROM DUAL")
     .catch(error => {
       res.status(500).json({
@@ -15,7 +16,7 @@ router.post("", checkAuth, async (req,res,next) => {
       });
     });
   orderId = result.rows[0].NEXTVAL;
-  await database.simpleExecute("INSERT INTO Orders(ID,USER_ID, BUYINGDATE, STATUS) VALUES (" + orderId + ", " + userId + ", TO_DATE('" + (new Date().toLocaleDateString()) + "', 'YYYY-MM-DD'), 'Fizetesre var')"  )
+  await database.simpleExecute("INSERT INTO Orders(ID,USER_ID, BUYINGDATE, STATUS, totalprice) VALUES (" + orderId + ", " + userId + ", TO_DATE('" + (new Date().toLocaleDateString()) + "', 'YYYY-MM-DD'), 'Fizetesre var', " + totalprice +")"  )
     .catch( error => {
       res.status(500).json({
         message: "Belső hiba lépett fel rendelés közben",
@@ -38,7 +39,23 @@ router.post("", checkAuth, async (req,res,next) => {
   res.status(201).json({
     message:"Rendelés megtörtént"
   })
-})
+});
+
+router.get("",checkAuth, async (req,res,next) => {
+  userId = req.userData.userId;
+  result = await database.simpleExecute("SELECT * FROM Orders WHERE USER_ID = " + userId)
+    .catch(error => {
+      res.status(500).json({
+        message: "Belső hiba lépett fel rendelés közben",
+        error: error
+      });
+    });
+  orders = result.rows;
+  res.status(200).json({
+    orders: orders,
+    message: "Rendelések lekérve"
+  });
+});
 
 
 module.exports = router;
