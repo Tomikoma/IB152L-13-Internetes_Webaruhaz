@@ -1,3 +1,4 @@
 <mat-card *ngFor="let order of orders">
-  {{order.ID}}
+  Rendelési azonosító: {{order.ID}} Vásárlás dátuma: {{order.BUYINGDATE.toLocaleDateString()}}  Státusz: {{order.STATUS}} Fizetnivaló {{order.TOTALPRICE}}
+  <app-orderedproduct></app-orderedproduct>
 </mat-card>
