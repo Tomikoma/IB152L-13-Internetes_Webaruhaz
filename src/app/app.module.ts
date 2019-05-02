@@ -42,7 +42,6 @@ import { UserpageComponent } from './userpage/userpage.component';
 import { RateComponent } from './main/product/rate/rate.component';
 import { AdminpageComponent } from './adminpage/adminpage.component';
 import { OrderComponent } from './order/order.component';
-import { OrderedproductComponent } from './order/orderedproduct/orderedproduct.component';
 
 @NgModule({
   declarations: [
@@ -60,8 +59,7 @@ import { OrderedproductComponent } from './order/orderedproduct/orderedproduct.c
     UserpageComponent,
     RateComponent,
     AdminpageComponent,
-    OrderComponent,
-    OrderedproductComponent
+    OrderComponent
 ],
   imports: [
     BrowserModule,
