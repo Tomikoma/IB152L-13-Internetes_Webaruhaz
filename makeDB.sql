@@ -3,11 +3,13 @@ DROP TABLE Notebook;
 DROP TABLE Smartphone;
 DROP TABLE Rates;
 DROP TABLE Comments;
+DROP TABLE Cart;
+DROP TABLE OrderedProducts;
 DROP TABLE Bills;
 DROP TABLE Orders;
 DROP TABLE Users;
 DROP TABLE Products;
-DROP TABLE Cart;
+
 
 DROP SEQUENCE seq_users;
 DROP SEQUENCE seq_products;
@@ -37,7 +39,7 @@ CREATE TABLE Users (
 
 
 INSERT INTO Users VALUES (seq_users.nextval, 100000, 1, 'h.oliver@gmail.com', 'outdated', 'Horvath Oliver Zoltan', 203933021, 6723, 'Szeged', 'Zoldfa', '3');
-INSERT INTO Users VALUES (seq_users.nextval, 100000, 1, 'szabo.tamas@gmail.com', 'uptodate', 'Szabo Tamas', 309533716, 6723, 'Szeged', 'Malom', '13');
+INSERT INTO Users VALUES (seq_users.nextval, 100000, 1, 'szabo.tamas@gmail.com', '$2b$10$1MyPk9kTpQu.U3VZ0Q2p3uNmLtTKCKeJJAaPQRKBwm3SB/Vr2jaFq', 'Szabo Tamas', 309533716, 6723, 'Szeged', 'Malom', '13');
 INSERT INTO Users VALUES (seq_users.nextval, 100000, 1, 'lukacs.mate@gmail.com', 'pass1234', 'Lukacs Mate', 303827563, 6723, 'Szeged', 'Petofi Sandor', '126');
 INSERT INTO Users VALUES (seq_users.nextval, 2313, 0, 'balog.kinga@gmail.com', 'jelszo', 'Balog Kinga', 708423921, 5634, 'Ketegyhaza', 'Robert Karoly', '64');
 INSERT INTO Users VALUES (seq_users.nextval, 6523, 0, 'lovasz.tibor@gmail.com', 'nemtalalodki', 'Lovasz Tibor', 308592832, 5043, 'Bekescsaba', 'Nagy Lajos', '2');
@@ -298,26 +300,44 @@ CACHE 10;
 CREATE TABLE Orders(
 	Id int PRIMARY KEY,
 	User_Id int,
-	Product_Id int,
-	Quantity int DEFAULT 1,
-	ShippingDate Date,
-	Status varchar(15),
-	FOREIGN KEY (Product_Id) REFERENCES Products(Id),
+	BuyingDate Date,
+	Status varchar(35),
+    totalprice int,
 	FOREIGN KEY (User_Id) REFERENCES Users(Id)
 );
 
+CREATE TABLE OrderedProducts(
+  Order_Id int,
+  Product_Id int,
+  Quantity int DEFAULT 1,
+  FOREIGN KEY (Order_Id) REFERENCES Orders(Id),
+	FOREIGN KEY (Product_Id) REFERENCES Products(Id),
+  PRIMARY KEY (Product_Id, Order_Id)
+);
 
-INSERT INTO Orders VALUES (seq_orders.nextval,6,17,1,TO_DATE('2019-04-13', 'YYYY-MM-DD'),'Fizetve');
-INSERT INTO Orders VALUES (seq_orders.nextval,7,13,1,TO_DATE('2019-04-20', 'YYYY-MM-DD'),'Szallitas alatt');
-INSERT INTO Orders VALUES (seq_orders.nextval,8,1,1,TO_DATE('2019-04-19', 'YYYY-MM-DD'),'Fizetesre var');
-INSERT INTO Orders VALUES (seq_orders.nextval,9,2,1,TO_DATE('2019-04-18', 'YYYY-MM-DD'),'Fizetesre var');
-INSERT INTO Orders VALUES (seq_orders.nextval,4,30,1,TO_DATE('2019-04-15', 'YYYY-MM-DD'),'Fizetve');
-INSERT INTO Orders VALUES (seq_orders.nextval,5,28,1,TO_DATE('2019-04-15', 'YYYY-MM-DD'),'Szallitasra var');
-INSERT INTO Orders VALUES (seq_orders.nextval,6,30,1,TO_DATE('2019-04-17', 'YYYY-MM-DD'),'Szallitas alatt');
-INSERT INTO Orders VALUES (seq_orders.nextval,7,27,1,TO_DATE('2019-04-11', 'YYYY-MM-DD'),'Fizetesre var');
-INSERT INTO Orders VALUES (seq_orders.nextval,8,12,1,TO_DATE('2019-04-13', 'YYYY-MM-DD'),'Fizetve');
-INSERT INTO Orders VALUES (seq_orders.nextval,2,10,1,TO_DATE('2019-04-14', 'YYYY-MM-DD'),'Fizetve');
 
+INSERT INTO Orders VALUES (seq_orders.nextval,6,TO_DATE('2019-04-13', 'YYYY-MM-DD'),'Fizetve',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,7,TO_DATE('2019-04-20', 'YYYY-MM-DD'),'Szallitas alatt',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,8,TO_DATE('2019-04-19', 'YYYY-MM-DD'),'Fizetesre var',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,9,TO_DATE('2019-04-18', 'YYYY-MM-DD'),'Fizetesre var',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,4,TO_DATE('2019-04-15', 'YYYY-MM-DD'),'Fizetve',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,5,TO_DATE('2019-04-15', 'YYYY-MM-DD'),'Szallitasra alatt',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,6,TO_DATE('2019-04-17', 'YYYY-MM-DD'),'Szallitas alatt',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,7,TO_DATE('2019-04-11', 'YYYY-MM-DD'),'Fizetesre var',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,8,TO_DATE('2019-04-13', 'YYYY-MM-DD'),'Fizetve',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,2,TO_DATE('2019-04-14', 'YYYY-MM-DD'),'Fizetve',500000);
+
+
+INSERT INTO OrderedProducts VALUES(1,1,1);
+INSERT INTO OrderedProducts VALUES(2,2,1);
+INSERT INTO OrderedProducts VALUES(3,3,1);
+INSERT INTO OrderedProducts VALUES(4,4,1);
+INSERT INTO OrderedProducts VALUES(5,5,1);
+INSERT INTO OrderedProducts VALUES(6,6,1);
+INSERT INTO OrderedProducts VALUES(7,7,1);
+INSERT INTO OrderedProducts VALUES(8,8,1);
+INSERT INTO OrderedProducts VALUES(9,9,1);
+INSERT INTO OrderedProducts VALUES(10,10,1);
 
 CREATE SEQUENCE seq_bills
 MINVALUE 0
@@ -349,8 +369,28 @@ CREATE TABLE Cart(
   User_Id int,
   quantity int,
   FOREIGN KEY (Product_Id) REFERENCES Products(Id),
-	FOREIGN KEY (User_Id) REFERENCES Users(Id),
+    FOREIGN KEY (User_Id) REFERENCES Users(Id),
 	PRIMARY KEY (Product_Id, User_Id)
 );
-
-
+/
+create or replace TRIGGER userid_auto_increment
+BEFORE INSERT ON Users
+FOR EACH ROW
+BEGIN
+    :NEW.id := seq_users.nextval;
+END;
+/
+--create or replace TRIGGER orderid_auto_increment
+--BEFORE INSERT ON Orders
+--FOR EACH ROW
+--BEGIN
+--    :NEW.id := seq_orders.nextval;
+--END;
+--/
+create or replace TRIGGER billid_auto_increment
+BEFORE INSERT ON Bills
+FOR EACH ROW
+BEGIN
+    :NEW.id := seq_bills.nextval;
+END;
+/

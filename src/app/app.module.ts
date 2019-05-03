@@ -41,6 +41,7 @@ import { CommentCreateComponent } from './main/product/comment-create/comment-cr
 import { UserpageComponent } from './userpage/userpage.component';
 import { RateComponent } from './main/product/rate/rate.component';
 import { AdminpageComponent } from './adminpage/adminpage.component';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { AdminpageComponent } from './adminpage/adminpage.component';
     CommentComponent,
     UserpageComponent,
     RateComponent,
-    AdminpageComponent
+    AdminpageComponent,
+    OrderComponent
 ],
   imports: [
     BrowserModule,
