@@ -29,7 +29,6 @@
     <button mat-button routerLink="signup" routerLinkActive="mat-accent" *ngIf="!userIsAuthenticated">Regisztráció</button>
     <button mat-button routerLink="login" routerLinkActive="mat-accent" *ngIf="!userIsAuthenticated">Bejelentkezés</button>
     <button mat-button *ngIf="userIsAuthenticated" routerLink="userinfo" routerLinkActive="mat-accent">Felhasználói adatok</button>
-    <button mat-button *ngIf="userIsAuthenticated" routerLink="order" routerLinkActive="mat-accent">Rendelések</button>
     <button mat-button *ngIf="userIsAuthenticated" routerLink="cart">Kosár</button>
     <button mat-button *ngIf="userIsAuthenticated" (click)="onLogout()">Kijelentkezés</button>
   </mat-toolbar-row>
