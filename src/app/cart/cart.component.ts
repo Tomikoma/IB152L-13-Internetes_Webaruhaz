@@ -3,6 +3,7 @@ import { CartService } from '../main/cart.service';
 import { Subscription } from 'rxjs';
 import { CartItem } from './cartitem.model';
 import { Product } from '../main/product.model';
+import { OrderService } from '../order.service';
 
 @Component({
   selector: 'app-cart',
@@ -15,8 +16,8 @@ export class CartComponent implements OnInit, OnDestroy {
   cartItems: CartItem[];
   products: Product[];
 
-  constructor(private cartService: CartService) {
- 
+  constructor(private cartService: CartService, private orderService: OrderService) {
+
    }
 
   ngOnInit() {
@@ -24,14 +25,24 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartUpdateSub = this.cartService.getCartUpdateListener().subscribe(cartData => {
       this.cartItems = cartData.cartItems;
       this.products = cartData.products;
-      console.log(this.products, this.cartItems);
     });
-   
+
   }
 
   removeFromCart(productId: number) {
-
     this.cartService.removeFromCart(productId);
+  }
+
+  order(){
+    let totalprice = 0;
+    this.products.forEach(product => {
+      this.cartItems.forEach(cartItem => {
+        if (product.id === cartItem.PRODUCT_ID) {
+          totalprice += product.price * cartItem.QUANTITY;
+        }
+      });
+    });
+    this.orderService.order(this.cartItems, totalprice);
   }
 
   ngOnDestroy() {

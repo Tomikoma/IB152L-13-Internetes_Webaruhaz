@@ -44,8 +44,11 @@ export class CartService {
   }
 
   removeFromCart(productId: number) {
-    // itt kell a törlést megvalósitani
-    console.log(productId) ;
+    this.http.put('http://localhost:3000/api/products/cart/' + productId, {count: 1})
+      .subscribe(response => {
+        console.log(response);
+      });
+    window.location.reload();
   }
 
   getCartUpdateListener() {

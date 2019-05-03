@@ -1,0 +1,21 @@
+<mat-card *ngFor="let order of orders">
+  Rendelési azonosító: {{order.ID}} Vásárlás dátuma: {{order.BUYINGDATE.toLocaleDateString()}}  Státusz: {{order.STATUS}} Fizetnivaló {{order.TOTALPRICE}}
+  <mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Termékek
+    </mat-panel-title>
+    <mat-panel-description>
+      Mutasd!
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div *ngFor="let orderedProduct of orderedProducts" >
+
+    <div *ngIf="order.ID == orderedProduct.ORDER_ID">
+      <div *ngFor="let product of products">
+        <span *ngIf="product.ID == orderedProduct.PRODUCT_ID">{{product?.PRODUCTNAME}}  Mennyiség: {{orderedProduct.QUANTITY}}</span>
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel>
+</mat-card>

@@ -149,4 +149,30 @@ router.get('/cart',checkAuth, async (req, res, next) =>{
   }
 });
 
+router.put('/cart/:id',checkAuth, async (req, res, next) => {
+  userId = req.userData.userId;
+  productId = req.params.id;
+  count = req.body.count;
+  try {
+    result = await database.simpleExecute("SELECT QUANTITY FROM Cart WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId);
+    quantity = result.rows[0].QUANTITY - count;
+    if (quantity > 0) {
+      result2 = await database.simpleExecute("UPDATE Cart SET QUANTITY = " + quantity + " WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId);
+      res.status(200).json({
+        message: "Egy termék törölve lett a kosárból"
+      });
+    } else {
+      result2 = await database.simpleExecute("DELETE FROM CART WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId)
+      res.status(200).json({
+        message: "Termék törölve lett a kosárból"
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: "Valami belső hiba lépett fel a kosárból való törlés közben",
+      error: error
+    });
+  }
+});
+
 module.exports = router;
