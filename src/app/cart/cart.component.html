@@ -15,12 +15,12 @@
             <th>Összesen</th>
             <th></th>
         </tr>
-        <tr  *ngFor = "let item of products" >
+        <tr  *ngFor = "let item of products" > 
             <td><mat-list-item role="listitem">
                 <a class = "cart-link-button" [routerLink]="['/products',item.productType, item.id]">
-                 <img class = "cart-img" src="{{item.imgUrl}}" > </a>
-
-                 {{item.manufacturer}}    {{item.productName}}
+                 <img class = "cart-img" src="{{item.imgUrl}}" > </a> 
+                 
+                 {{item.manufacturer}}    {{item.productName}} 
                 </mat-list-item></td>
                 <td>{{item.price}}</td>
                 <td>
@@ -31,19 +31,19 @@
                 </div></td>
                 <div *ngFor = "let QUAN of cartItems">
                     <div *ngIf = "QUAN.PRODUCT_ID == item.id">
-
+                       
                        <td><mat-list-item role="listitem">{{ item.price * QUAN.QUANTITY}} Ft </mat-list-item></td>
                 </div>
                 </div>
                 <td>
                     <button mat-raised-button color="warn" (click) = "removeFromCart(item.id)" >Törlés</button>
                 </td>
-
+             
         </tr>
       </table>
     </mat-list>
   </mat-card-content>
   <mat-card-actions align="end">
-    <button mat-raised-button color="warn" (click)="order()" *ngIf="cartItems?.length> 0">Megrendelés véglegesítése</button>
+    <button mat-raised-button color="warn">Tovább a fizetéshez</button>
   </mat-card-actions>
 </mat-card>
