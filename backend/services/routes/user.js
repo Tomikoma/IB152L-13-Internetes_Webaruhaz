@@ -37,14 +37,14 @@ router.post("/login", async (req,res,next) => {
   const result = await database.simpleExecute("SELECT email,password,id FROM Users WHERE email= '" + req.body.email + "'");
   if(!result.rows[0]) {
     return res.status(401).json({
-      message: "A bejelentkezés nem sikerült!"
+      message: "Rossz email cím/jelszó kombináció!"
     });
   }
   bcrypt.compare(req.body.password,result.rows[0].PASSWORD)
     .then(hash => {
       if (!hash) {
         return res.status(401).json({
-          message: "A bejelentkezés nem sikerült!"
+          message: "Rossz email cím/jelszó kombináció!"
         });
       }
       const token = jwt.sign(
