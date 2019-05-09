@@ -10,6 +10,7 @@ import { Product } from './main/product.model';
 @Injectable({providedIn: 'root'})
 export class OrderService {
 
+
   orders: Order[];
   orderedProducts: OrderedProduct[];
   products: Product[]
@@ -37,6 +38,13 @@ export class OrderService {
         this.products = orderData.products;
         this.orderUpdateListener.next({orders: this.orders, orderedProducts: this.orderedProducts, products: this.products});
     });
+  }
+
+  pay(orderId: number, total: number) {
+    this.http.patch('http://localhost:3000/api/orders/' + orderId, {total})
+      .subscribe(response => {
+        console.log(response);
+      }, () => {});
   }
 
   getOrderUpdateListener() {
