@@ -62,4 +62,25 @@ router.get("",checkAuth, async (req,res,next) => {
   });
 });
 
+router.patch("/:id", checkAuth, async (req,res,next) => {
+  userId = req.userData.userId;
+  orderId = req.params.id;
+  total = req.body.total;
+  result = await database
+    .simpleExecute("SELECT balance FROM Users WHERE ID = " + userId)
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        message: "Belső hiba lépett fel rendelés közben!"
+      });
+    });
+  balance = result.rows[0].BALANCE;
+  if (balance < total) {
+    res.status(404).json({
+      message: "Az egyenlegén nincs elegendő Ft (HUF), ahhoz hogy kifizethesse ezt a rendelést!"
+    })
+  }
+
+});
+
 module.exports = router;

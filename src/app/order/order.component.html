@@ -18,4 +18,7 @@
     </div>
   </div>
 </mat-expansion-panel>
+<mat-card-actions>
+  <button mat-raised-button (click)="pay(order.ID, order.TOTALPRICE)" *ngIf="order.STATUS ==='Fizetesre var'">Fizetés</button>
+</mat-card-actions>
 </mat-card>

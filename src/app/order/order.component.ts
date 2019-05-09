@@ -29,6 +29,10 @@ export class OrderComponent implements OnInit, OnDestroy {
       });
   }
 
+  pay(orderId: number, total: number) {
+    this.orderService.pay(orderId, total);
+  }
+
   ngOnDestroy() {
     this.orderUpdateSub.unsubscribe();
   }
