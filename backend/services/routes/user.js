@@ -19,8 +19,12 @@ router.post("/signup",async (req,res,next) => {
            message: "User created",
          })
       } catch(err) {
+        let errorMessage = "A regisztáció nem sikerült!";
+        if(err.errorNum === 1){
+          errorMessage = "Ez az email cím már foglalt!"
+        }
         res.status(500).json({
-          message: 'Something went wrong!'
+          message: errorMessage
         })
       } finally {
 
@@ -33,14 +37,14 @@ router.post("/login", async (req,res,next) => {
   const result = await database.simpleExecute("SELECT email,password,id FROM Users WHERE email= '" + req.body.email + "'");
   if(!result.rows[0]) {
     return res.status(401).json({
-      message: "Auth failed"
+      message: "A bejelentkezés nem sikerült!"
     });
   }
   bcrypt.compare(req.body.password,result.rows[0].PASSWORD)
     .then(hash => {
       if (!hash) {
         return res.status(401).json({
-          message: "Auth failed"
+          message: "A bejelentkezés nem sikerült!"
         });
       }
       const token = jwt.sign(
@@ -54,7 +58,7 @@ router.post("/login", async (req,res,next) => {
     })
     .catch(err => {
       return res.status(401).json({
-        message: "Auth failed"
+        message: "A bejelentkezés nem sikerült!"
       });
     });
 });
