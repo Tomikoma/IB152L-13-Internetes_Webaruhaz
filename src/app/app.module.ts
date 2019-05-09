@@ -22,7 +22,8 @@ import {
   MatGridListModule,
   MatRadioModule,
   MatDatepickerModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatDialogModule
 } from '@angular/material/';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -42,6 +43,8 @@ import { UserpageComponent } from './userpage/userpage.component';
 import { RateComponent } from './main/product/rate/rate.component';
 import { AdminpageComponent } from './adminpage/adminpage.component';
 import { OrderComponent } from './order/order.component';
+import { ErrorInterceptor } from './error-interceptor';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,8 @@ import { OrderComponent } from './order/order.component';
     UserpageComponent,
     RateComponent,
     AdminpageComponent,
-    OrderComponent
+    OrderComponent,
+    ErrorComponent
 ],
   imports: [
     BrowserModule,
@@ -85,9 +89,13 @@ import { OrderComponent } from './order/order.component';
     MatRadioModule,
     MatDatepickerModule,
     MatSliderModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
