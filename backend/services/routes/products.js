@@ -96,39 +96,54 @@ router.post('/cart/:id', checkAuth, async (req, res, next) => {
   productId = +req.params.id;
   count = req.body.count;
   //console.log(userId,productId,count);
-  try {
-    const result = await database.simpleExecute("SELECT * FROM Cart WHERE PRODUCT_ID =" + productId + " AND USER_ID =" + userId);
-    if (!result.rows[0]) {
-      try {
-        const result2 = await database.simpleExecute("INSERT INTO Cart VALUES(" + productId + ", " + userId +", "+ count + ")");
-        res.status(200).json({
-          message:"ok"
-        });
-      } catch (error) {
-        res.status(500).json({
-          message: 'Something went wrong!'
-        });
+  resultOne = await database.simpleExecute("SELECT QUANTITY FROM Products WHERE ID = " + productId)
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        message: "Belső hiba történt!"
+      })
+    });
+  if(resultOne.rows[0].QUANTITY < 1 ) {
+    res.status(404).json({
+      message: "Ebből a termékből jelenleg nincsen raktáron!"
+    });
+  }
+  else {
+    try {
+      const result = await database.simpleExecute("SELECT * FROM Cart WHERE PRODUCT_ID =" + productId + " AND USER_ID =" + userId);
+      await database.simpleExecute("UPDATE Products SET QUANTITY = QUANTITY-1 WHERE ID = " + productId);
+      if (!result.rows[0]) {
+        try {
+          const result2 = await database.simpleExecute("INSERT INTO Cart VALUES(" + productId + ", " + userId +", "+ count + ")");
+          res.status(200).json({
+            message:"ok"
+          });
+        } catch (error) {
+          res.status(500).json({
+            message: 'Belső hiba történt!'
+          });
+        }
+      } else {
+        try {
+          count = result.rows[0].QUANTITY + count;
+          const result2 = await database
+            .simpleExecute("UPDATE Cart SET QUANTITY = " + count + " WHERE PRODUCT_ID = " + productId + " AND USER_ID = " + userId );
+          res.status(200).json({
+            message:"ok"
+          });
+        } catch (error) {
+          res.status(500).json({
+            message: 'Something went wrong!'
+          });
+        }
       }
-    } else {
-      try {
-        count = result.rows[0].QUANTITY + count;
-        const result2 = await database
-          .simpleExecute("UPDATE Cart SET QUANTITY = " + count + " WHERE PRODUCT_ID = " + productId + " AND USER_ID = " + userId );
-        res.status(200).json({
-          message:"ok"
-        });
-      } catch (error) {
-        res.status(500).json({
-          message: 'Something went wrong!'
-        });
-      }
-    }
 
-  } catch(error) {
-    console.log(error);
-    res.status(500).json({
-      message: "Something went wrong!"
-    })
+    } catch(error) {
+      console.log(error);
+      res.status(500).json({
+        message: "Something went wrong!"
+      })
+    }
   }
 });
 
@@ -158,11 +173,13 @@ router.put('/cart/:id',checkAuth, async (req, res, next) => {
     quantity = result.rows[0].QUANTITY - count;
     if (quantity > 0) {
       result2 = await database.simpleExecute("UPDATE Cart SET QUANTITY = " + quantity + " WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId);
+      await database.simpleExecute("UPDATE Products SET QUANTITY = QUANTITY + 1 WHERE ID = " + productId);
       res.status(200).json({
         message: "Egy termék törölve lett a kosárból"
       });
     } else {
-      result2 = await database.simpleExecute("DELETE FROM CART WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId)
+      result2 = await database.simpleExecute("DELETE FROM CART WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId);
+      await database.simpleExecute("UPDATE Products SET QUANTITY = QUANTITY + 1 WHERE ID = " + productId);
       res.status(200).json({
         message: "Termék törölve lett a kosárból"
       });
