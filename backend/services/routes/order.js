@@ -79,6 +79,25 @@ router.patch("/:id", checkAuth, async (req,res,next) => {
     res.status(404).json({
       message: "Az egyenlegén nincs elegendő Ft (HUF), ahhoz hogy kifizethesse ezt a rendelést!"
     })
+  } else {
+    await database.simpleExecute("UPDATE Orders SET STATUS = 'Fizetve' WHERE ID = " + orderId )
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          message: "Belső hiba lépett fel rendelés fizetése közben!"
+        });
+      });
+
+    await database.simpleExecute("UPDATE Users SET BALANCE = BALANCE-" + total + " WHERE ID = " + userId).catch(error => {
+      console.log(error);
+      res.status(500).json({
+        message: "Belső hiba lépett fel rendelés fizetése közben!"
+      });
+    });
+
+    res.status(200).json({
+      message: "Rendelés kifizetve!"
+    });
   }
 
 });
