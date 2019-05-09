@@ -18,6 +18,7 @@ export class CartService {
     this.http.post('http://localhost:3000/api/products/cart/' + productId, {count: 1})
       .subscribe(response => {
         console.log(response);
+        window.location.reload();
       });
   }
 
