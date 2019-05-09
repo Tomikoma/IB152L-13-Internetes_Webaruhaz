@@ -27,11 +27,11 @@
       <mat-card-actions>
         <p>Ár: {{product.price}} Ft</p>
         <a mat-raised-button [routerLink]="['/products',product.productType, product.id]">Tovább az adatlapra</a>
-        <button mat-raised-button *ngIf="isUserAuthenticated" matTooltip="Jelenleg raktáron: {{product.quantity}}" matTooltipPosition="above"
+        <button mat-raised-button *ngIf="(isUserAuthenticated && product.quantity > 0)" matTooltip="Jelenleg raktáron: {{product.quantity}}" matTooltipPosition="above"
           (click)="addToCart(product.id)">
           Kosárba
         </button>
-        <button mat-raised-button *ngIf="!isUserAuthenticated" disabled>Kosárba</button>
+        <button mat-raised-button *ngIf="(!isUserAuthenticated || product.quantity === 0)" disabled>Kosárba</button>
       </mat-card-actions>
     </mat-card>
   </mat-grid-tile>
