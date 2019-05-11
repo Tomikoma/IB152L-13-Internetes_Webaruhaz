@@ -1,8 +1,11 @@
+<div class="titleContainer">
+  <h1 class="title">Bevásárló kosarad</h1>
+</div>
 <mat-card class="cart-card">
   <mat-card-header>
     <div mat-card-avatar class="cart-header-image"></div>
     <mat-card-title>Kosár</mat-card-title>
-    <mat-card-subtitle>Üres</mat-card-subtitle>
+    <mat-card-subtitle>{{cartItems.length > 0 ? cartItems.length + ' darab árú van a kosárban' : 'A kosár tartalma üres'}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <mat-list role="list">
@@ -15,7 +18,7 @@
             <th>Összesen</th>
             <th></th>
         </tr>
-        <tr  *ngFor = "let item of products" >
+        <tr  *ngFor = "let item of products">
             <td><mat-list-item role="listitem">
                 <a class = "cart-link-button" [routerLink]="['/products',item.productType, item.id]">
                  <img class = "cart-img" src="{{item.imgUrl}}" > </a>

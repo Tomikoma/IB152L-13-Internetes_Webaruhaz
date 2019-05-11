@@ -16,7 +16,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   orderedProducts: OrderedProduct[];
   products: Product[]
   orderUpdateSub: Subscription;
-
+  itemsNumberInCart = 0;
   constructor(private orderService: OrderService) { }
 
   ngOnInit() {

@@ -33,7 +33,7 @@ router.post('/comments/:id', checkAuth, async (req, res, next) => {
     });
   } catch (error) {
     res.status(500).json({
-      message: 'Something went wrong!'
+      message: 'Csak egy alkalommal lehet hozzászólni!'
     });
   }
 });

@@ -1,0 +1,14 @@
+.order-card {
+  max-width: 400px;
+  margin: auto;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+
+.payOrderContainer  {
+  display: flex;
+  justify-content: flex-end;
+}
+

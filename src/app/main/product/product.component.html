@@ -1,3 +1,10 @@
+<div class="titleContainer">
+  <h1 class="title">
+    <span *ngIf="tv">{{tv.MANUFACTURER + ' '}}{{tv?.PRODUCTNAME}}</span>
+    <span *ngIf="notebook">{{notebook?.MANUFACTURER}}{{notebook?.PRODUCTNAME}}</span>
+    <span *ngIf="smartphone">{{smartphone?.MANUFACTURER }}{{smartphone?.PRODUCTNAME}}</span>
+  </h1>
+</div>
 <div *ngIf="productType === 'tv' " class="productCard">
   <mat-card >
     <mat-card-header>
@@ -49,7 +56,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button mat-button color="warn" (click)="compare(selectedId)">Hasonlít</button>
+      <button mat-button color="warn" (click)="compare(selectedId)">Összehasonlítás</button>
     </mat-action-row>
   </mat-expansion-panel>
 </div>

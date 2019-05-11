@@ -38,7 +38,7 @@ export class CompareComponent implements OnInit, OnDestroy {
     this.productService.getProductsToCompare(this.productType, this.firstProductId, this.secondProductId);
     this.productsSub = this.productService.getTwoProductUpdateListener()
       .subscribe(products => {
-        //console.log(products);
+        // console.log(products);
         products.firstProduct.RELEASEDATE = new Date(products.firstProduct.RELEASEDATE);
         products.secondProduct.RELEASEDATE = new Date(products.secondProduct.RELEASEDATE);
         if (this.productType === 'tv') {

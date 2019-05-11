@@ -28,7 +28,6 @@ export class MainComponent implements OnInit, OnDestroy {
     new Advert('4 héten át tartó sima bőr', '../../assets/img/advert5.bmp')
   ];
   private productsSub: Subscription;
-  imgWidth = 100;
   breakpoint = 2;
   isUserAuthenticated = false;
   private authStatusSub: Subscription;

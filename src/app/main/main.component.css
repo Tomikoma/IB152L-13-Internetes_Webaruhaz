@@ -5,6 +5,7 @@ mat-card {
 }
 
 .product-image {
+  padding-top: 3%;
   width: 50%;
   margin: auto;
 }
