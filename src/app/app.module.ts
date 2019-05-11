@@ -45,6 +45,7 @@ import { AdminpageComponent } from './adminpage/adminpage.component';
 import { OrderComponent } from './order/order.component';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
+import { UploadmoneyComponent } from './uploadmoney/uploadmoney.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ErrorComponent } from './error/error.component';
     RateComponent,
     AdminpageComponent,
     OrderComponent,
-    ErrorComponent
+    ErrorComponent,
+    UploadmoneyComponent
 ],
   imports: [
     BrowserModule,

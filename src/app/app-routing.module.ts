@@ -10,6 +10,7 @@ import { UserpageComponent } from './userpage/userpage.component';
 import {CartComponent} from './cart/cart.component';
 import {AdminpageComponent} from './adminpage/adminpage.component';
 import { OrderComponent } from './order/order.component';
+import {UploadmoneyComponent} from './uploadmoney/uploadmoney.component';
 
 const routes: Routes = [
   {path: '', component: MainComponent},
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path: 'userinfo', component: UserpageComponent, canActivate: [AuthGuard]},
   {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
   {path: 'adminpage', component: AdminpageComponent,  canActivate: [AuthGuard]},
-  {path: 'order', component: OrderComponent, canActivate: [AuthGuard]}
+  {path: 'order', component: OrderComponent, canActivate: [AuthGuard]},
+  {path: 'uploadmoney', component: UploadmoneyComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
