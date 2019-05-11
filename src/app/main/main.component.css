@@ -19,4 +19,16 @@ mat-spinner {
   margin: auto;
 }
 
+.mat-tab-group {
+  background-color: black;
+}
 
+.mat-tab-label  {
+  color: white;
+}
+
+/* Styles for the active tab label */
+.mat-tab-label.mat-tab-label-active {
+  color: red;
+  font-weight: 700;
+}

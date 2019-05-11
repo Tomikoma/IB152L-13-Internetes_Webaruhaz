@@ -6,3 +6,12 @@
   justify-content: center;
   display: flex;
 }
+
+mat-toolbar {
+  border-color: black;
+  border-width: thick;
+  border-top: solid 10px black;
+  border-left: solid 10px black;
+  border-right: solid 10px black;
+  color: black;
+}

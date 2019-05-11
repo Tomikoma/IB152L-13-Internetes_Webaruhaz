@@ -1,16 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Product } from './product.model';
-import { Subscription } from 'rxjs';
-import { ProductService } from './product.service';
-import { PageEvent } from '@angular/material';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Product} from './product.model';
+import {Subscription} from 'rxjs';
+import {ProductService} from './product.service';
+import {PageEvent} from '@angular/material';
 import {Advert} from './product/advert.model';
-import { AuthService } from '../auth/auth.service';
-import { CartService } from './cart.service';
+import {AuthService} from '../auth/auth.service';
+import {CartService} from './cart.service';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  styleUrls: ['./main.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MainComponent implements OnInit, OnDestroy {
 
