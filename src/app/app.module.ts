@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -23,7 +23,7 @@ import {
   MatRadioModule,
   MatDatepickerModule,
   MatTooltipModule,
-  MatDialogModule
+  MatDialogModule, MatStepperModule
 } from '@angular/material/';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -66,7 +66,7 @@ import { UploadmoneyComponent } from './uploadmoney/uploadmoney.component';
     OrderComponent,
     ErrorComponent,
     UploadmoneyComponent
-],
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -92,7 +92,9 @@ import { UploadmoneyComponent } from './uploadmoney/uploadmoney.component';
     MatDatepickerModule,
     MatSliderModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatStepperModule,
+    ReactiveFormsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

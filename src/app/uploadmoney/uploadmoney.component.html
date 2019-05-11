@@ -1,3 +1,108 @@
 <div class="titleContainer">
   <h1 class="title">Virtuális pénztárca feltöltése online tranzakcióval</h1>
 </div>
+
+
+<mat-horizontal-stepper>
+  <mat-step label="Kártya típusa" >
+    <div class="centerMainMoneyContainer">
+    <mat-form-field>
+      <mat-label>Kártya típusa</mat-label>
+      <mat-select [(value)]="selected">
+        <mat-option>Válassz</mat-option>
+        <mat-option value="Master Card">Master Card</mat-option>
+        <mat-option value="VISA">VISA</mat-option>
+        <mat-option value="Maestro">Maestro</mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+    <div class="centerMainMoneyContainer">
+    <p>Választott: {{selected}}</p>
+    </div>
+    <div class="centerMainMoneyContainer">
+      <button mat-raised-button color="accent" matStepperNext>Tovább</button>
+    </div>
+  </mat-step>
+
+  <mat-step label="Kártya adatai" >
+    <div class="centerMainMoneyContainer">
+      <div class="moneyContainerBackground">
+        <div class="moneyContainerForeground">
+          <table>
+            <tr>
+              <td>Kártyaszám: </td>
+              <td><input class="cardNumber" type="text"></td>
+            </tr>
+            <tr>
+              <td>Kártyára írt név: </td>
+              <td><input class="cardName" type="text"></td>
+            </tr>
+            <tr>
+              <td>Lejárati dátum: <br>(hh/éé) </td>
+              <td><input class="cardDate" type="text"> <input class="cardDate" type="text"></td>
+
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="moneyContainerBackground">
+        <div class="magnetLine"></div>
+        <div class="moneyContainerForeground2">
+          <table>
+            <tr>
+              <td>Érvényesítési kód(CVC2/CVV2) </td>
+              <td><input class="CVnumber" type="text"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="centerMainMoneyContainer">
+    <p>Figyelem! Ne adjon meg valós adatokat. Azok úgyis csak a képzelet szüleményei.</p>
+    </div>
+    <div class="centerMainMoneyContainer">
+      <button mat-raised-button color="accent" matStepperPrevious>Vissza</button>
+      <button mat-raised-button color="accent" matStepperNext>Tovább</button>
+    </div>
+  </mat-step>
+
+  <mat-step label="Bank kiválasztása">
+    <div class="centerMainMoneyContainer">
+      <mat-form-field>
+        <mat-label>Kérem válassza ki a bankját</mat-label>
+        <mat-select [(value)]="selected2">
+          <mat-option>Bankfiók</mat-option>
+          <mat-option value="OTP">OTP</mat-option>
+          <mat-option value="ERSTE">ERSTE</mat-option>
+          <mat-option value="Raiffaisen">Raiffaisen</mat-option>
+          <mat-option value="K&H">K&H</mat-option>
+          <mat-option value="Postabank">Postabank</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="centerMainMoneyContainer">
+      <p>Választott: {{selected2}}</p>
+    </div>
+    <div class="centerMainMoneyContainer">
+      <button mat-raised-button color="accent" matStepperPrevious>Vissza</button>
+      <button mat-raised-button color="accent" matStepperNext>Tovább</button>
+    </div>
+  </mat-step>
+
+  <mat-step label="Feltölteni kívánt egyenleg">
+    <p class="centerMainMoneyContainer">Kérlek írd be a virtuális pénztárcádba feltölteni kívánt összeget!</p>
+    <div class="centerMainMoneyContainer">
+      <input type="number">
+    </div>
+    <div class="centerMainMoneyContainer">
+      <button mat-raised-button color="accent" matStepperPrevious>Vissza</button>
+      <button mat-raised-button color="accent" matStepperNext>Tovább</button>
+    </div>
+  </mat-step>
+
+  <mat-step label="Jóváhagyás">
+    <div class="centerMainMoneyContainer">
+    <button mat-raised-button color="accent" routerLink="" (click)="addMoneyToAccount()"> Jóváhagyás</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
