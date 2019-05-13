@@ -6,6 +6,7 @@ import {PageEvent} from '@angular/material';
 import {Advert} from './product/advert.model';
 import {AuthService} from '../auth/auth.service';
 import {CartService} from './cart.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -16,6 +17,7 @@ import {CartService} from './cart.service';
 export class MainComponent implements OnInit, OnDestroy {
 
   products: Product[];
+  type: string;
   isLoading = false;
   totalProducts = 0;
   productsPerPage = 8;
@@ -33,13 +35,20 @@ export class MainComponent implements OnInit, OnDestroy {
   isUserAuthenticated = false;
   private authStatusSub: Subscription;
 
-  constructor(private productService: ProductService, private authService: AuthService, private cartService: CartService) {
-
+  constructor(
+    private productService: ProductService,
+    private authService: AuthService,
+    private cartService: CartService,
+    private route: ActivatedRoute,
+    private router: Router) {
+    this.route.params.subscribe( params => {
+      this.type = params.type;
+    });
   }
 
   ngOnInit() {
     this.isLoading = true;
-    this.productService.getProducts(this.productsPerPage, this.currentPage);
+    this.productService.getProducts(this.productsPerPage, this.currentPage, this.type);
     this.productsSub = this.productService.getProductUpdateListener()
     .subscribe(productsData => {
       this.isLoading = false;
@@ -62,7 +71,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.currentPage = pageData.pageIndex + 1;
     this.productsPerPage = pageData.pageSize;
-    this.productService.getProducts(this.productsPerPage, this.currentPage);
+    this.productService.getProducts(this.productsPerPage, this.currentPage, this.type);
   }
 
   onResizeColumns(event) {
@@ -75,6 +84,7 @@ export class MainComponent implements OnInit, OnDestroy {
       this.breakpoint = 3;
     }
   }
+
 
   ngOnDestroy() {
     this.productsSub.unsubscribe();

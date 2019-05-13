@@ -14,9 +14,9 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts(productsPerPage: number, currentPage: number) {
+  getProducts(productsPerPage: number, currentPage: number, type: string) {
     const queryParams = `?pagesize=${productsPerPage}&page=${currentPage}`;
-    this.http.get<{message: string, products: any, count: number}>('http://localhost:3000/api/products' + queryParams)
+    this.http.get<{message: string, products: any, count: number}>('http://localhost:3000/api/products/' + type  + queryParams, )
       .pipe(map(productData => {
         return { transformedProducts: productData.products.map( product => {
           return {
