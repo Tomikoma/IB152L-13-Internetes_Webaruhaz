@@ -72,9 +72,24 @@ router.post("/login", async (req,res,next) => {
       })
     } catch (error) {
       res.status(500).json({
-        message: "Something went wrong!"
+        message: "Belső hiba lépett fel!"
       })
     }
   })
+
+  router.post("/balance",checkAuth, async (req,res, next) =>{
+    userId = req.userData.userId;
+    amount = req.body.amount;
+    await database.simpleExecute("UPDATE Users SET BALANCE=BALANCE + " + amount + " WHERE ID=" + userId)
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          message: "Belső hiba lépett fel!"
+        })
+      });
+    res.status(200).json({
+      message: "Egyenleg feltöltve!"
+    });
+  });
 
 module.exports = router;

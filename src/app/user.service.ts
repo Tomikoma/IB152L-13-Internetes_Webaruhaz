@@ -30,6 +30,13 @@ export class UserService {
       });
   }
 
+  setBalance(amount: number) {
+    this.http.post('http://localhost:3000/api/user/balance', {amount})
+      .subscribe(response => {
+        console.log(response);
+      });
+  }
+
   getUsersUpdateListener() {
     return this.usersUpdated.asObservable();
   }

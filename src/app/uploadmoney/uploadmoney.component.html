@@ -92,7 +92,7 @@
   <mat-step label="Feltölteni kívánt egyenleg">
     <p class="centerMainMoneyContainer">Kérlek írd be a virtuális pénztárcádba feltölteni kívánt összeget!</p>
     <div class="centerMainMoneyContainer">
-      <input type="number">
+      <input type="number" [(ngModel)]="value">
     </div>
     <div class="centerMainMoneyContainer">
       <button mat-raised-button color="accent" matStepperPrevious>Vissza</button>
@@ -102,7 +102,7 @@
 
   <mat-step label="Jóváhagyás">
     <div class="centerMainMoneyContainer">
-    <button mat-raised-button color="accent" routerLink="" (click)="addMoneyToAccount()"> Jóváhagyás</button>
+    <button mat-raised-button color="accent" routerLink="" (click)="addMoneyToAccount(value)"> Jóváhagyás</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>

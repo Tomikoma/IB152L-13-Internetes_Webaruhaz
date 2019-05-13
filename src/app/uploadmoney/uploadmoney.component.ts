@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { UserService } from '../user.service';
 
 
 
@@ -17,7 +18,7 @@ export class UploadmoneyComponent implements OnInit {
   secondFormGroup: FormGroup;
   selected: any;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private userService: UserService) {}
 
   ngOnInit() {
     this.firstFormGroup = this.formBuilder.group({
@@ -28,7 +29,10 @@ export class UploadmoneyComponent implements OnInit {
     });
   }
 
-  addMoneyToAccount() {
-    return;
+  addMoneyToAccount(amount: number) {
+    if (!amount) {
+      return;
+    }
+    this.userService.setBalance(amount);
   }
 }
