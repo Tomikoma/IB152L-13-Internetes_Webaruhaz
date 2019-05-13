@@ -4,7 +4,7 @@ const database = require('../database');
 const router = express.Router();
 const checkAuth = require("../../middleware/check-auth");
 
-router.get("/:type", async (req, res, next) => {
+router.get("/pr/:type", async (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
   const min = 1 + (currentPage-1)*pageSize;
