@@ -87,6 +87,13 @@ router.patch("/:id", checkAuth, async (req,res,next) => {
           message: "Belső hiba lépett fel rendelés fizetése közben!"
         });
       });
+      await database.simpleExecute("UPDATE Orders SET PAYDATE = SYSDATE WHERE ID = " + orderId )
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          message: "Belső hiba lépett fel rendelés fizetése közben!"
+        });
+      });
 
     await database.simpleExecute("UPDATE Users SET BALANCE = BALANCE-" + total + " WHERE ID = " + userId).catch(error => {
       console.log(error);
@@ -100,6 +107,50 @@ router.patch("/:id", checkAuth, async (req,res,next) => {
     });
   }
 
+});
+
+router.get("/deliver",checkAuth, async (req,res,next) => {
+  authLevel=req.userData.authLevel;
+  if(authLevel!=1){
+    res.status(401).json({
+      message: "Csak adminok kérhetik le a kiszállítandó rendeléseket!"
+    });
+  } else {
+    result = await database.simpleExecute("SELECT Orders.*,Users.City FROM Orders,Users WHERE STATUS LIKE 'Fizetve' AND Orders.USER_ID = Users.ID")
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          message: "Belső hiba lépett fel a rendelések lekérdezése közben!"
+        });
+      });
+    res.status(200).json({
+      orders: result.rows,
+      message: "Rendelések lekérdezve"
+    });
+
+  }
+});
+
+router.post("/deliver", checkAuth, async (req,res,next) => {
+  authLevel=req.userData.authLevel;
+  city = req.body.city;
+  if(authLevel!=1){
+    res.status(401).json({
+      message: "Csak adminok indíthatják el a szállítást!"
+    });
+  } else {
+    await database.simpleExecute("UPDATE Orders SET STATUS ='Szallitas alatt' WHERE ID IN (SELECT Orders.ID FROM Orders,Users WHERE CITY LIKE '"+ city +"' AND Orders.USER_ID = Users.ID AND STATUS LIKE 'Fizetve')")
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          message: "Belső hiba lépett fel a rendelések lekérdezése közben!"
+        });
+      });
+
+    res.status(200).json({
+      message: "Termékek kiszállítása megkezdődött!"
+    });
+  }
 });
 
 module.exports = router;

@@ -6,15 +6,19 @@ import { Router } from '@angular/router';
 import { Order } from './order/order.model';
 import { OrderedProduct } from './order/orderedproduct.model';
 import { Product } from './main/product.model';
+import { OrderToBeDelivered } from './adminpage/ordertobedelivered.model';
 
 @Injectable({providedIn: 'root'})
 export class OrderService {
 
 
   orders: Order[];
+  cities: string[];
   orderedProducts: OrderedProduct[];
-  products: Product[]
-  private orderUpdateListener = new Subject<{orders: Order[],orderedProducts: OrderedProduct[], products: Product[]}>();
+  products: Product[];
+  ordersToBeDelivered: OrderToBeDelivered[];
+  private orderUpdateListener = new Subject<{orders: Order[], orderedProducts: OrderedProduct[], products: Product[]}>();
+  private ordersForDeliveryUpdateListener = new Subject<{orders: OrderToBeDelivered[], cities: any[]}>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -45,6 +49,32 @@ export class OrderService {
       .subscribe(response => {
         console.log(response);
       }, () => {});
+    window.location.reload();
+  }
+
+  deliver(city: string) {
+    this.http.post('http://localhost:3000/api/orders/deliver', {city})
+      .subscribe(response => {
+        console.log(response);
+      }, () => {});
+    window.location.reload();
+  }
+
+  getOrdersForDelivery() {
+    this.http.get<{orders: OrderToBeDelivered[], cities: any[]}>('http://localhost:3000/api/orders/deliver')
+      .subscribe(orderData => {
+        orderData.orders.forEach(order => {
+          order.BUYINGDATE = new Date(order.BUYINGDATE);
+          order.PAYDATE = new Date(order.PAYDATE);
+        });
+        this.ordersToBeDelivered = orderData.orders;
+        this.cities = orderData.cities;
+        this.ordersForDeliveryUpdateListener.next({orders: this.ordersToBeDelivered , cities: this.cities});
+      });
+  }
+
+  getOrdersForDeliveryUpdateListener() {
+    return this.ordersForDeliveryUpdateListener.asObservable();
   }
 
   getOrderUpdateListener() {

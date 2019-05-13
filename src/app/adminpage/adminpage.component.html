@@ -1,3 +1,21 @@
+<mat-expansion-panel *ngFor="let city of cities">
+  <mat-expansion-panel-header>
+    {{city}}
+  </mat-expansion-panel-header>
+  <div *ngFor="let order of orders">
+    <span *ngIf="order.CITY === city">
+      Rendelési azonosító:{{order?.ID}} <br>
+      Rendelve: {{getDifferenceInDays(order?.PAYDATE)}} napja <span *ngIf="getDifferenceInDays(order?.PAYDATE) > 5" style="color:red"> (Több mint 5 napja fizettek!)</span>
+    </span>
+  </div>
+  <mat-action-row>
+    <button mat-raised-button color="warn" (click)="deliverOrders(city)">Szállítás</button>
+  </mat-action-row>
+</mat-expansion-panel>
+
+
+
+<!--
 <div class="titleContainer">
   <h1 class="title">Admin fiók</h1>
 </div>
@@ -56,3 +74,4 @@
     </div>
   </div>
 </div>
+-->
