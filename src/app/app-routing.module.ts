@@ -12,8 +12,10 @@ import {AdminpageComponent} from './adminpage/adminpage.component';
 import { OrderComponent } from './order/order.component';
 import {UploadmoneyComponent} from './uploadmoney/uploadmoney.component';
 import { RefreshComponent } from './refresh/refresh.component';
+import { NewproductsComponent } from './newproducts/newproducts.component';
 
 const routes: Routes = [
+  {path: '', component: NewproductsComponent},
   {path: 'products/:type', component: MainComponent},
   {path: 'products/:type/:id', component: ProductComponent},
   {path: 'products/:type/:id1/compare/:id2', component: CompareComponent},
