@@ -46,6 +46,7 @@ import { OrderComponent } from './order/order.component';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 import { UploadmoneyComponent } from './uploadmoney/uploadmoney.component';
+import { RefreshComponent } from './refresh/refresh.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { UploadmoneyComponent } from './uploadmoney/uploadmoney.component';
     AdminpageComponent,
     OrderComponent,
     ErrorComponent,
-    UploadmoneyComponent
+    UploadmoneyComponent,
+    RefreshComponent
   ],
   imports: [
     BrowserModule,
