@@ -205,4 +205,34 @@ router.put('/cart/:id',checkAuth, async (req, res, next) => {
   }
 });
 
+router.get('', async (req,res,next) => {
+  result1 = await database.simpleExecute("SELECT * FROM Products WHERE PRODUCTTYPE = 'tv' AND ROWNUM < 6 ORDER BY RELEASEDATE DESC")
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        message: "Belső hiba lépett fel a termékek lekérdezése közben"
+      });
+    });
+    result2 = await database.simpleExecute("SELECT * FROM Products WHERE PRODUCTTYPE = 'notebook' AND ROWNUM < 6 ORDER BY RELEASEDATE DESC")
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        message: "Belső hiba lépett fel a termékek lekérdezése közben"
+      });
+    });
+    result3 = await database.simpleExecute("SELECT * FROM Products WHERE PRODUCTTYPE = 'phone' AND ROWNUM < 6 ORDER BY RELEASEDATE DESC")
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        message: "Belső hiba lépett fel a termékek lekérdezése közben"
+      });
+    });
+    res.status(200).json({
+      tvs: result1.rows,
+      notebooks: result2.rows,
+      smartphones: result3.rows
+    });
+
+});
+
 module.exports = router;
