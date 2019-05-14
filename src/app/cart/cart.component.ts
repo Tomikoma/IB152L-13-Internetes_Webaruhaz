@@ -12,9 +12,10 @@ import { OrderService } from '../order.service';
 })
 export class CartComponent implements OnInit, OnDestroy {
 
-  private cartUpdateSub:Subscription;
+  private cartUpdateSub: Subscription;
   cartItems: CartItem[];
   products: Product[];
+  recommendedProducts: Product[];
 
   constructor(private cartService: CartService, private orderService: OrderService) {
 
@@ -25,15 +26,17 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartUpdateSub = this.cartService.getCartUpdateListener().subscribe(cartData => {
       this.cartItems = cartData.cartItems;
       this.products = cartData.products;
+      this.recommendedProducts = cartData.recommendedProducts;
+      console.log(this.recommendedProducts);
     });
 
   }
 
-  removeFromCart(productId: number) {
-    this.cartService.removeFromCart(productId);
+  removeFromCart(productId: number, type: string) {
+    this.cartService.removeFromCart(productId, type);
   }
 
-  order(){
+  order() {
     let totalprice = 0;
     this.products.forEach(product => {
       this.cartItems.forEach(cartItem => {

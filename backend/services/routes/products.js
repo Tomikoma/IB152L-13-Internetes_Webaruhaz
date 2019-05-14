@@ -107,9 +107,10 @@ router.get("/:type/:id1/compare/:id2", async (req, res, next) => {
   }
 });
 
-router.post('/cart/:id', checkAuth, async (req, res, next) => {
+router.post('/cart/:type/:id', checkAuth, async (req, res, next) => {
   userId=req.userData.userId;
   productId = +req.params.id;
+  type = req.params.type;
   count = req.body.count;
   //console.log(userId,productId,count);
   resultOne = await database.simpleExecute("SELECT QUANTITY FROM Products WHERE ID = " + productId)
@@ -126,8 +127,12 @@ router.post('/cart/:id', checkAuth, async (req, res, next) => {
   }
   else {
     try {
+      if (type === "phone") {
+        type="smartphone"
+      }
       const result = await database.simpleExecute("SELECT * FROM Cart WHERE PRODUCT_ID =" + productId + " AND USER_ID =" + userId);
       await database.simpleExecute("UPDATE Products SET QUANTITY = QUANTITY-1 WHERE ID = " + productId);
+      await database.simpleExecute("UPDATE " + type + " SET QUANTITY = QUANTITY-1 WHERE ID = " + productId);
       if (!result.rows[0]) {
         try {
           const result2 = await database.simpleExecute("INSERT INTO Cart VALUES(" + productId + ", " + userId +", "+ count + ")");
@@ -168,9 +173,13 @@ router.get('/cart',checkAuth, async (req, res, next) =>{
   try {
     result = await database.simpleExecute("SELECT * FROM Cart WHERE USER_ID = " + userId);
     result2 = await database.simpleExecute("SELECT * FROM Products WHERE ID IN (SELECT PRODUCT_ID FROM Cart WHERE USER_ID = " + userId + " )");
+    result3 = await database
+      .simpleExecute("SELECT * FROM Products WHERE id IN"
+      + "(SELECT product_id FROM OrderedProducts WHERE Order_id IN (SELECT Order_id FROM OrderedProducts WHERE Product_id in (SELECT product_id FROM Cart))) AND id NOT IN (SELECT product_id FROM Cart)")
     res.status(200).json({
       products: result2.rows,
-      cartItems: result.rows
+      cartItems: result.rows,
+      recommendedProducts: result3.rows
     });
   } catch (error) {
     console.log(error);
@@ -180,22 +189,28 @@ router.get('/cart',checkAuth, async (req, res, next) =>{
   }
 });
 
-router.put('/cart/:id',checkAuth, async (req, res, next) => {
+router.put('/cart/:type/:id',checkAuth, async (req, res, next) => {
   userId = req.userData.userId;
   productId = req.params.id;
   count = req.body.count;
+  type = req.params.type;
+  if (type === "phone"){
+    type="smartphone";
+  }
   try {
     result = await database.simpleExecute("SELECT QUANTITY FROM Cart WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId);
     quantity = result.rows[0].QUANTITY - count;
     if (quantity > 0) {
       result2 = await database.simpleExecute("UPDATE Cart SET QUANTITY = " + quantity + " WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId);
       await database.simpleExecute("UPDATE Products SET QUANTITY = QUANTITY + 1 WHERE ID = " + productId);
+      await database.simpleExecute("UPDATE "+ type +" SET QUANTITY = QUANTITY + 1 WHERE ID = " + productId);
       res.status(200).json({
         message: "Egy termék törölve lett a kosárból"
       });
     } else {
       result2 = await database.simpleExecute("DELETE FROM CART WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId);
       await database.simpleExecute("UPDATE Products SET QUANTITY = QUANTITY + 1 WHERE ID = " + productId);
+      await database.simpleExecute("UPDATE "+ type +" SET QUANTITY = QUANTITY + 1 WHERE ID = " + productId);
       res.status(200).json({
         message: "Termék törölve lett a kosárból"
       });

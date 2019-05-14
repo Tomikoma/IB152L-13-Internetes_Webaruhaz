@@ -8,14 +8,15 @@ import { CartItem } from '../cart/cartitem.model';
 export class CartService {
 
   products: Product[];
+  recommendedProducts: Product[];
   cartItems: CartItem[];
 
-  private cartUpdatedListener = new Subject<{products: Product[], cartItems: CartItem[]}>();
+  private cartUpdatedListener = new Subject<{products: Product[], cartItems: CartItem[], recommendedProducts: Product[]}>();
 
   constructor(private http: HttpClient) {}
 
-  addToCart(productId: number) {
-    this.http.post('http://localhost:3000/api/products/cart/' + productId, {count: 1})
+  addToCart(productId: number, type: string) {
+    this.http.post('http://localhost:3000/api/products/cart/' + type + '/' + productId, {count: 1})
       .subscribe(response => {
         console.log(response);
         window.location.reload();
@@ -23,7 +24,7 @@ export class CartService {
   }
 
   getCartItems() {
-    this.http.get<{products: any[], cartItems: any[]}>('http://localhost:3000/api/products/cart')
+    this.http.get<{products: any[], cartItems: any[], recommendedProducts: any[]}>('http://localhost:3000/api/products/cart')
     .subscribe(response => {
       this.products = response.products.map(product => {
         return {
@@ -40,12 +41,16 @@ export class CartService {
         };
       });
       this.cartItems = response.cartItems;
-      this.cartUpdatedListener.next({products: [...this.products], cartItems: [...this.cartItems]});
+      this.recommendedProducts = response.recommendedProducts;
+      this.cartUpdatedListener.next({
+        products: [...this.products],
+        cartItems: [...this.cartItems],
+        recommendedProducts: [...this.recommendedProducts]});
     });
   }
 
-  removeFromCart(productId: number) {
-    this.http.put('http://localhost:3000/api/products/cart/' + productId, {count: 1})
+  removeFromCart(productId: number, type:string) {
+    this.http.put('http://localhost:3000/api/products/cart/' + type + '/' + productId, {count: 1})
       .subscribe(response => {
         console.log(response);
       });
