@@ -10,6 +10,7 @@ router.get("/pr/:type", async (req, res, next) => {
   const min = 1 + (currentPage-1)*pageSize;
   const max = min + pageSize-1;
   const type = req.params.type;
+  sortResult = await database.simpleExecute('SELECT  id, COALESCE(SUM(OrderedProducts.Quantity),0) as BOUGHT FROM OrderedProducts RIGHT OUTER JOIN Products on Products.id = OrderedProducts.product_id GROUP BY Products.id');
   if(type === "all"){
     const result = await database.simpleExecute('SELECT * FROM (SELECT prod.*, row_number() over (ORDER BY prod.id) line_number FROM Products prod) WHERE line_number between '+ min +' and  '+ max +' ORDER BY line_number');
     products=result.rows;
@@ -17,7 +18,8 @@ router.get("/pr/:type", async (req, res, next) => {
     res.status(200).json({
       message: 'Products fetched succesfully!',
       products: products,
-      count: result2.rows
+      count: result2.rows,
+      bought: sortResult.rows
     });
   } else {
     const result = await database.simpleExecute('SELECT * FROM (SELECT prod.*, row_number() over (ORDER BY prod.id) line_number FROM ' + type + ' prod) WHERE line_number between '+ min +' and  '+ max +' ORDER BY line_number');
@@ -26,7 +28,8 @@ router.get("/pr/:type", async (req, res, next) => {
     res.status(200).json({
       message: 'Products fetched succesfully!',
       products: products,
-      count: result2.rows
+      count: result2.rows,
+      bought: sortResult.rows
     });
   }
   //const result = await database.simpleExecute("SELECT * FROM Products);

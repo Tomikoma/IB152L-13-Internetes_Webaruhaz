@@ -8,7 +8,8 @@ import { map } from 'rxjs/operators';
 export class ProductService {
 
   private products: Product[];
-  private productsUpdated = new Subject<{products: Product[], count: number}>();
+  private bought: any[];
+  private productsUpdated = new Subject<{products: Product[], count: number, bought: any[]}>();
   private productUpdated = new Subject<{product: any, products: any[]}>();
   private twoProductsUpdated = new Subject<{firstProduct: any, secondProduct: any}>();
   private latestProductsUpdateListener = new Subject<{tvs: Product[], notebooks: Product[], smartphones: Product[]}>();
@@ -20,7 +21,8 @@ export class ProductService {
 
   getProducts(productsPerPage: number, currentPage: number, type: string) {
     const queryParams = `?pagesize=${productsPerPage}&page=${currentPage}`;
-    this.http.get<{message: string, products: any, count: number}>('http://localhost:3000/api/products/pr/' + type  + queryParams, )
+    this.http
+    .get<{message: string, products: any, count: number, bought: any}>('http://localhost:3000/api/products/pr/' + type  + queryParams)
       .pipe(map(productData => {
         return { transformedProducts: productData.products.map( product => {
           return {
@@ -36,12 +38,15 @@ export class ProductService {
             imgUrl: product.IMGURL
           };
         }),
-         count: productData.count[0].COUNT};
+         count: productData.count[0].COUNT,
+         bought: productData.bought
+        };
       })
       )
       .subscribe((productData) => {
         this.products = productData.transformedProducts;
-        this.productsUpdated.next({products: [...this.products], count: productData.count});
+        this.bought = productData.bought;
+        this.productsUpdated.next({products: [...this.products], count: productData.count, bought: this.bought});
       });
   }
 

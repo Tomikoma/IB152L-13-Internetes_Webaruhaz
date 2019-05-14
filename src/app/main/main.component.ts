@@ -17,6 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class MainComponent implements OnInit, OnDestroy {
 
   products: Product[];
+  bought: any[];
   type: string;
   isLoading = false;
   totalProducts = 0;
@@ -53,6 +54,20 @@ export class MainComponent implements OnInit, OnDestroy {
     .subscribe(productsData => {
       this.isLoading = false;
       this.products = productsData.products;
+      this.bought = productsData.bought;
+      this.products = this.products.sort((a, b) => {
+        let aBought = 0;
+        let bBought = 0;
+        this.bought.forEach(prod => {
+        if (prod.ID === a.id) {
+        aBought = prod.BOUGHT;
+        }
+        if (prod.ID === b.id) {
+        bBought = prod.BOUGHT;
+        }
+    });
+        return bBought - aBought;
+      });
       this.totalProducts = productsData.count;
     });
     this.isUserAuthenticated = this.authService.getIsAuth();
@@ -84,6 +99,21 @@ export class MainComponent implements OnInit, OnDestroy {
       this.breakpoint = 3;
     }
   }
+
+  sortProducts(a: Product, b: Product) {
+    let aBought = 0;
+    let bBought = 0;
+    this.bought.forEach(prod => {
+      if (prod.ID === a.id) {
+        aBought = prod.BOUGHT;
+      }
+      if (prod.ID === b.id) {
+        bBought = prod.BOUGHT;
+      }
+    });
+    return aBought - bBought;
+  }
+
 
 
   ngOnDestroy() {
