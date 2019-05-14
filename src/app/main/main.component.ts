@@ -100,22 +100,6 @@ export class MainComponent implements OnInit, OnDestroy {
     }
   }
 
-  sortProducts(a: Product, b: Product) {
-    let aBought = 0;
-    let bBought = 0;
-    this.bought.forEach(prod => {
-      if (prod.ID === a.id) {
-        aBought = prod.BOUGHT;
-      }
-      if (prod.ID === b.id) {
-        bBought = prod.BOUGHT;
-      }
-    });
-    return aBought - bBought;
-  }
-
-
-
   ngOnDestroy() {
     this.productsSub.unsubscribe();
   }
