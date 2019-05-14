@@ -34,20 +34,21 @@ CREATE TABLE Users (
 	PostalCode int,
 	City varchar(32),
 	Street varchar(32),
-	StreetNumber int
+	StreetNumber int,
+  Maincustomer int DEFAULT 0
 );
 
 
-INSERT INTO Users VALUES (seq_users.nextval, 100000, 1, 'h.oliver@gmail.com', 'outdated', 'Horvath Oliver Zoltan', 203933021, 6723, 'Szeged', 'Zoldfa', '3');
-INSERT INTO Users VALUES (seq_users.nextval, 100000, 1, 'szabo.tamas@gmail.com', '$2b$10$1MyPk9kTpQu.U3VZ0Q2p3uNmLtTKCKeJJAaPQRKBwm3SB/Vr2jaFq', 'Szabo Tamas', 309533716, 6723, 'Szeged', 'Malom', '13');
-INSERT INTO Users VALUES (seq_users.nextval, 100000, 1, 'lukacs.mate@gmail.com', 'pass1234', 'Lukacs Mate', 303827563, 6723, 'Szeged', 'Petofi Sandor', '126');
-INSERT INTO Users VALUES (seq_users.nextval, 2313, 0, 'balog.kinga@gmail.com', 'jelszo', 'Balog Kinga', 708423921, 5634, 'Ketegyhaza', 'Robert Karoly', '64');
-INSERT INTO Users VALUES (seq_users.nextval, 6523, 0, 'lovasz.tibor@gmail.com', 'nemtalalodki', 'Lovasz Tibor', 308592832, 5043, 'Bekescsaba', 'Nagy Lajos', '2');
-INSERT INTO Users VALUES (seq_users.nextval, 4310, 0, 'daniel.balint@gmail.com', 'titkoskod', 'Balint Daniel', 309584732, 6233, 'Murony', 'Fo', '15');
-INSERT INTO Users VALUES (seq_users.nextval, 1200, 0, 'bodnaar.peter@gmail.com', 'probajelszo', 'Bodnar Peter', 209382756, 6142, 'Csardaszallas', 'Ady Endre', '63');
-INSERT INTO Users VALUES (seq_users.nextval, 2500, 0, 'janki.zoltan@gmail.com', 'minekezide', 'Janki Zoltan Richard', 706328195, 5403, 'Mezotur', 'Lugas', '12');
-INSERT INTO Users VALUES (seq_users.nextval, 3000, 0, 'nemethg.gabor@gmail.com', 'amyadminjobb', 'Nemeth Gabor', 7085621345, 5421, 'Szeged', 'Lugas', '23');
-INSERT INTO Users VALUES (seq_users.nextval, 2000, 0, 'szendrei.david@gmail.com', 'regiazoracle', 'Szendrei David', 708329642, 5502, 'Gyomaendrod', 'Kiraly Lajos', '18');
+INSERT INTO Users VALUES (seq_users.nextval, 100000, 1, 'h.oliver@gmail.com', 'outdated', 'Horvath Oliver Zoltan', 203933021, 6723, 'Szeged', 'Zoldfa', '3',0);
+INSERT INTO Users VALUES (seq_users.nextval, 100000, 1, 'szabo.tamas@gmail.com', '$2b$10$1MyPk9kTpQu.U3VZ0Q2p3uNmLtTKCKeJJAaPQRKBwm3SB/Vr2jaFq', 'Szabo Tamas', 309533716, 6723, 'Szeged', 'Malom', '13',0);
+INSERT INTO Users VALUES (seq_users.nextval, 100000, 1, 'lukacs.mate@gmail.com', 'pass1234', 'Lukacs Mate', 303827563, 6723, 'Szeged', 'Petofi Sandor', '126',0);
+INSERT INTO Users VALUES (seq_users.nextval, 2313, 0, 'balog.kinga@gmail.com', 'jelszo', 'Balog Kinga', 708423921, 5634, 'Ketegyhaza', 'Robert Karoly', '64',0);
+INSERT INTO Users VALUES (seq_users.nextval, 6523, 0, 'lovasz.tibor@gmail.com', 'nemtalalodki', 'Lovasz Tibor', 308592832, 5043, 'Bekescsaba', 'Nagy Lajos', '2',0);
+INSERT INTO Users VALUES (seq_users.nextval, 4310, 0, 'daniel.balint@gmail.com', 'titkoskod', 'Balint Daniel', 309584732, 6233, 'Murony', 'Fo', '15',0);
+INSERT INTO Users VALUES (seq_users.nextval, 1200, 0, 'bodnaar.peter@gmail.com', 'probajelszo', 'Bodnar Peter', 209382756, 6142, 'Csardaszallas', 'Ady Endre', '63',0);
+INSERT INTO Users VALUES (seq_users.nextval, 2500, 0, 'janki.zoltan@gmail.com', 'minekezide', 'Janki Zoltan Richard', 706328195, 5403, 'Mezotur', 'Lugas', '12',0);
+INSERT INTO Users VALUES (seq_users.nextval, 3000, 0, 'nemethg.gabor@gmail.com', 'amyadminjobb', 'Nemeth Gabor', 7085621345, 5421, 'Szeged', 'Lugas', '23',0);
+INSERT INTO Users VALUES (seq_users.nextval, 2000, 0, 'szendrei.david@gmail.com', 'regiazoracle', 'Szendrei David', 708329642, 5502, 'Gyomaendrod', 'Kiraly Lajos', '18',0);
 
 CREATE SEQUENCE seq_products
 MINVALUE 0
@@ -393,5 +394,18 @@ BEFORE INSERT ON Bills
 FOR EACH ROW
 BEGIN
     :NEW.id := seq_bills.nextval;
+END;
+
+/
+CREATE OR REPLACE TRIGGER wanna_be_main_customer
+AFTER INSERT ON Orders
+FOR EACH ROW
+DECLARE
+  db number;
+BEGIN
+  SELECT COALESCE(SUM(QUANTITY),0) INTO db FROM OrderedProducts  WHERE ORDER_ID IN (SELECT ID FROM ORDERs WHERE USER_ID=:NEW.USER_ID);
+  IF db>4 THEN
+    UPDATE USERS SET Maincustomer=1;
+  END IF;
 END;
 /
