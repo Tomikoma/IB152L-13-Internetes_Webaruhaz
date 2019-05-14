@@ -32,8 +32,9 @@ export class MainComponent implements OnInit, OnDestroy {
     new Advert('4 héten át tartó sima bőr', '../../assets/img/advert5.bmp')
   ];
   private productsSub: Subscription;
-  breakpoint = 2;
+  breakpoint = 3;
   isUserAuthenticated = false;
+  innerWidth : number ;
   private authStatusSub: Subscription;
 
   constructor(
@@ -48,6 +49,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.resize(window.innerWidth);
     this.isLoading = true;
     this.productService.getProducts(this.productsPerPage, this.currentPage, this.type);
     this.productsSub = this.productService.getProductUpdateListener()
@@ -90,13 +92,18 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   onResizeColumns(event) {
-    this.breakpoint = 4;
-    if (event.target.innerWidth < 650) {
+      this.resize(event.target.innerWidth);
+  }
+
+  resize(width:number){
+    if (width < 650) {
       this.breakpoint = 1;
-    } else if (event.target.innerWidth < 1000)  {
+    } else if (width < 1000)  {
       this.breakpoint = 2;
-    } else if (event.target.innerWidth < 1700) {
+    } else if (width < 1700) {
       this.breakpoint = 3;
+    }else {
+      this.breakpoint = 4;
     }
   }
 

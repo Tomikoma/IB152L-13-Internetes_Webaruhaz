@@ -24,7 +24,8 @@
       <p>Ár: {{tv?.PRICE}} Ft</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button *ngIf="isUserAuthenticated" matTooltip="Jelenleg raktáron: {{tv?.QUANTITY}}" matTooltipPosition="above">
+      <button mat-raised-button *ngIf="isUserAuthenticated" (click)="addToCart()"
+      matTooltip="Jelenleg raktáron: {{tv?.QUANTITY}}" matTooltipPosition="above"> 
         Kosárba
       </button>
       <button mat-raised-button *ngIf="!isUserAuthenticated" disabled>Kosárba</button>
@@ -80,7 +81,7 @@
       <p>Ár: {{smartphone?.PRICE}} Ft</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button *ngIf="isUserAuthenticated" matTooltip="Jelenleg raktáron: {{smartphone?.QUANTITY}}" matTooltipPosition="above">
+      <button mat-raised-button *ngIf="isUserAuthenticated" matTooltip="Jelenleg raktáron: {{smartphone?.QUANTITY}}" matTooltipPosition="above" (click)="addToCart()">
         Kosárba
       </button>
       <button mat-raised-button disabled *ngIf="!isUserAuthenticated">Kosárba</button>
@@ -136,7 +137,7 @@
       <p>Ár: {{notebook?.PRICE}} Ft</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button *ngIf="isUserAuthenticated" matTooltip="Jelenleg raktáron: {{notebook?.QUANTITY}}" matTooltipPosition="above">
+      <button mat-raised-button *ngIf="isUserAuthenticated" matTooltip="Jelenleg raktáron: {{notebook?.QUANTITY}}" matTooltipPosition="above" (click)="addToCart()">
         Kosárba
       </button>
       <button mat-raised-button *ngIf="!isUserAuthenticated" disabled>Kosárba</button>

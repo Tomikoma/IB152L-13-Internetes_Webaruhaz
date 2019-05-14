@@ -7,6 +7,7 @@ import { TV } from './tv.model';
 import { Smartphone } from './smartphone.model';
 import { Notebook } from './notebook.model';
 import { AuthService } from 'src/app/auth/auth.service';
+import {CartService} from '../cart.service';
 
 @Component({
   selector: 'app-product',
@@ -26,7 +27,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   isUserAuthenticated = false;
   private authStatusSub: Subscription;
 
-  constructor(private route: ActivatedRoute, private productService: ProductService, private authService: AuthService) {
+  constructor(private cartService : CartService,  private route: ActivatedRoute, private productService: ProductService, private authService: AuthService) {
     this.route.params.subscribe( params => {
       this.productId = params.id;
       this.productType = params.type;
@@ -63,9 +64,15 @@ export class ProductComponent implements OnInit, OnDestroy {
       .open('http://localhost:4200/products/' + this.productType + '/' + this.productId + '/compare/' + selectedId, '_blank', 'width=700, height=700');
   }
 
+  addToCart() {
+    this.cartService.addToCart(this.productId, this.productType);
+  }
+  
   ngOnDestroy() {
     this.productSub.unsubscribe();
     this.authStatusSub.unsubscribe();
   }
+
+
 
 }
