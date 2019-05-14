@@ -78,8 +78,8 @@ export class MainComponent implements OnInit, OnDestroy {
     this.onResizeColumns(event);
   }
 
-  addToCart(productId: number) {
-    this.cartService.addToCart(productId);
+  addToCart(productId: number, type: string) {
+    this.cartService.addToCart(productId, type);
   }
 
   onChangedPage(pageData: PageEvent) {
