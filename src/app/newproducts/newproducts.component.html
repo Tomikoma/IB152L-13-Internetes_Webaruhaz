@@ -1,3 +1,33 @@
-<p>
-  newproducts works!
-</p>
+<div class="titleContainer">
+  <h1 class="title">LEGÚJABB TERMÉKEINK</h1>
+</div>
+
+
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<div  *ngFor = "let currentType of products" >
+  <mat-grid-list   [cols]="breakpoint" rowHeight="1:1" (window:resize)="onResizeColumns($event)">
+    <mat-grid-tile *ngFor="let product of currentType" >
+      <a mat-raised-button [routerLink]="['/products',product.productType, product.id]">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              {{product.productName}}
+            </mat-card-title>
+            <mat-card-subtitle>
+              Termékszám: {{product.productNumber}}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <div class="product-image">
+              
+            <img mat-card-image src="{{product.imgUrl}}">
+          </div>
+          <mat-card-content>
+            <p>Gyártó: {{product.manufacturer}}</p>
+            <p>Megjelenés: {{product.releaseDate.toLocaleDateString()}}</p>
+          </mat-card-content>
+        </mat-card>
+      </a>
+    </mat-grid-tile >
+  </mat-grid-list>
+</div>

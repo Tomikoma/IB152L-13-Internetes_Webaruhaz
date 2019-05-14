@@ -1,0 +1,16 @@
+mat-card {
+    margin-top: 2%;
+    margin-bottom: 15px;
+  }
+
+  .product-image {
+    padding-top: 3%;
+    width: 50%;
+    margin: auto;
+  }
+  
+  .product-image img {
+    width: 100%;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.5)
+  }
+   
