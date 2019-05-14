@@ -94,7 +94,13 @@ router.patch("/:id", checkAuth, async (req,res,next) => {
           message: "Belső hiba lépett fel rendelés fizetése közben!"
         });
       });
-
+      await database.simpleExecute("INSERT INTO Bills (ORDER_ID) VALUES (" + orderId + ")")
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          message: "Belső hiba lépett fel a számla kiállítása közben!"
+        });
+      });
     await database.simpleExecute("UPDATE Users SET BALANCE = BALANCE-" + total + " WHERE ID = " + userId).catch(error => {
       console.log(error);
       res.status(500).json({
