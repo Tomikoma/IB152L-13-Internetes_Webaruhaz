@@ -6,6 +6,7 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
 <div  *ngFor = "let currentType of products" >
+  <div class = "productsTitle"> <h3 class="title">{{currentType[0].productType.toUpperCase()}}</h3></div>
   <mat-grid-list   [cols]="breakpoint" rowHeight="1:1" (window:resize)="onResizeColumns($event)">
     <mat-grid-tile *ngFor="let product of currentType" >
       <a mat-raised-button [routerLink]="['/products',product.productType, product.id]">
