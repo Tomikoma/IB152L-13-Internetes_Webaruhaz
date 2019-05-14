@@ -398,14 +398,16 @@ END;
 
 /
 CREATE OR REPLACE TRIGGER wanna_be_main_customer
-AFTER INSERT ON Orders
+AFTER INSERT ON OrderedProducts
 FOR EACH ROW
 DECLARE
-  db number;
+  total number;
+  bool number;
 BEGIN
-  SELECT COALESCE(SUM(QUANTITY),0) INTO db FROM OrderedProducts  WHERE ORDER_ID IN (SELECT ID FROM ORDERs WHERE USER_ID=:NEW.USER_ID);
-  IF db>4 THEN
-    UPDATE USERS SET Maincustomer=1;
+  SELECT Maincustomer INTO bool FROM Users WHERE id = (SELECT distinct User_ID FROM Orders WHERE ID=:NEW.ORDER_ID);
+  SELECT COALESCE(SUM(TOTALPRICE),0) INTO total FROM Orders  WHERE User_id = (SELECT distinct User_ID FROM Orders WHERE ID=:NEW.ORDER_ID);
+  IF (total>1000000 AND bool=0) THEN
+    UPDATE USERS SET Maincustomer=1 WHERE ID =(SELECT distinct User_ID FROM Orders WHERE ID=:NEW.ORDER_ID);
   END IF;
 END;
 /

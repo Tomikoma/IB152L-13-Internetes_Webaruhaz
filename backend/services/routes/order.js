@@ -10,6 +10,7 @@ router.post("", checkAuth, async (req,res,next) => {
   totalprice = req.body.totalprice;
   result = await database.simpleExecute("SELECT seq_orders.nextval FROM DUAL")
     .catch(error => {
+      console.log("elso",error);
       res.status(500).json({
         message: "Belső hiba lépett fel rendelés közben",
         error: error
@@ -17,8 +18,10 @@ router.post("", checkAuth, async (req,res,next) => {
     });
   await database.simpleExecute("COMMIT")
   orderId = result.rows[0].NEXTVAL;
+
   await database.simpleExecute("INSERT INTO Orders(ID,USER_ID, BUYINGDATE, STATUS, totalprice) VALUES (" + orderId + ", " + userId + ", TO_DATE('" + (new Date().toLocaleDateString()) + "', 'YYYY-MM-DD'), 'Fizetesre var', " + totalprice +")"  )
     .catch( error => {
+      console.log("masodik",error);
       res.status(500).json({
         message: "Belső hiba lépett fel rendelés közben",
         error: error
@@ -28,12 +31,15 @@ router.post("", checkAuth, async (req,res,next) => {
   cartItems.forEach(async element => {
     await database.simpleExecute("INSERT INTO OrderedProducts VALUES (" +  orderId + ", " + element.PRODUCT_ID + ", " + element.QUANTITY + ")")
       .catch(error => {
+        console.log("harmadik",error);
         res.status(500).json({
           message: "Belső hiba lépett fel rendelés közben",
           error: error
         });
       });
   });
+
+
 
   await database.simpleExecute("DELETE FROM Cart WHERE USER_ID = " + userId);
 
