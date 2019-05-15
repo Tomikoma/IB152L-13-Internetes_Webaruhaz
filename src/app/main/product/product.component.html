@@ -24,11 +24,11 @@
       <p>Ár: {{tv?.PRICE}} Ft</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button *ngIf="isUserAuthenticated" (click)="addToCart()"
-      matTooltip="Jelenleg raktáron: {{tv?.QUANTITY}}" matTooltipPosition="above"> 
+      <button mat-raised-button *ngIf="isUserAuthenticated && tv?.QUANTITY > 0" (click)="addToCart()"
+      matTooltip="Jelenleg raktáron: {{tv?.QUANTITY}}" matTooltipPosition="above">
         Kosárba
       </button>
-      <button mat-raised-button *ngIf="!isUserAuthenticated" disabled>Kosárba</button>
+      <button mat-raised-button *ngIf="!isUserAuthenticated || tv?.QUANTITY === 0" disabled>Kosárba</button>
     </mat-card-actions>
   </mat-card>
 </div>
@@ -81,10 +81,10 @@
       <p>Ár: {{smartphone?.PRICE}} Ft</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button *ngIf="isUserAuthenticated" matTooltip="Jelenleg raktáron: {{smartphone?.QUANTITY}}" matTooltipPosition="above" (click)="addToCart()">
+      <button mat-raised-button *ngIf="isUserAuthenticated && smartphone?.QUANTITY>0" matTooltip="Jelenleg raktáron: {{smartphone?.QUANTITY}}" matTooltipPosition="above" (click)="addToCart()">
         Kosárba
       </button>
-      <button mat-raised-button disabled *ngIf="!isUserAuthenticated">Kosárba</button>
+      <button mat-raised-button disabled *ngIf="!isUserAuthenticated || smartphone?.QUANTITY===0">Kosárba</button>
     </mat-card-actions>
   </mat-card>
 </div>
@@ -137,10 +137,10 @@
       <p>Ár: {{notebook?.PRICE}} Ft</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button *ngIf="isUserAuthenticated" matTooltip="Jelenleg raktáron: {{notebook?.QUANTITY}}" matTooltipPosition="above" (click)="addToCart()">
+      <button mat-raised-button *ngIf="isUserAuthenticated && notebook?.QUANTITY > 0" matTooltip="Jelenleg raktáron: {{notebook?.QUANTITY}}" matTooltipPosition="above" (click)="addToCart()">
         Kosárba
       </button>
-      <button mat-raised-button *ngIf="!isUserAuthenticated" disabled>Kosárba</button>
+      <button mat-raised-button *ngIf="!isUserAuthenticated || notebook?.QUANTITY === 0" disabled>Kosárba</button>
     </mat-card-actions>
   </mat-card>
 </div>
