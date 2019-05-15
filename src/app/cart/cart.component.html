@@ -50,3 +50,21 @@
     <button mat-raised-button color="warn" (click)="order()" *ngIf="cartItems?.length> 0">Megrendelés véglegesítése</button>
   </mat-card-actions>
 </mat-card>
+
+
+<mat-toolbar>Talán ezek is érdekelhetnek: </mat-toolbar>
+<div class="rowRecommended" *ngIf="recommendedProducts?.length > 0">
+<mat-card class="recommendedCard" *ngFor="let item of recommendedProducts" class="example-card">
+    <mat-card-header>
+      <mat-card-title>{{item.PRODUCTNAME}}</mat-card-title>
+      <mat-card-subtitle>{{item.PRODUCTNUMBER}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="{{item.IMGURL}}" alt="{{item.PRODUCTNAME}}">
+    <mat-card-content>
+
+    </mat-card-content>
+    <mat-card-actions>
+        <a mat-raised-button [routerLink]="['/products',item.PRODUCTTYPE, item.ID]">Tovább az adatlapra</a>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -32,3 +32,22 @@ th, td {
   text-align: center;
   border-bottom: 1px solid #ddd;
 }
+
+
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.rowRecommended {
+  display: flex;
+  flex-direction: row;
+}
+
+.recommendedCard  {
+  padding-right: 20px;
+}
