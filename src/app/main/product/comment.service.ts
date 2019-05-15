@@ -46,12 +46,14 @@ export class CommentService {
   rateProduct(productId: number, rating: number) {
     this.http.post('http://localhost:3000/api/opinion/rating/' + productId, {rating}).subscribe(response => {
       console.log(response);
+      this.getRating(productId);
     });
   }
 
   addComment(productId: number, content: string) {
     this.http.post('http://localhost:3000/api/opinion/comments/' + productId, {content}).subscribe(response => {
       console.log(response);
+      this.getComments(productId);
     });
   }
 
