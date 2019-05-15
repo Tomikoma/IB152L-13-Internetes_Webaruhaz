@@ -171,7 +171,7 @@ router.get("/income",checkAuth, async (req,res,next) => {
       message:"Csak adminok tekinthetik meg a bevételeket!"
     })
   }
-  result = await database.simpleExecute("SELECT TO_CHAR(PAYDATE, 'YYYY-MM') as datum, sum(totalprice) as osszeg FROM Orders WHERE PAYDATE IS NOT NULL GROUP BY TO_CHAR(PAYDATE, 'YYYY-MM')")
+  result = await database.simpleExecute("SELECT TO_CHAR(PAYDATE, 'YYYY-MM') as datum, sum(totalprice) as osszeg FROM Orders WHERE PAYDATE IS NOT NULL GROUP BY TO_CHAR(PAYDATE, 'YYYY-MM') ORDER BY TO_CHAR(PAYDATE, 'YYYY-MM')")
     .catch(err => {
       console.log(err);
       res.status(500).json({
