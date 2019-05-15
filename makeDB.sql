@@ -318,12 +318,12 @@ CREATE TABLE OrderedProducts(
 );
 
 
-INSERT INTO Orders VALUES (seq_orders.nextval,6,TO_DATE('2019-04-13', 'YYYY-MM-DD'),TO_DATE('2019-04-20', 'YYYY-MM-DD'),'Fizetve',500000);
-INSERT INTO Orders VALUES (seq_orders.nextval,7,TO_DATE('2019-04-20', 'YYYY-MM-DD'),TO_DATE('2019-04-20', 'YYYY-MM-DD'),'Szallitas alatt',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,6,TO_DATE('2019-02-13', 'YYYY-MM-DD'),TO_DATE('2019-02-20', 'YYYY-MM-DD'),'Fizetve',400000);
+INSERT INTO Orders VALUES (seq_orders.nextval,7,TO_DATE('2019-02-20', 'YYYY-MM-DD'),TO_DATE('2019-02-20', 'YYYY-MM-DD'),'Szallitas alatt',200000);
 INSERT INTO Orders VALUES (seq_orders.nextval,8,TO_DATE('2019-04-19', 'YYYY-MM-DD'),null,'Fizetesre var',500000);
 INSERT INTO Orders VALUES (seq_orders.nextval,9,TO_DATE('2019-04-18', 'YYYY-MM-DD'),null,'Fizetesre var',500000);
-INSERT INTO Orders VALUES (seq_orders.nextval,4,TO_DATE('2019-04-15', 'YYYY-MM-DD'), TO_DATE('2019-04-20', 'YYYY-MM-DD'),'Fizetve',500000);
-INSERT INTO Orders VALUES (seq_orders.nextval,5,TO_DATE('2019-04-15', 'YYYY-MM-DD'),TO_DATE('2019-04-20', 'YYYY-MM-DD'),'Szallitas alatt',500000);
+INSERT INTO Orders VALUES (seq_orders.nextval,4,TO_DATE('2019-03-15', 'YYYY-MM-DD'), TO_DATE('2019-03-20', 'YYYY-MM-DD'),'Fizetve',100000);
+INSERT INTO Orders VALUES (seq_orders.nextval,5,TO_DATE('2019-03-15', 'YYYY-MM-DD'),TO_DATE('2019-03-20', 'YYYY-MM-DD'),'Szallitas alatt',300000);
 INSERT INTO Orders VALUES (seq_orders.nextval,6,TO_DATE('2019-04-17', 'YYYY-MM-DD'),TO_DATE('2019-04-20', 'YYYY-MM-DD'),'Szallitas alatt',500000);
 INSERT INTO Orders VALUES (seq_orders.nextval,7,TO_DATE('2019-04-11', 'YYYY-MM-DD'),null ,'Fizetesre var',500000);
 INSERT INTO Orders VALUES (seq_orders.nextval,8,TO_DATE('2019-04-13', 'YYYY-MM-DD'),TO_DATE('2019-04-20', 'YYYY-MM-DD'),'Fizetve',500000);
