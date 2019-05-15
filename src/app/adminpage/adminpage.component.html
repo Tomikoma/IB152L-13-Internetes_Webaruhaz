@@ -1,78 +1,71 @@
-<mat-expansion-panel *ngFor="let city of cities">
-  <mat-expansion-panel-header>
-    {{city}}
-  </mat-expansion-panel-header>
-  <div *ngFor="let order of orders">
-    <span *ngIf="order.CITY === city">
-      Rendelési azonosító:{{order?.ID}} <br>
-      Rendelve: {{getDifferenceInDays(order?.PAYDATE)}} napja <span *ngIf="getDifferenceInDays(order?.PAYDATE) > 5" style="color:red"> (Több mint 5 napja fizettek!)</span>
-    </span>
-  </div>
-  <mat-action-row>
-    <button mat-raised-button color="warn" (click)="deliverOrders(city)">Szállítás</button>
-  </mat-action-row>
-</mat-expansion-panel>
-<mat-expansion-panel class="income">
-  <mat-expansion-panel-header>
-    <mat-panel-title>Bevételek</mat-panel-title>
-  </mat-expansion-panel-header>
-  <div *ngFor="let income of incomes">
-    Dátum: {{income.DATUM.getFullYear()}}. {{income.DATUM.getMonth()+1}}. <br>
-    Bevétel: {{income.OSSZEG}} Ft
-  </div>
-</mat-expansion-panel>
-
-
-<!--
 <div class="titleContainer">
   <h1 class="title">Admin fiók</h1>
 </div>
+
+
+
+
+
+
+
 <p class="info-text mat-body-1" *ngIf="users.length <= 0">Nincs regisztrált felhasználó</p>
 <div class='some-page-wrapper'>
   <div class='row'>
-    <div class='column'>
-      <div class='blue-column'>
-        <div class="mat-accordion">
-          <mat-accordion multi="true" *ngIf="users.length>0">
-            <mat-expansion-panel *ngFor="let user of users" class="panelRow">
-              <mat-expansion-panel-header>
-                {{user.NAME}}
-              </mat-expansion-panel-header>
-              <p>{{user.EMAIL}}</p>
-              <p>{{user.PHONENUMBER}}</p>
-              <p>{{user.BALANCE}}ft</p>
-              <mat-slider min="0" max="100000" value="{{user?.BALANCE}}" thumbLabel tickInterval="1"></mat-slider>
-              <mat-card-actions align="end">
-                <button color="accent" mat-raised-button (click)="0">Egyenleg módosítás</button>
-              </mat-card-actions>
-              <mat-expansion-panel class="panelRowAdressExpansion">
-                <mat-expansion-panel-header>
-                  Cím
-                </mat-expansion-panel-header>
-                <p>{{user.CITY}} {{user.STREET}} {{user.STREETNUMBER}}</p>
-              </mat-expansion-panel>
-
-            </mat-expansion-panel>
-          </mat-accordion>
-
-        </div>
+    <div class='column' class="blue-column">
+      <h3>Bevételi statisztika: </h3>
+      <div *ngFor="let income of incomes">
+        {{income.DATUM.getFullYear()}}. {{income.DATUM.getMonth()+1}}.hónap:
+        <mat-slider min="1" max="4000000" value="{{income.OSSZEG}}" disabled="true"></mat-slider>
+        {{income.OSSZEG}}ft.
       </div>
     </div>
+
+
     <div class='column'>
       <div class='green-column'>
         <div class="mat-accordion">
           <mat-accordion multi="true">
-            <mat-expansion-panel class="panelRow">
+            <h3>Szállításra váró rendelések:</h3>
+            <mat-expansion-panel class="panelRowOrders" *ngFor="let city of cities">
               <mat-expansion-panel-header>
-                Rendelés neve
+                {{city}}
               </mat-expansion-panel-header>
-                <p>rendelés adatok</p>
-              <mat-expansion-panel class="panelRowAdressExpansion">
-                <mat-expansion-panel-header>
-                  próba felület
-                </mat-expansion-panel-header>
-                mi keruljon ide
-              </mat-expansion-panel>
+              <div *ngFor="let order of orders">
+                <span *ngIf="order.CITY === city">
+                  <strong>Rendelési azonosító:</strong>{{order?.ID}} <br>
+                  <strong>Rendelve:</strong> {{getDifferenceInDays(order?.PAYDATE)}} napja <span *ngIf="getDifferenceInDays(order?.PAYDATE) > 5" style="color:red"> <strong>(Több mint 5 napja fizettek!)</strong></span>
+                </span>
+              </div>
+              <mat-action-row>
+                <button mat-raised-button color="warn" (click)="deliverOrders(city)">Szállítás</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </div>
+    <div class='column'>
+      <div class='blue-column'>
+        <div class="mat-accordion">
+          <mat-accordion multi="true" *ngIf="users.length>0">
+          <h3>Felhasználó bázis: </h3>
+            <mat-expansion-panel *ngFor="let user of users" class="panelRowUsers">
+              <mat-expansion-panel-header>
+                {{user.NAME}}
+              </mat-expansion-panel-header>
+              <p><strong>Email címe:</strong> {{user.EMAIL}}</p>
+              <p><strong>Telefonszáma:</strong> {{user.PHONENUMBER}}</p>
+              <p><strong>Egyenlege:</strong> {{user.BALANCE}}ft</p>
+              <!--<mat-slider min="0" max="100000" value="{{user?.BALANCE}}" thumbLabel tickInterval="1"></mat-slider>-->
+              <!--<mat-card-actions align="end">-->
+                <!--<button color="accent" mat-raised-button (click)="0">Egyenleg módosítás</button>-->
+              <!--</mat-card-actions>-->
+              <!--<mat-expansion-panel class="panelRowAdressExpansion">-->
+                <!--<mat-expansion-panel-header>-->
+                  <strong><p>Lakcíme:<p></strong>
+              <!--</mat-expansion-panel-header>-->
+                <p>{{user.CITY}} {{user.STREET}} {{user.STREETNUMBER}}</p>
+              <!--</mat-expansion-panel>-->
 
             </mat-expansion-panel>
           </mat-accordion>
@@ -82,4 +75,6 @@
     </div>
   </div>
 </div>
--->
+
+
+

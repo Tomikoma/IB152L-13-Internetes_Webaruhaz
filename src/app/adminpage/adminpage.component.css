@@ -8,10 +8,23 @@
   align-content: stretch;
 }
 
-.panelRow {
+h3  {
+  width: 250px;
+  color: black;
+}
+
+.panelRowOrders {
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   margin-top: 1%;
   margin-bottom: 1%;
+  width: 200%;
+}
+
+.panelRowUsers {
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  margin-top: 1%;
+  margin-bottom: 1%;
+  width: 200%;
 }
 
 .panelRowAdressExpansion  {
@@ -32,29 +45,10 @@
   flex: 1;
 }
 
-/*.some-page-wrapper {*/
-  /*margin: 15px;*/
-  /*background-color: red;*/
-/*}*/
-
-.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
-}
-
-/*.blue-column {*/
+.blue-column {
   /*background-color: blue;*/
-  /*height: 100px;*/
-/*}*/
+  height: 100px;
+}
 
 .green-column {
   /*background-color: green;*/
