@@ -16,11 +16,11 @@ export class CartService {
 
   constructor(private http: HttpClient, private productService: ProductService) {}
 
-  addToCartFromMain(productId: number, productsPerPage: number, currentPage: number, type: string) {
-    this.http.post('http://localhost:3000/api/products/cart/' + type + '/' + productId, {count: 1})
+  addToCartFromMain(productId: number, productsPerPage: number, currentPage: number, productType: string, queryType: string) {
+    this.http.post('http://localhost:3000/api/products/cart/' + productType + '/' + productId, {count: 1})
       .subscribe(response => {
         console.log(response);
-        this.productService.getProducts(productsPerPage, currentPage, type);
+        this.productService.getProducts(productsPerPage, currentPage, queryType);
       });
   }
 
@@ -58,7 +58,7 @@ export class CartService {
     });
   }
 
-  removeFromCart(productId: number, type:string) {
+  removeFromCart(productId: number, type: string) {
     this.http.put('http://localhost:3000/api/products/cart/' + type + '/' + productId, {count: 1})
       .subscribe(response => {
         console.log(response);
