@@ -16,6 +16,7 @@
       </mat-card-actions>
       <h2>Felhasználói adatok</h2>
       <mat-list-item role="listitem">Felhasználható egyenleg: {{user?.BALANCE}}Ft.</mat-list-item>
+      <mat-list-item role="listitem">Törzsvásárló: <span *ngIf="user?.MAINCUSTOMER">Igen</span> <span *ngIf="!user?.MAINCUSTOMER">Nem</span> </mat-list-item>
       <h2>Személyes adatok</h2>
       <mat-list-item role="listitem">Email cím: {{user?.EMAIL}}</mat-list-item>
       <mat-list-item role="listitem">Telefon szám: {{user?.PHONENUMBER}}</mat-list-item>

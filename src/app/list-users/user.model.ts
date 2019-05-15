@@ -10,5 +10,6 @@ export interface User {
   CITY: string;
   STREET: string;
   STREETNUMBER: number;
+  MAINCUSTOMER: boolean;
 
 }
