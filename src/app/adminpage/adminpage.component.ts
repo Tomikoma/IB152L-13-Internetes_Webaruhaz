@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs';
 import {UserService} from '../user.service';
 import { OrderService } from '../order.service';
 import { OrderToBeDelivered } from './ordertobedelivered.model';
+import { Income } from './income.model';
 
 @Component({
   selector: 'app-adminpage',
@@ -15,8 +16,10 @@ export class AdminpageComponent implements OnInit, OnDestroy {
   users: User[] = [];
   orders: OrderToBeDelivered[];
   cities: string[];
+  incomes: Income[] = [];
   private usersSub: Subscription;
   private OrdersSub: Subscription;
+  private incomeSub: Subscription;
 
   constructor(private userService: UserService, private orderService: OrderService) { }
 
@@ -37,6 +40,11 @@ export class AdminpageComponent implements OnInit, OnDestroy {
           }
         });
       });
+    this.orderService.getIncome();
+    this.incomeSub = this.orderService.getIncomeUpdateListener()
+      .subscribe(incomeData => {
+        this.incomes = incomeData.incomes;
+      });
   }
 
   deliverOrders(city: string) {
@@ -50,7 +58,7 @@ export class AdminpageComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.usersSub.unsubscribe();
     this.OrdersSub.unsubscribe();
-
+    this.incomeSub.unsubscribe();
   }
 
 

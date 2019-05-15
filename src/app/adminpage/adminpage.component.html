@@ -12,7 +12,15 @@
     <button mat-raised-button color="warn" (click)="deliverOrders(city)">Szállítás</button>
   </mat-action-row>
 </mat-expansion-panel>
-
+<mat-expansion-panel class="income">
+  <mat-expansion-panel-header>
+    <mat-panel-title>Bevételek</mat-panel-title>
+  </mat-expansion-panel-header>
+  <div *ngFor="let income of incomes">
+    Dátum: {{income.DATUM.getFullYear()}}. {{income.DATUM.getMonth()+1}}. <br>
+    Bevétel: {{income.OSSZEG}} Ft
+  </div>
+</mat-expansion-panel>
 
 
 <!--
