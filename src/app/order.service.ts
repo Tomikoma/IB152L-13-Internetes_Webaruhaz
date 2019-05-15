@@ -51,8 +51,8 @@ export class OrderService {
     this.http.patch('http://localhost:3000/api/orders/' + orderId, {total})
       .subscribe(response => {
         console.log(response);
+        this.getOrders();
       }, () => {});
-    window.location.reload();
   }
 
   getIncome() {
@@ -70,8 +70,8 @@ export class OrderService {
     this.http.post('http://localhost:3000/api/orders/deliver', {city})
       .subscribe(response => {
         console.log(response);
+        this.getOrdersForDelivery();
       }, () => {});
-    window.location.reload();
   }
 
   getOrdersForDelivery() {
