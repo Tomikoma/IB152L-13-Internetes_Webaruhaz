@@ -10,7 +10,7 @@ import { Advert } from '../main/product/advert.model';
   styleUrls: ['./newproducts.component.css']
 })
 export class NewproductsComponent implements OnInit, OnDestroy {
- 
+
   tvs: Product[];
   notebooks: Product[];
   smartphones: Product[];
@@ -36,8 +36,7 @@ export class NewproductsComponent implements OnInit, OnDestroy {
         this.tvs = productData.tvs;
         this.notebooks = productData.notebooks;
         this.smartphones = productData.smartphones;
-        this.products = [this.tvs,this.notebooks,this.smartphones] ;
-        console.log(this.tvs,this.notebooks,this.smartphones);
+        this.products = [this.tvs, this.notebooks, this.smartphones];
       });
   }
 
