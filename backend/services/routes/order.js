@@ -165,4 +165,22 @@ router.post("/deliver", checkAuth, async (req,res,next) => {
   }
 });
 
+router.get("/income",checkAuth, async (req,res,next) => {
+  if(req.userData.authLevel!=1){
+    return res.status(401).json({
+      message:"Csak adminok tekinthetik meg a bevételeket!"
+    })
+  }
+  result = await database.simpleExecute("SELECT TO_CHAR(PAYDATE, 'YYYY-MM') as datum, sum(totalprice) as osszeg FROM Orders WHERE PAYDATE IS NOT NULL GROUP BY TO_CHAR(PAYDATE, 'YYYY-MM')")
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        message: "Belső hiba lépett fel a rendelések lekérdezése közben!"
+      });
+    });
+  res.status(200).json({
+    incomes: result.rows
+  })
+});
+
 module.exports = router;
