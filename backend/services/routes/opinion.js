@@ -8,9 +8,9 @@ const router = express.Router();
 router.get('/comments/:id', async (req, res, next) => {
 
   const result = await database.simpleExecute(" SELECT * FROM Comments WHERE PRODUCT_ID = " + req.params.id);
-  if (result.rows) {
+  if (result.recordset) {
     res.status(200).json({
-      comments: result.rows
+      comments: result.recordset
     });
   } else {
     res.status(500).json({
@@ -27,14 +27,20 @@ router.post('/comments/:id', checkAuth, async (req, res, next) => {
   commentDate = new Date();
   try{
     const result = await database
-      .simpleExecute(" INSERT INTO Comments VALUES (" + productId + ", " + userId + ", '" + content +  "', TO_DATE('" + commentDate.toLocaleDateString() + "', 'YYYY-MM-DD') )");
+      .simpleExecute(" INSERT INTO Comments VALUES (" + productId + ", " + userId + ", '" + content +  "','" + commentDate.toISOString() + "')");
     res.status(200).json({
       message: "Comment inserted"
     });
   } catch (error) {
+    if(error.number === 2627){
     res.status(500).json({
       message: 'Csak egy alkalommal lehet hozzászólni!'
     });
+    } else {
+      res.status(500).json({
+        message: 'Hiba lépett fel hozzászólásközben!'
+      });
+    }
   }
 });
 
@@ -43,8 +49,8 @@ router.get('/rating/:id', async (req, res, next) => {
   try {
     const result = await database.simpleExecute("SELECT AVG(RATEVALUE)  as rating, COUNT(RATEVALUE) as rateCount FROM Rates WHERE PRODUCT_ID = " + productId);
     res.status(200).json({
-      rating: result.rows[0].RATING,
-      count: result.rows[0].RATECOUNT
+      rating: result.recordset[0].rating,
+      count: result.recordset[0].rateCount
     });
   } catch (error) {
     console.log(error);
@@ -60,7 +66,7 @@ router.post ('/rating/:id', checkAuth, async (req, res, next) => {
   rating = req.body.rating;
   try{
     const result = await database.simpleExecute("SELECT * FROM Rates WHERE PRODUCT_ID =" + productId + " AND USER_ID =" + userId );
-    if (!result.rows[0]) {
+    if (!result.recordset[0]) {
       try {
         const result2 = await database.simpleExecute("INSERT INTO Rates VALUES(" + productId + ", " + userId +", "+ rating + ")");
         res.status(200).json({
@@ -68,7 +74,7 @@ router.post ('/rating/:id', checkAuth, async (req, res, next) => {
         });
       } catch (error) {
         res.status(500).json({
-          message: 'Something went wrong!'
+          message: 'Hiba történt az értékelés közben!'
         });
       }
     } else {
@@ -80,14 +86,14 @@ router.post ('/rating/:id', checkAuth, async (req, res, next) => {
         });
       } catch (error) {
         res.status(500).json({
-          message: 'Something went wrong!'
+          message: 'Hiba történt az értékelés közben!'
         });
       }
     }
 
   } catch (error) {
     res.status(500).json({
-      message: 'Something went wrong!'
+      message: 'Hiba történt az értékelés közben!'
     });
   }
 
