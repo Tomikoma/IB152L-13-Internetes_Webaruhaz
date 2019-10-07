@@ -21,7 +21,7 @@ export class UserpageComponent implements OnInit, OnDestroy {
     this.userUpdatedSub = this.userService.getUserUpdateListener()
       .subscribe(user => {
         this.user = user;
-        this.user.MAINCUSTOMER = user.MAINCUSTOMER as any as number === 0 ? false : true;
+        this.user.maincustomer = user.maincustomer as any as number === 0 ? false : true;
       });
   }
 
