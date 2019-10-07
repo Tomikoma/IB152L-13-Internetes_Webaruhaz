@@ -34,7 +34,7 @@ router.post("/signup",async (req,res,next) => {
 });
 
 router.post("/login", async (req,res,next) => {
-  const result = await database.simpleExecute("SELECT email,password,id,authorizationlevel FROM Users WHERE email= '" + req.body.email + "'");
+  const result = await database.simpleExecute("SELECT email,password,id,authorizationLevel FROM Users WHERE email= '" + req.body.email + "'");
   if(!result.recordset[0]) {
     return res.status(401).json({
       message: "Rossz email cím/jelszó kombináció!"
@@ -47,6 +47,7 @@ router.post("/login", async (req,res,next) => {
           message: "Rossz email cím/jelszó kombináció!"
         });
       }
+      console.log(result.recordset[0]);
       const token = jwt.sign(
         {email: result.recordset[0].email, userId: result.recordset[0].id, authLevel: result.recordset[0].authorizationLevel  },
         "secret_this_should_be_longer",
