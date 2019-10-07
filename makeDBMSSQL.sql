@@ -278,16 +278,16 @@ CREATE TABLE OrderedProducts(
 );
 
 
-INSERT INTO Orders(User_Id, BuyingDate, PayDate, Status, totalprice) VALUES (6, '2019-04-13', '2019-04-20','Fizetve',500000);
+INSERT INTO Orders(User_Id, BuyingDate, PayDate, Status, totalprice) VALUES (6, '2019-04-13', '2019-04-25','Fizetve',500000);
 INSERT INTO Orders(User_Id, BuyingDate, PayDate, Status, totalprice) VALUES (7, '2019-04-20', '2019-04-20','Szallitas alatt',500000);
 INSERT INTO Orders(User_Id, BuyingDate, PayDate, Status, totalprice) VALUES (8, '2019-04-19',null,'Fizetesre var',500000);
 INSERT INTO Orders(User_Id, BuyingDate, PayDate, Status, totalprice) VALUES (9, '2019-04-18',null,'Fizetesre var',500000);
-INSERT INTO Orders(User_Id, BuyingDate, PayDate, Status, totalprice) VALUES (4, '2019-04-15',  '2019-04-20','Fizetve',500000);
+INSERT INTO Orders(User_Id, BuyingDate, PayDate, Status, totalprice) VALUES (4, '2019-04-15',  '2019-04-15','Fizetve',500000);
 INSERT INTO Orders(User_Id, BuyingDate, PayDate, Status, totalprice) VALUES (5, '2019-04-15', '2019-04-20','Szallitas alatt',500000);
 INSERT INTO Orders(User_Id, BuyingDate, PayDate, Status, totalprice) VALUES (6, '2019-04-17', '2019-04-20','Szallitas alatt',500000);
 INSERT INTO Orders(User_Id, BuyingDate, PayDate, Status, totalprice) VALUES (7, '2019-04-11',null ,'Fizetesre var',500000);
-INSERT INTO Orders(User_Id, BuyingDate, PayDate, Status, totalprice) VALUES (8, '2019-04-13', '2019-04-20','Fizetve',500000);
-INSERT INTO Orders(User_Id, BuyingDate, PayDate, Status, totalprice) VALUES (2, '2019-04-14', '2019-04-20','Fizetve',500000);
+INSERT INTO Orders(User_Id, BuyingDate, PayDate, Status, totalprice) VALUES (8, '2019-04-13', '2019-03-11','Fizetve',500000);
+INSERT INTO Orders(User_Id, BuyingDate, PayDate, Status, totalprice) VALUES (2, '2019-04-14', '2019-03-16','Fizetve',500000);
 
 INSERT INTO OrderedProducts VALUES(1,1,1);
 INSERT INTO OrderedProducts VALUES(2,2,1);
