@@ -179,7 +179,7 @@ INSERT INTO Notebook VALUES (30, 'Pavilion x360 2in1 4TW27EA', 1270125, 'BLK,SIL
 CREATE TABLE Rates(
 	product_Id int,
 	user_Id int,
-	rateValue int,
+	rateValue float,
 	FOREIGN KEY (product_Id) REFERENCES Products(id),
 	FOREIGN KEY (user_Id) REFERENCES Users(id),
 	PRIMARY KEY (product_Id, user_Id)
