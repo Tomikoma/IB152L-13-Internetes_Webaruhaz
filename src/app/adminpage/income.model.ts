@@ -1,4 +1,4 @@
 export interface Income {
-  DATUM: Date;
-  OSSZEG: number;
+  datum: Date;
+  osszeg: number;
 }

@@ -1,5 +1,5 @@
 export interface OrderedProduct {
-  ORDER_ID: number;
-  PRODUCT_ID: number;
-  QUANTITY: number;
+  order_Id: number;
+  product_Id: number;
+  quantity: number;
 }

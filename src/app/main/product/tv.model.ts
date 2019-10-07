@@ -1,18 +1,18 @@
 export interface TV {
-  ID: number;
-  PRODUCTNAME: string;
-  PRODUCTNUMBER: number;
-  PRODUCTCOLOR: string;
-  RELEASEDATE: Date;
-  MANUFACTURER: string;
-  PRICE: number;
-  QUANTITY: number;
-  PRODUCTTYPE: string;
-  IMGURL: string;
-  RESOLUTION: string;
-  SCREENSIZE: number;
-  PANELTYPE: string;
-  REFRESHRATE: number;
-  PORTTYPE: string;
+  id: number;
+  productName: string;
+  productNumber: number;
+  productColor: string;
+  releaseDate: Date;
+  manufacturer: string;
+  price: number;
+  quantity: number;
+  productType: string;
+  imgURL: string;
+  resolution: string;
+  screensize: number;
+  panelType: string;
+  refreshRate: number;
+  portType: string;
 
 }

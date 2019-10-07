@@ -1,9 +1,9 @@
 export interface OrderToBeDelivered {
-  ID: number;
-  USER_ID: number;
-  BUYINGDATE: Date;
-  PAYDATE: Date;
-  STATUS: string;
-  TOTALPRICE: number;
-  CITY: string;
+  id: number;
+  user_Id: number;
+  buyingDate: Date;
+  payDate: Date;
+  status: string;
+  totalPrice: number;
+  city: string;
 }

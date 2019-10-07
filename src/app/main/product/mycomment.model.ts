@@ -1,6 +1,6 @@
 export interface MyComment {
-  PRODUCT_ID: number;
-  USER_ID: number;
-  CONTENT: string;
-  COMMENTDATE: Date;
+  product_id: number;
+  user_id: number;
+  content: string;
+  commentDate: Date;
 }

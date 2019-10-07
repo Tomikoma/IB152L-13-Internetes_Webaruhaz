@@ -54,6 +54,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.productService.getProducts(this.productsPerPage, this.currentPage, this.type);
     this.productsSub = this.productService.getProductUpdateListener()
     .subscribe(productsData => {
+      // console.log(productsData)
       this.isLoading = false;
       this.products = productsData.products;
       this.bought = productsData.bought;

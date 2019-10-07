@@ -1,7 +1,7 @@
 export interface Order {
-  ID: number;
-  USER_ID: number;
-  BUYINGDATE: Date;
-  STATUS: string;
-  TOTALPRICE: number;
+  id: number;
+  user_Id: number;
+  buyingDate: Date;
+  status: string;
+  totalPrice: number;
 }

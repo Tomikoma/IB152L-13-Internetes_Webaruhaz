@@ -1,15 +1,15 @@
 export interface User {
-  ID: number;
-  BALANCE: number;
-  AUTHORIZATIONLEVEL: number;
-  EMAIL: string;
-  PASSWORD: string;
-  NAME: string;
-  PHONENUMBER: number;
-  POSTALCODE: number;
-  CITY: string;
-  STREET: string;
-  STREETNUMBER: number;
-  MAINCUSTOMER: boolean;
+  id: number;
+  balance: number;
+  authorizationLevel: number;
+  email: string;
+  password: string;
+  name: string;
+  phoneNumber: number;
+  postalCode: number;
+  city: string;
+  street: string;
+  streetNumber: number;
+  maincustomer: boolean;
 
 }

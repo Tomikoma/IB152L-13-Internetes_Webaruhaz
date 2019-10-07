@@ -8,6 +8,6 @@ export interface Product {
   price: number;
   quantity: number;
   productType: string;
-  imgUrl: string;
+  imgURL: string;
 }
 
