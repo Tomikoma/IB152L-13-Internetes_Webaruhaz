@@ -47,7 +47,6 @@ router.post("/login", async (req,res,next) => {
           message: "Rossz email cím/jelszó kombináció!"
         });
       }
-      console.log(result.recordset[0]);
       const token = jwt.sign(
         {email: result.recordset[0].email, userId: result.recordset[0].id, authLevel: result.recordset[0].authorizationLevel  },
         "secret_this_should_be_longer",
