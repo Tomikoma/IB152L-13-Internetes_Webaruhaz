@@ -177,17 +177,17 @@ router.put('/cart/:type/:id',checkAuth, async (req, res, next) => {
   count = req.body.count;
   type = req.params.type;
   try {
-    result = await database.simpleExecute("SELECT QUANTITY FROM Cart WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId);
+    result = await database.simpleExecute("SELECT quantity FROM Cart WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId);
     quantity = result.recordset[0].quantity - count;
     if (quantity > 0) {
-      result2 = await database.simpleExecute("UPDATE Cart SET QUANTITY = " + quantity + " WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId);
+      await database.simpleExecute("UPDATE Cart SET QUANTITY = " + quantity + " WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId);
       await database.simpleExecute("UPDATE Products SET QUANTITY = QUANTITY + 1 WHERE ID = " + productId);
       await database.simpleExecute("UPDATE "+ type +" SET QUANTITY = QUANTITY + 1 WHERE ID = " + productId);
       res.status(200).json({
         message: "Egy termék törölve lett a kosárból"
       });
     } else {
-      result2 = await database.simpleExecute("DELETE FROM CART WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId);
+      await database.simpleExecute("DELETE FROM CART WHERE USER_ID = " + userId + " AND PRODUCT_ID = " + productId);
       await database.simpleExecute("UPDATE Products SET QUANTITY = QUANTITY + 1 WHERE ID = " + productId);
       await database.simpleExecute("UPDATE "+ type +" SET QUANTITY = QUANTITY + 1 WHERE ID = " + productId);
       res.status(200).json({
