@@ -19,8 +19,6 @@ export class CompareComponent implements OnInit, OnDestroy {
   productsSub: Subscription;
   firstTv: TV;
   secondTv: TV;
-  tvFields = [  'ID', 'PRODUCTNAME', 'PRODUCTNUMBER', 'PRODUCTCOLOR', 'RELEASEDATE',
-    'MANUFACTURER', 'PRICE', 'QUANTITY', 'PRODUCTTYPE', 'RESOLUTION', 'SCREENSIZE', 'PANELTYPE', 'REFRESHRATE', 'PORTTYPE'];
   firstSmartphone: Smartphone;
   secondSmartphone: Smartphone;
   firstNotebook: Notebook;
@@ -39,13 +37,11 @@ export class CompareComponent implements OnInit, OnDestroy {
     this.productsSub = this.productService.getTwoProductUpdateListener()
       .subscribe(products => {
         // console.log(products);
-        products.firstProduct.RELEASEDATE = new Date(products.firstProduct.RELEASEDATE);
-        products.secondProduct.RELEASEDATE = new Date(products.secondProduct.RELEASEDATE);
         if (this.productType === 'tv') {
           this.firstTv = products.firstProduct as TV;
           this. secondTv = products.secondProduct as TV;
         }
-        if (this.productType === 'phone') {
+        if (this.productType === 'smartphone') {
           this.firstSmartphone = products.firstProduct as Smartphone;
           this. secondSmartphone = products.secondProduct as Smartphone;
         }
