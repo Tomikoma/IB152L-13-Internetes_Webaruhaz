@@ -35,8 +35,8 @@ export class AdminpageComponent implements OnInit, OnDestroy {
         this.orders = orderData.orders;
         this.cities = [];
         orderData.orders.forEach(order => {
-          if (!this.cities.includes(order.CITY)) {
-          this.cities.push(order.CITY);
+          if (!this.cities.includes(order.city)) {
+          this.cities.push(order.city);
           }
         });
       });

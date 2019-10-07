@@ -3,8 +3,8 @@
 </div>
 <mat-card class="order-card" *ngFor="let order of orders; let i = index">
   <!--<mat-card-header>-->
-    <!--<mat-card-title>{{order.STATUS}}</mat-card-title>-->
-    <!--<mat-card-subtitle>Megrendelés időpontja:{{order.BUYINGDATE.toLocaleDateString()}}</mat-card-subtitle>-->
+    <!--<mat-card-title>{{order.status}}</mat-card-title>-->
+    <!--<mat-card-subtitle>Megrendelés időpontja:{{order.buyingDate.toLocaleDateString()}}</mat-card-subtitle>-->
     <!--<mat-card-subtitle>    Rendelési azonosító: {{order.ID}}</mat-card-subtitle>-->
   <!--</mat-card-header>-->
   {{i+1}} <br> <br>
@@ -13,15 +13,15 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Rendelés állapota: {{order.STATUS}}
+            Rendelés állapota: {{order.status}}
           </mat-panel-title>
           <mat-panel-description>
 
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-card-header>
-          <mat-card-subtitle>Megrendelés időpontja:{{order.BUYINGDATE.toLocaleDateString()}}</mat-card-subtitle>
-          <mat-card-subtitle>    Rendelési azonosító: {{order.ID}}</mat-card-subtitle>
+          <mat-card-subtitle>Megrendelés időpontja:{{order.buyingDate.toLocaleDateString()}}</mat-card-subtitle>
+          <mat-card-subtitle>    Rendelési azonosító: {{order.id}}</mat-card-subtitle>
         </mat-card-header>
       </mat-expansion-panel>
       <mat-expansion-panel>
@@ -35,9 +35,9 @@
         </mat-expansion-panel-header>
     <div *ngFor="let orderedProduct of orderedProducts" >
 
-      <div *ngIf="order.ID == orderedProduct.ORDER_ID">
+      <div *ngIf="order.id == orderedProduct.order_Id">
         <div *ngFor="let product of products">
-          <span *ngIf="product.ID == orderedProduct.PRODUCT_ID">{{product.MANUFACTURER}} {{product?.PRODUCTNAME}} : {{orderedProduct.QUANTITY}} darab. = {{product.PRICE * orderedProduct.QUANTITY }}Ft. </span>
+          <span *ngIf="product.id == orderedProduct.product_Id">{{product.manufacturer}} {{product?.productName}} : {{orderedProduct.quantity}} darab. = {{product.price * orderedProduct.quantity }}Ft. </span>
         </div>
       </div>
     </div>
@@ -49,9 +49,9 @@
   </mat-card-content>
   <mat-card-actions>
 
-    Végösszeg: {{order.TOTALPRICE}}Ft.
+    Végösszeg: {{order.totalPrice}}Ft.
     <div class="payOrderContainer">
-      <button mat-raised-button (click)="pay(order.ID, order.TOTALPRICE)" *ngIf="order.STATUS ==='Fizetesre var'">Fizetés</button>
+      <button mat-raised-button (click)="pay(order.id, order.totalPrice)" *ngIf="order.status ==='Fizetesre var'">Fizetés</button>
     </div>
 
   </mat-card-actions>

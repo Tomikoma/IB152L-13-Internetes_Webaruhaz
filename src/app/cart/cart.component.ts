@@ -40,8 +40,8 @@ export class CartComponent implements OnInit, OnDestroy {
     let totalprice = 0;
     this.products.forEach(product => {
       this.cartItems.forEach(cartItem => {
-        if (product.id === cartItem.PRODUCT_ID) {
-          totalprice += product.price * cartItem.QUANTITY;
+        if (product.id === cartItem.product_Id) {
+          totalprice += product.price * cartItem.quantity;
         }
       });
     });

@@ -42,14 +42,15 @@ export class ProductComponent implements OnInit, OnDestroy {
         if (this.productType === 'tv') {
           this.tv = productData.product as TV;
         }
-        if (this.productType === 'phone') {
+        if (this.productType === 'smartphone') {
           this.smartphone = productData.product as Smartphone;
         }
         if ( this.productType === 'notebook') {
           this.notebook = productData.product as Notebook;
+          console.log(this.notebook);
         }
         this.products = productData.products;
-        this.selectedId = this.products[0].ID;
+        this.selectedId = this.products[0].id;
       });
     this.isUserAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener()
@@ -67,7 +68,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   addToCart() {
     this.cartService.addToCart(this.productId, this.productType);
   }
-  
+
   ngOnDestroy() {
     this.productSub.unsubscribe();
     this.authStatusSub.unsubscribe();

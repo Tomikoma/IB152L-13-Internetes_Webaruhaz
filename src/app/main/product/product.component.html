@@ -1,34 +1,34 @@
 <div class="titleContainer">
   <h1 class="title">
-    <span *ngIf="tv">{{tv.MANUFACTURER + ' '}}{{tv?.PRODUCTNAME}}</span>
-    <span *ngIf="notebook">{{notebook?.MANUFACTURER}}{{notebook?.PRODUCTNAME}}</span>
-    <span *ngIf="smartphone">{{smartphone?.MANUFACTURER }}{{smartphone?.PRODUCTNAME}}</span>
+    <span *ngIf="tv">{{tv.manufacturer + ' '}}{{tv?.productName}}</span>
+    <span *ngIf="notebook">{{notebook?.manufacturer}}{{notebook?.productName}}</span>
+    <span *ngIf="smartphone">{{smartphone?.manufacturer }}{{smartphone?.productName}}</span>
   </h1>
 </div>
 <div *ngIf="productType === 'tv' " class="productCard">
   <mat-card >
     <mat-card-header>
       <mat-card-title>
-        Megnevezés: {{tv?.MANUFACTURER}} {{tv?.PRODUCTNAME}}
+        Megnevezés: {{tv?.manufacturer}} {{tv?.productName}}
       </mat-card-title>
       <mat-card-subtitle>
-        Cikkszám: {{tv?.PRODUCTNUMBER}}
+        Cikkszám: {{tv?.productName}}
       </mat-card-subtitle>
     </mat-card-header>
       <div class="product-image">
-        <img mat-card-image src="{{tv?.IMGURL}}">
+        <img mat-card-image src="{{tv?.imgURL}}">
       </div>
     <mat-card-content>
-      <p>Megjelenés: {{tv?.RELEASEDATE.toLocaleDateString()}}</p>
+      <p>Megjelenés: {{tv?.releaseDate.toLocaleDateString()}}</p>
       <app-rate></app-rate>
-      <p>Ár: {{tv?.PRICE}} Ft</p>
+      <p>Ár: {{tv?.price}} Ft</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button *ngIf="isUserAuthenticated && tv?.QUANTITY > 0" (click)="addToCart()"
-      matTooltip="Jelenleg raktáron: {{tv?.QUANTITY}}" matTooltipPosition="above">
+      <button mat-raised-button *ngIf="isUserAuthenticated && tv?.quantity > 0" (click)="addToCart()"
+      matTooltip="Jelenleg raktáron: {{tv?.quantity}}" matTooltipPosition="above">
         Kosárba
       </button>
-      <button mat-raised-button *ngIf="!isUserAuthenticated || tv?.QUANTITY === 0" disabled>Kosárba</button>
+      <button mat-raised-button *ngIf="!isUserAuthenticated || tv?.quantity === 0" disabled>Kosárba</button>
     </mat-card-actions>
   </mat-card>
 </div>
@@ -43,17 +43,17 @@
       </mat-panel-description>
 
     </mat-expansion-panel-header>
-    <p>Felbontás: {{tv?.RESOLUTION}}</p>
-    <p>Képátló: {{tv?.SCREENSIZE}}</p>
-    <p>Panel típusa: {{tv?.PANELTYPE}}</p>
-    <p>Képfrissítés: {{tv?.REFRESHRATE}}</p>
-    <p>Portok: {{tv?.PORTTYPE}}</p>
+    <p>Felbontás: {{tv?.resolution}}</p>
+    <p>Képátló: {{tv?.screensize}}</p>
+    <p>Panel típusa: {{tv?.panelType}}</p>
+    <p>Képfrissítés: {{tv?.refreshRate}}</p>
+    <p>Portok: {{tv?.portType}}</p>
     <mat-action-row>
       <mat-form-field>
         <mat-label>Összehasonlítás</mat-label>
         <mat-select [(value)]=selectedId>
-          <mat-option *ngFor="let product of products" [value]="product?.ID">
-            {{product?.PRODUCTNAME}}
+          <mat-option *ngFor="let product of products" [value]="product?.id">
+            {{product?.productName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -62,33 +62,33 @@
   </mat-expansion-panel>
 </div>
 
-<div *ngIf="productType === 'phone' " class="productCard">
+<div *ngIf="productType === 'smartphone' " class="productCard">
   <mat-card >
     <mat-card-header>
       <mat-card-title>
-        Megnevezés: {{smartphone?.MANUFACTURER}} {{smartphone?.PRODUCTNAME}}
+        Megnevezés: {{smartphone?.manufacturer}} {{smartphone?.productName}}
       </mat-card-title>
       <mat-card-subtitle>
-        Cikkszám: {{smartphone?.PRODUCTNUMBER}}
+        Cikkszám: {{smartphone?.productName}}
       </mat-card-subtitle>
     </mat-card-header>
       <div class="product-image">
-        <img mat-card-image src="{{smartphone?.IMGURL}}">
+        <img mat-card-image src="{{smartphone?.imgURL}}">
       </div>
     <mat-card-content>
-      <p>Megjelenés: {{smartphone?.RELEASEDATE.toLocaleDateString()}}</p>
+      <p>Megjelenés: {{smartphone?.releaseDate.toLocaleDateString()}}</p>
       <app-rate></app-rate>
-      <p>Ár: {{smartphone?.PRICE}} Ft</p>
+      <p>Ár: {{smartphone?.price}} Ft</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button *ngIf="isUserAuthenticated && smartphone?.QUANTITY>0" matTooltip="Jelenleg raktáron: {{smartphone?.QUANTITY}}" matTooltipPosition="above" (click)="addToCart()">
+      <button mat-raised-button *ngIf="isUserAuthenticated && smartphone?.quantity>0" matTooltip="Jelenleg raktáron: {{smartphone?.quantity}}" matTooltipPosition="above" (click)="addToCart()">
         Kosárba
       </button>
-      <button mat-raised-button disabled *ngIf="!isUserAuthenticated || smartphone?.QUANTITY===0">Kosárba</button>
+      <button mat-raised-button disabled *ngIf="!isUserAuthenticated || smartphone?.quantity===0">Kosárba</button>
     </mat-card-actions>
   </mat-card>
 </div>
-<div *ngIf="productType === 'phone' " class="productSpecification">
+<div *ngIf="productType === 'smartphone' " class="productSpecification">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -98,18 +98,18 @@
         Kattintson a részletekért!
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <p>Felbontás: {{smartphone?.RESOLUTION}}</p>
-    <p>Képátló: {{smartphone?.SCREENSIZE}}</p>
-    <p>Panel típusa: {{smartphone?.PANELTYPE}}</p>
-    <p>Operációs rendszer: {{smartphone?.OS}}</p>
-    <p>Memória (RAM): {{smartphone?.RAM}}</p>
-    <p>Belső Tárhely (ROM): {{smartphone?.ROM}}</p>
+    <p>Felbontás: {{smartphone?.resolution}}</p>
+    <p>Képátló: {{smartphone?.screensize}}</p>
+    <p>Panel típusa: {{smartphone?.panelType}}</p>
+    <p>Operációs rendszer: {{smartphone?.os}}</p>
+    <p>Memória (RAM): {{smartphone?.ram}}</p>
+    <p>Belső Tárhely (ROM): {{smartphone?.rom}}</p>
     <mat-action-row>
       <mat-form-field>
         <mat-label>Összehasonlítás</mat-label>
         <mat-select [(value)]="selectedId">
-          <mat-option *ngFor="let product of products" [value]="product?.ID">
-            {{product?.PRODUCTNAME}}
+          <mat-option *ngFor="let product of products" [value]="product?.id">
+            {{product?.productName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -122,25 +122,25 @@
   <mat-card >
     <mat-card-header>
       <mat-card-title>
-        Megnevezés: {{notebook?.MANUFACTURER}} {{notebook?.PRODUCTNAME}}
+        Megnevezés: {{notebook?.manufacturer}} {{notebook?.productName}}
       </mat-card-title>
       <mat-card-subtitle>
-        Cikkszám: {{notebook?.PRODUCTNUMBER}}
+        Cikkszám: {{notebook?.productName}}
       </mat-card-subtitle>
     </mat-card-header>
       <div class="product-image">
-        <img mat-card-image src="{{notebook?.IMGURL}}">
+        <img mat-card-image src="{{notebook?.imgURL}}">
       </div>
     <mat-card-content>
-      <p>Megjelenés: {{notebook?.RELEASEDATE.toLocaleDateString()}}</p>
+      <p>Megjelenés: {{notebook?.releaseDate.toLocaleDateString()}}</p>
       <app-rate></app-rate>
-      <p>Ár: {{notebook?.PRICE}} Ft</p>
+      <p>Ár: {{notebook?.price}} Ft</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button *ngIf="isUserAuthenticated && notebook?.QUANTITY > 0" matTooltip="Jelenleg raktáron: {{notebook?.QUANTITY}}" matTooltipPosition="above" (click)="addToCart()">
+      <button mat-raised-button *ngIf="isUserAuthenticated && notebook?.quantity > 0" matTooltip="Jelenleg raktáron: {{notebook?.quantity}}" matTooltipPosition="above" (click)="addToCart()">
         Kosárba
       </button>
-      <button mat-raised-button *ngIf="!isUserAuthenticated || notebook?.QUANTITY === 0" disabled>Kosárba</button>
+      <button mat-raised-button *ngIf="!isUserAuthenticated || notebook?.quantity === 0" disabled>Kosárba</button>
     </mat-card-actions>
   </mat-card>
 </div>
@@ -155,20 +155,20 @@
       </mat-panel-description>
 
     </mat-expansion-panel-header>
-    <p>Felbontás: {{notebook?.RESOLUTION}}</p>
-    <p>Képátló: {{notebook?.SCREENSIZE}}</p>
-    <p>Panel típusa: {{notebook?.PANELTYPE}}</p>
-    <p>Operációs rendszer: {{notebook?.OS}}</p>
-    <p>Memória (RAM): {{notebook?.RAM}}</p>
-    <p>Processzor: {{notebook?.CPU}}</p>
-    <p>Háttértár típusa: {{notebook?.STORAGETYPE}}</p>
-    <p>Háttértár kapacitása: {{notebook?.STORAGECAPACITY}}</p>
+    <p>Felbontás: {{notebook?.resolution}}</p>
+    <p>Képátló: {{notebook?.screensize}}</p>
+    <p>Panel típusa: {{notebook?.panelType}}</p>
+    <p>Operációs rendszer: {{notebook?.os}}</p>
+    <p>Memória (RAM): {{notebook?.ram}}</p>
+    <p>Processzor: {{notebook?.cpu}}</p>
+    <p>Háttértár típusa: {{notebook?.storageType}}</p>
+    <p>Háttértár kapacitása: {{notebook?.storageCapacity}}</p>
     <mat-action-row>
         <mat-form-field>
             <mat-label>Összehasonlítás</mat-label>
             <mat-select [(value)]="selectedId">
-              <mat-option *ngFor="let product of products" [value]="product?.ID">
-                {{product?.PRODUCTNAME}}
+              <mat-option *ngFor="let product of products" [value]="product?.id">
+                {{product?.productName}}
               </mat-option>
             </mat-select>
           </mat-form-field>
