@@ -33,28 +33,15 @@ export class CartService {
   }
 
   getCartItems() {
-    this.http.get<{products: any[], cartItems: any[], recommendedProducts: any[]}>('http://localhost:3000/api/products/cart')
+    this.http.get<{products: Product[], cartItems: any[], recommendedProducts: any[]}>('http://localhost:3000/api/products/cart')
     .subscribe(response => {
-      this.products = response.products.map(product => {
-        return {
-          id: product.ID,
-          productName: product.PRODUCTNAME,
-          productNumber: product.PRODUCTNUMBER,
-          productColor: product.PRODUCTCOLOR,
-          releaseDate: new Date(product.RELEASEDATE),
-          manufacturer: product.MANUFACTURER,
-          price: product.PRICE,
-          quantity: product.QUANTITY,
-          productType: product.PRODUCTTYPE,
-          imgUrl: product.IMGURL
-        };
-      });
+      this.products = response.products;
       this.cartItems = response.cartItems;
       this.recommendedProducts = response.recommendedProducts;
       this.cartUpdatedListener.next({
-        products: [...this.products],
-        cartItems: [...this.cartItems],
-        recommendedProducts: [...this.recommendedProducts]});
+        products: this.products,
+        cartItems: this.cartItems,
+        recommendedProducts: this.recommendedProducts});
     });
   }
 

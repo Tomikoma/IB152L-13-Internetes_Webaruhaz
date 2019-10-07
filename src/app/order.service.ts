@@ -38,7 +38,7 @@ export class OrderService {
       .get<{orders: Order[], orderedProducts: OrderedProduct[], products: Product[], message: string}>('http://localhost:3000/api/orders')
       .subscribe(orderData => {
         orderData.orders.forEach(order => {
-          order.BUYINGDATE = new Date(order.BUYINGDATE);
+          order.buyingDate = new Date(order.buyingDate);
         });
         this.orders = orderData.orders;
         this.orderedProducts = orderData.orderedProducts;
@@ -59,10 +59,10 @@ export class OrderService {
     this.http.get<{incomes: Income[]}>('http://localhost:3000/api/orders/income')
     .subscribe(incomeData => {
       incomeData.incomes.forEach(income => {
-        income.DATUM = new Date(income.DATUM);
+        income.datum = new Date(income.datum);
       });
       this.incomes = incomeData.incomes;
-      this.incomeUpdateListener.next({incomes: [...this.incomes]});
+      this.incomeUpdateListener.next({incomes: this.incomes});
     });
   }
 
@@ -78,8 +78,8 @@ export class OrderService {
     this.http.get<{orders: OrderToBeDelivered[], cities: any[]}>('http://localhost:3000/api/orders/deliver')
       .subscribe(orderData => {
         orderData.orders.forEach(order => {
-          order.BUYINGDATE = new Date(order.BUYINGDATE);
-          order.PAYDATE = new Date(order.PAYDATE);
+          order.buyingDate = new Date(order.buyingDate);
+          order.payDate = new Date(order.payDate);
         });
         this.ordersToBeDelivered = orderData.orders;
         this.cities = orderData.cities;

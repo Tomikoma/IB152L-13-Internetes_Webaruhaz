@@ -18,7 +18,7 @@ export class UserService {
       .subscribe((usersData) => {
         // console.log(usersData.users);
         this.users = usersData.users;
-        this.usersUpdated.next([...this.users]);
+        this.usersUpdated.next(this.users);
       });
   }
 
