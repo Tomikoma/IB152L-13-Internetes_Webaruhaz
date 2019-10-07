@@ -8,28 +8,17 @@ router.post("", checkAuth, async (req,res,next) => {
   userId = req.userData.userId;
   cartItems = req.body.cartItems;
   totalprice = req.body.totalprice;
-  result = await database.simpleExecute("SELECT seq_orders.nextval FROM DUAL")
-    .catch(error => {
+  result = await database.simpleExecute("INSERT INTO Orders(USER_ID, BUYINGDATE, STATUS, totalprice) VALUES (" + userId + ", '" + (new Date().toISOString()) + "', 'Fizetesre var', " + totalprice +");SELECT SCOPE_IDENTITY() AS id;"  )
+    .catch( error => {
       console.log("elso",error);
       res.status(500).json({
         message: "Belső hiba lépett fel rendelés közben",
         error: error
       });
-    });
-  await database.simpleExecute("COMMIT")
-  orderId = result.rows[0].NEXTVAL;
-
-  await database.simpleExecute("INSERT INTO Orders(ID,USER_ID, BUYINGDATE, STATUS, totalprice) VALUES (" + orderId + ", " + userId + ", TO_DATE('" + (new Date().toLocaleDateString()) + "', 'YYYY-MM-DD'), 'Fizetesre var', " + totalprice +")"  )
-    .catch( error => {
-      console.log("masodik",error);
-      res.status(500).json({
-        message: "Belső hiba lépett fel rendelés közben",
-        error: error
-      });
   });
-
+  orderId = result.recordset[0].id;
   cartItems.forEach(async element => {
-    await database.simpleExecute("INSERT INTO OrderedProducts VALUES (" +  orderId + ", " + element.PRODUCT_ID + ", " + element.QUANTITY + ")")
+    await database.simpleExecute("INSERT INTO OrderedProducts VALUES (" +  orderId + ", " + element.product_Id + ", " + element.quantity + ")")
       .catch(error => {
         console.log("harmadik",error);
         res.status(500).json({
@@ -38,9 +27,6 @@ router.post("", checkAuth, async (req,res,next) => {
         });
       });
   });
-
-
-
   await database.simpleExecute("DELETE FROM Cart WHERE USER_ID = " + userId);
 
   res.status(201).json({
@@ -59,11 +45,11 @@ router.get("",checkAuth, async (req,res,next) => {
     });
   result2 = await database.simpleExecute("SELECT * FROM OrderedProducts WHERE ORDER_ID IN (SELECT ID FROM Orders WHERE USER_ID = " + userId + ")");
   result3 = await database.simpleExecute("SELECT * FROM Products WHERE ID IN (SELECT PRODUCT_ID FROM OrderedProducts WHERE ORDER_ID IN (SELECT ID FROM Orders WHERE USER_ID = " + userId + "))");
-  orders = result.rows;
+  orders = result.recordset;
   res.status(200).json({
     orders: orders,
-    orderedProducts: result2.rows,
-    products: result3.rows,
+    orderedProducts: result2.recordset,
+    products: result3.recordset,
     message: "Rendelések lekérve"
   });
 });
@@ -80,20 +66,13 @@ router.patch("/:id", checkAuth, async (req,res,next) => {
         message: "Belső hiba lépett fel rendelés közben!"
       });
     });
-  balance = result.rows[0].BALANCE;
+  balance = result.recordset[0].balance;
   if (balance < total) {
     res.status(404).json({
       message: "Az egyenlegén nincs elegendő Ft (HUF), ahhoz hogy kifizethesse ezt a rendelést!"
     })
   } else {
-    await database.simpleExecute("UPDATE Orders SET STATUS = 'Fizetve' WHERE ID = " + orderId )
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          message: "Belső hiba lépett fel rendelés fizetése közben!"
-        });
-      });
-      await database.simpleExecute("UPDATE Orders SET PAYDATE = SYSDATE WHERE ID = " + orderId )
+    await database.simpleExecute("UPDATE Orders SET STATUS = 'Fizetve', PAYDATE = GETDATE() WHERE ID = " + orderId )
       .catch(err => {
         console.log(err);
         res.status(500).json({
@@ -128,7 +107,7 @@ router.get("/deliver",checkAuth, async (req,res,next) => {
       message: "Csak adminok kérhetik le a kiszállítandó rendeléseket!"
     });
   } else {
-    result = await database.simpleExecute("SELECT Orders.*,Users.City FROM Orders,Users WHERE STATUS LIKE 'Fizetve' AND Orders.USER_ID = Users.ID")
+    result = await database.simpleExecute("SELECT Orders.*,Users.city FROM Orders,Users WHERE STATUS LIKE 'Fizetve' AND Orders.USER_ID = Users.ID")
       .catch(err => {
         console.log(err);
         res.status(500).json({
@@ -136,7 +115,7 @@ router.get("/deliver",checkAuth, async (req,res,next) => {
         });
       });
     res.status(200).json({
-      orders: result.rows,
+      orders: result.recordset,
       message: "Rendelések lekérdezve"
     });
 
@@ -171,7 +150,9 @@ router.get("/income",checkAuth, async (req,res,next) => {
       message:"Csak adminok tekinthetik meg a bevételeket!"
     })
   }
-  result = await database.simpleExecute("SELECT TO_CHAR(PAYDATE, 'YYYY-MM') as datum, sum(totalprice) as osszeg FROM Orders WHERE PAYDATE IS NOT NULL GROUP BY TO_CHAR(PAYDATE, 'YYYY-MM') ORDER BY TO_CHAR(PAYDATE, 'YYYY-MM')")
+  result = await database.simpleExecute("SELECT CAST(YEAR(payDate) AS VARCHAR(4)) + '-' + CAST(MONTH(payDate) AS VARCHAR(2)) AS datum"
+    + ", sum(totalprice) as osszeg From Orders WHERE payDate IS NOT NULL"
+    + " GROUP BY CAST(YEAR(payDate) AS VARCHAR(4)) + '-' + CAST(MONTH(payDate) AS VARCHAR(2))")
     .catch(err => {
       console.log(err);
       res.status(500).json({
@@ -179,7 +160,7 @@ router.get("/income",checkAuth, async (req,res,next) => {
       });
     });
   res.status(200).json({
-    incomes: result.rows
+    incomes: result.recordset
   })
 });
 
