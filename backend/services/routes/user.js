@@ -1,7 +1,7 @@
 const express = require("express");
 const database = require('../database');
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const checkAuth = require("../../middleware/check-auth");
 
 const router = express.Router();
@@ -20,7 +20,7 @@ router.post("/signup",async (req,res,next) => {
          })
       } catch(err) {
         let errorMessage = "A regisztáció nem sikerült!";
-        if(err.errorNum === 1){
+        if(err.number === 2627){
           errorMessage = "Ez az email cím már foglalt!"
         }
         res.status(500).json({
@@ -35,12 +35,12 @@ router.post("/signup",async (req,res,next) => {
 
 router.post("/login", async (req,res,next) => {
   const result = await database.simpleExecute("SELECT email,password,id,authorizationlevel FROM Users WHERE email= '" + req.body.email + "'");
-  if(!result.rows[0]) {
+  if(!result.recordset[0]) {
     return res.status(401).json({
       message: "Rossz email cím/jelszó kombináció!"
     });
   }
-  bcrypt.compare(req.body.password,result.rows[0].PASSWORD)
+  bcrypt.compare(req.body.password,result.recordset[0].password)
     .then(hash => {
       if (!hash) {
         return res.status(401).json({
@@ -48,7 +48,7 @@ router.post("/login", async (req,res,next) => {
         });
       }
       const token = jwt.sign(
-        {email: result.rows[0].EMAIL, userId: result.rows[0].ID, authLevel: result.rows[0].AUTHORIZATIONLEVEL  },
+        {email: result.recordset[0].email, userId: result.recordset[0].id, authLevel: result.recordset[0].authorizationLevel  },
         "secret_this_should_be_longer",
         { expiresIn: '1h'});
       res.status(200).json({
@@ -68,7 +68,7 @@ router.post("/login", async (req,res,next) => {
     try{
       result = await database.simpleExecute("SELECT * FROM Users WHERE ID = " + userId);
       res.status(200).json({
-        user: result.rows[0]
+        user: result.recordset[0]
       })
     } catch (error) {
       res.status(500).json({
