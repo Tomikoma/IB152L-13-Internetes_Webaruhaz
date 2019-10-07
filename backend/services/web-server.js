@@ -36,7 +36,7 @@ function initialize() {
 
     app.get('/api/users', async (req, res, next) => {
       const result = await database.simpleExecute('SELECT * FROM Users');
-      users=result.rows;
+      users=result.recordset;
       res.status(200).json({
         message: 'Posts fetched succesfully!',
         users: users
