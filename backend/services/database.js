@@ -14,7 +14,7 @@ module.exports.close = close;
 */
 
 function simpleExecute(statement) {
-  console.log("lol")
+  console.log("simpleExecute called")
   return new Promise(async (resolve, reject) => {
     try {
       //conn = await oracledb.getConnection();
