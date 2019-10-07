@@ -18,18 +18,12 @@ export class CommentService {
 
   getComments(id: number) {
     this.http.get<{comments: any[]}>('http://localhost:3000/api/opinion/comments/' + id)
-      .pipe(map(commentData => {
-        return { transformedComments: commentData.comments.map( comments => {
-          return {
-            COMMENTDATE: new Date(comments.COMMENTDATE),
-            USER_ID: comments.USER_ID,
-            PRODUCT_ID: comments.PRODUCT_ID,
-            CONTENT: comments.CONTENT
-          };
-        })};
-      }))
       .subscribe(commentData => {
-        this.comments = commentData.transformedComments;
+        console.log(commentData)
+        this.comments = commentData.comments;
+        this.comments.forEach(element => {
+          element.commentDate = new Date(element.commentDate);
+        });
         this.commentsUpdated.next({comments: this.comments});
       });
   }
