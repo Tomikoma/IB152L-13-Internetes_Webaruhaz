@@ -57,20 +57,6 @@ export class MainComponent implements OnInit, OnDestroy {
       // console.log(productsData)
       this.isLoading = false;
       this.products = productsData.products;
-      this.bought = productsData.bought;
-      this.products = this.products.sort((a, b) => {
-        let aBought = 0;
-        let bBought = 0;
-        this.bought.forEach(prod => {
-        if (prod.ID === a.id) {
-        aBought = prod.BOUGHT;
-        }
-        if (prod.ID === b.id) {
-        bBought = prod.BOUGHT;
-        }
-    });
-        return bBought - aBought;
-      });
       this.totalProducts = productsData.count;
     });
     this.isUserAuthenticated = this.authService.getIsAuth();

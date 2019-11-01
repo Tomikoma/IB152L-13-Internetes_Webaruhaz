@@ -10,28 +10,33 @@ router.get("/pr/:type", async (req, res, next) => {
   const min = 1 + (currentPage-1)*pageSize;
   const max = min + pageSize-1;
   const type = req.params.type;
-  sortResult = await database.simpleExecute('SELECT  id, COALESCE(SUM(OrderedProducts.Quantity),0) as BOUGHT FROM OrderedProducts RIGHT OUTER JOIN Products on Products.id = OrderedProducts.product_id GROUP BY Products.id');
   if(type === "all"){
     //const result = await database.simpleExecute('SELECT * FROM (SELECT prod.*, row_number() over (ORDER BY prod.id) line_number FROM Products prod) WHERE line_number between '+ min +' and  '+ max +' ORDER BY line_number');
-    const result = await database.simpleExecute('SELECT * FROM Products ORDER BY ID OFFSET ' + pageSize +' * ('+ currentPage + '-1) ROWS FETCH NEXT '+ pageSize + ' ROWS ONLY');
-    //'SELECT * FROM Products ORDER BY ID OFFSET ' + pageSize +' * ('+ currentPage + '-1) ROWS FETCH NEXT '+ pagesize + ' ROWS ONLY'
+    //const result = await database.simpleExecute('SELECT * FROM Products ORDER BY ID OFFSET ' + pageSize +' * ('+ currentPage + '-1) ROWS FETCH NEXT '+ pageSize + ' ROWS ONLY');
+    const result = await database.simpleExecute('SELECT t1.* FROM (SELECT * FROM Products) t1 JOIN '
+    +'(SELECT  id, COALESCE(SUM(OrderedProducts.Quantity),0) as BOUGHT ' +
+    'FROM OrderedProducts ' +
+    'RIGHT OUTER JOIN Products on Products.id = OrderedProducts.product_id GROUP BY Products.id) t2 ON t1.id = t2.id ' +
+    'ORDER BY BOUGHT desc OFFSET '+ pageSize +' * ('+ currentPage +'-1) ROWS FETCH NEXT '+ pageSize +' ROWS ONLY');
     products=result.recordset;
     const result2 = await database.simpleExecute('SELECT count(*) as count FROM Products');
     res.status(200).json({
       message: 'Products fetched succesfully!',
       products: products,
-      count: result2.recordset[0].count,
-      bought: sortResult.recordset
+      count: result2.recordset[0].count
     });
-  } else {
-    const result = await database.simpleExecute('SELECT * FROM Products WHERE productType = \''+ type +'\' ORDER BY ID OFFSET ' + pageSize +' * ('+ currentPage + '-1) ROWS FETCH NEXT '+ pageSize + ' ROWS ONLY');
+  } else { //egyszerűsíthető column table-lel => with T(....) AS (SELECT ..) SELECT c1,c2,c3 FROM T;
+    const result = await database.simpleExecute('SELECT t1.* FROM (SELECT * FROM Products WHERE productType = \'' + type + '\') t1 LEFT JOIN '
+    +'(SELECT  id, COALESCE(SUM(OrderedProducts.Quantity),0) as BOUGHT ' +
+    'FROM OrderedProducts ' +
+    'RIGHT OUTER JOIN Products on Products.id = OrderedProducts.product_id GROUP BY Products.id) t2 ON t1.id = t2.id ' +
+    'ORDER BY BOUGHT desc OFFSET '+ pageSize +' * ('+ currentPage +'-1) ROWS FETCH NEXT '+ pageSize +' ROWS ONLY');
     products=result.recordset;
     const result2 = await database.simpleExecute('SELECT count(*) as count FROM ' + type);
     res.status(200).json({
       message: 'Products fetched succesfully!',
       products: products,
-      count: result2.recordset[0].count,
-      bought: sortResult.recordset
+      count: result2.recordset[0].count
     });
   }
   //const result = await database.simpleExecute("SELECT * FROM Products);
