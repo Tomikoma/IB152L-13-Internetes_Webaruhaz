@@ -12,17 +12,17 @@ IF OBJECT_ID('dbo.Products', 'U') IS NOT NULL DROP TABLE dbo.Products;
 
 CREATE TABLE Users (
 	id int identity(1,1) PRIMARY KEY,
-	balance int DEFAULT 0 ,
-	authorizationLevel int DEFAULT 0,
-	email varchar(32) UNIQUE,
-	password varchar(200),
-	name varchar (32),
-	phoneNumber int,
-	postalCode int,
-	city varchar(32),
-	street varchar(32),
-	streetNumber int,
-  maincustomer int DEFAULT 0
+	balance int DEFAULT 0 NOT NULL,
+	authorizationLevel int DEFAULT 0 NOT NULL,
+	email varchar(32) UNIQUE NOT NULL,
+	password varchar(200) NOT NULL,
+	name varchar (32) NOT NULL,
+	phoneNumber int NOT NULL,
+	postalCode int NOT NULL,
+	city varchar(32) NOT NULL,
+	street varchar(32) NOT NULL,
+	streetNumber int NOT NULL,
+  maincustomer int DEFAULT 0 NOT NULL
 );
 
 INSERT INTO Users(balance,AuthorizationLevel,Email,Password,Name, PhoneNumber, PostalCode, City, Street, StreetNumber, Maincustomer) VALUES (100000, 1, 'h.oliver@gmail.com', 'outdated', 'Horvath Oliver Zoltan', 203933021, 6723, 'Szeged', 'Zoldfa', '3',0);
@@ -38,79 +38,79 @@ INSERT INTO Users(balance,AuthorizationLevel,Email,Password,Name, PhoneNumber, P
 
 CREATE TABLE  Products(
 	id int UNIQUE NOT NULL,
-	productName varchar(32),
+	productName varchar(32) NOT NULL,
 	productNumber int PRIMARY KEY,
-	productColor varchar(32),
-	releaseDate DATE,
-	manufacturer varchar(32),
-	price int,
-	quantity int DEFAULT 10,
-  productType varchar(20),
-	imgURL varchar(200)
+	productColor varchar(32) NOT NULL,
+	releaseDate DATE NOT NULL,
+	manufacturer varchar(32) NOT NULL,
+	price int NOT NULL,
+	quantity int DEFAULT 10 NOT NULL,
+  productType varchar(20) NOT NULL,
+	imgURL varchar(200) NOT NULL
 );
 
 
 
 CREATE TABLE  TV(
 	id int UNIQUE NOT NULL,
-	productName varchar(32),
+	productName varchar(32) NOT NULL,
 	productNumber int PRIMARY KEY,
-	productColor varchar(32),
-	releaseDate DATE,
-	manufacturer varchar(32),
-	price int,
-	quantity int DEFAULT 10,
-  productType varchar(20),
-	imgURL varchar(200),
-	resolution varchar(32),
-	screensize int,
-	panelType varchar(40),
-	refreshRate int,
-	portType varchar(150)
+	productColor varchar(32) NOT NULL,
+	releaseDate DATE NOT NULL,
+	manufacturer varchar(32) NOT NULL,
+	price int NOT NULL,
+	quantity int DEFAULT 10 NOT NULL,
+  productType varchar(20) NOT NULL,
+	imgURL varchar(200) NOT NULL,
+	resolution varchar(32) NOT NULL,
+	screensize int NOT NULL,
+	panelType varchar(40) NOT NULL,
+	refreshRate int NOT NULL,
+	portType varchar(150) NOT NULL
 );
 
 
 
 CREATE TABLE  Smartphone(
 	id int UNIQUE NOT NULL,
-	productName varchar(32),
+	productName varchar(32) NOT NULL,
 	productNumber int PRIMARY KEY,
-	productColor varchar(32),
-	releaseDate DATE,
-	manufacturer varchar(32),
-	price int,
-	quantity int DEFAULT 10,
-	productType varchar(20),
-	imgURL varchar(200),
-	resolution varchar(32),
-	screensize int,
-	panelType varchar(10),
-	os varchar(10),
-	ram int,
-	rom int
+	productColor varchar(32) NOT NULL,
+	releaseDate DATE NOT NULL,
+	manufacturer varchar(32) NOT NULL,
+	price int NOT NULL,
+	quantity int DEFAULT 10 NOT NULL,
+	productType varchar(20) NOT NULL,
+	imgURL varchar(200) NOT NULL,
+	resolution varchar(32) NOT NULL,
+	screensize int NOT NULL,
+	panelType varchar(10) NOT NULL,
+	os varchar(10) NOT NULL,
+	ram int NOT NULL,
+	rom int NOT NULL
 );
 
 
 
 CREATE TABLE  Notebook(
-	id int UNIQUE NOT NULL ,
-	productName varchar(32),
+	id int UNIQUE NOT NULL,
+	productName varchar(32) NOT NULL,
 	productNumber int PRIMARY KEY,
-	productColor varchar(32),
-	releaseDate DATE,
-	manufacturer varchar(32),
-	price int,
-	quantity int DEFAULT 10,
-  productType varchar(20),
-	imgURL varchar(200),
-	resolution varchar(32),
-	screensize int,
-	panelType varchar(10),
+	productColor varchar(32) NOT NULL,
+	releaseDate DATE NOT NULL,
+	manufacturer varchar(32) NOT NULL,
+	price int NOT NULL,
+	quantity int DEFAULT 10 NOT NULL,
+  productType varchar(20) NOT NULL,
+	imgURL varchar(200) NOT NULL,
+	resolution varchar(32) NOT NULL,
+	screensize int NOT NULL,
+	panelType varchar(10) NOT NULL,
 	os varchar(10) DEFAULT null,
-	ram int,
-	cpu varchar(60),
-	storageType varchar(15),
-	storageCapacity int
+	ram int NOT NULL,
+	cpu varchar(60) NOT NULL,
+	storageType varchar(15) NOT NULL,
+	storageCapacity int NOT NULL
 );
 
 INSERT INTO Products VALUES (1, 'UE43NU7122KXXH', 1263850, 'BLK', '2018-10-03', 'SAMSUNG', 112987, 3,'tv','https://picscdn.redblue.de/doi/pixelboxx-mss-77651280/fee_786_587_png/SAMSUNG-UE43NU7122KXXH-4K-UHD-Smart-LED-telev%C3%ADzi%C3%B3');
@@ -177,9 +177,9 @@ INSERT INTO Products VALUES (30, 'Pavilion x360 2in1 4TW27EA', 1270125, 'BLK,SIL
 INSERT INTO Notebook VALUES (30, 'Pavilion x360 2in1 4TW27EA', 1270125, 'BLK,SILVER', '2018-10-03', 'HP', 249989, 12, 'notebook','https://picscdn.redblue.de/doi/pixelboxx-mss-76043215/fee_786_587_png/HP-Pavilion-x360-14-cd0003nh-ez%C3%BCst-2in1-eszk%C3%B6z-4TW27EA-%2814%22-FullHD-touch-Core-i5-8GB-256GB-Windows-10%29', '1366 x 768', 14, 'IPS', 'Windows 10', 8, 'Intel® Core™ i5-8250U processzor', 'SSD', '256' );
 
 CREATE TABLE Rates(
-	product_Id int,
-	user_Id int,
-	rateValue float,
+	product_Id int NOT NULL,
+	user_Id int NOT NULL,
+	rateValue float NOT NULL,
 	FOREIGN KEY (product_Id) REFERENCES Products(id),
 	FOREIGN KEY (user_Id) REFERENCES Users(id),
 	PRIMARY KEY (product_Id, user_Id)
@@ -219,10 +219,10 @@ INSERT INTO Rates VALUES (30,3,5);
 INSERT INTO Rates VALUES (27,1,7);
 
 CREATE TABLE Comments(
-	product_Id int,
-	user_Id int,
-	content varchar(100),
-	commentDate Date,
+	product_Id int NOT NULL,
+	user_Id int NOT NULL,
+	content varchar(100) NOT NULL,
+	commentDate Date NOT NULL,
 	FOREIGN KEY (product_Id) REFERENCES Products(id),
 	FOREIGN KEY (user_Id) REFERENCES Users(id),
 	PRIMARY KEY (product_Id, user_Id)
@@ -261,17 +261,17 @@ INSERT INTO Comments VALUES (30,1,'Nem tul gyors, banom hogy nem masikat vettem.
 
 CREATE TABLE Orders(
 	id int PRIMARY KEY identity(1,1),
-	user_Id int,
-	buyingDate Date,
+	user_Id int NOT NULL,
+	buyingDate Date NOT NULL,
   payDate Date DEFAULT NULL,
-	status varchar(35),
-  totalPrice int,
+	status varchar(35) NOT NULL,
+  totalPrice int NOT NULL,
 	FOREIGN KEY (user_Id) REFERENCES Users(id)
 );
 CREATE TABLE OrderedProducts(
-  order_Id int,
-  product_Id int,
-  quantity int DEFAULT 1,
+  order_Id int NOT NULL,
+  product_Id int NOT NULL,
+  quantity int DEFAULT 1 NOT NULL,
   FOREIGN KEY (order_Id) REFERENCES Orders(id),
 	FOREIGN KEY (product_Id) REFERENCES Products(id),
   PRIMARY KEY (product_Id, order_Id)
@@ -302,8 +302,8 @@ INSERT INTO OrderedProducts VALUES(10,10,1);
 
 CREATE TABLE Bills(
 	id int PRIMARY KEY identity(1,1),
-	order_id int,
-	vat int DEFAULT 27,
+	order_id int NOT NULL,
+	vat int DEFAULT 27 NOT NULL,
 	FOREIGN KEY (order_id) REFERENCES Orders(id)
 );
 
@@ -319,9 +319,9 @@ INSERT INTO Bills(Order_id, VAT) VALUES (9,27);
 INSERT INTO Bills(Order_id, VAT) VALUES (10,27);
 
 CREATE TABLE Cart(
-  product_Id int,
-  user_Id int,
-  quantity int,
+  product_Id int NOT NULL,
+  user_Id int NOT NULL,
+  quantity int NOT NULL,
   FOREIGN KEY (product_Id) REFERENCES Products(id),
     FOREIGN KEY (user_Id) REFERENCES Users(id),
 	PRIMARY KEY (product_Id, user_Id)
